@@ -76,7 +76,9 @@
 .ant-progress-line {
   margin-bottom: 0 !important;
 }
-
+.ant-radio-button-wrapper {
+  width: 50% !important;
+}
 @media screen and (min-device-height: 720px) and (max-device-height: 1079px) {
   .inventory {
     zoom: 60%;
