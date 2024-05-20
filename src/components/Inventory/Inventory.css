@@ -56,6 +56,25 @@
   height: 125px;
 }
 
+.mainAreaTop {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #2e2e2e;
+}
+.mainAreaTop > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mainAreaTop > div p {
+  margin-bottom: 0;
+}
+.ant-progress-line {
+  margin-bottom: 0 !important;
+}
+
 @media screen and (min-device-height: 720px) and (max-device-height: 1079px) {
   .inventory {
     zoom: 60%;
