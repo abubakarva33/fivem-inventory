@@ -10,22 +10,34 @@
 }
 /* Common Styles for All Sections */
 .section {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid white;
-  padding: 10px;
-  border-radius: 5px;
-}
-.section div {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
+}
+.backpackSection {
+  padding: 10px;
 }
 .mainArea {
   overflow: auto;
 }
 .mainArea div {
   grid-template-columns: repeat(6, 1fr);
+}
+.backpackSectionTop {
+  display: grid;
+  grid-template-columns: 1fr 1fr !important;
+}
+.backpackSectionTop > div {
+  border: 1px solid white;
+  padding: 5px;
+  display: flex;
+}
+.activeBackpack {
+  height: 90px;
+  width: 90px;
+  border-radius: 3px;
+  background-color: #555;
+  border: 1px solid #666;
 }
 
 .slot {

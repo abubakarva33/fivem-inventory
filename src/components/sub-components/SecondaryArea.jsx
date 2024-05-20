@@ -1,11 +1,11 @@
 const SecondaryArea = ({ renderSlots, ground }) => {
   return (
-    <div className="secondaryArea section">
-      <div>
+    <div className="secondaryArea ">
+      <div className="secondaryAreaTop">
         <h3>Glove Box</h3>
         <h3>Ground</h3>
       </div>
-      <div className="grid">{renderSlots(ground)}</div>
+      <div className="section">{renderSlots(ground)}</div>
     </div>
   );
 };

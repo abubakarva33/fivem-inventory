@@ -1,10 +1,10 @@
 const MainAreaSection = ({ renderSlots, mainArea }) => {
   return (
-    <div className="mainArea section">
-      <div>
+    <div className="mainArea">
+      <div className="mainAreaTop">
         <h3>Main Area</h3>
       </div>
-      <div className="mainAreaSlot">{renderSlots(mainArea)}</div>
+      <div className="mainAreaSlot section">{renderSlots(mainArea)}</div>
     </div>
   );
 };
