@@ -4,7 +4,7 @@ import SlotEach from "../sub-components/SlotEach";
 
 const Inventory = () => {
   const [backpack] = useState(Array(28).fill(null));
-  const [mainArea] = useState(Array(30).fill(null));
+  const [mainArea] = useState(Array(40).fill(null));
   const [ground] = useState(Array(28).fill(null));
 
   const renderSlots = (slots) => {
@@ -23,7 +23,7 @@ const Inventory = () => {
         <div>
           <h3>Main Area</h3>
         </div>
-        <div className="grid">{renderSlots(mainArea)}</div>
+        <div className="mainAreaSlot">{renderSlots(mainArea)}</div>
       </div>
       <div className="secondaryArea section">
         <div>

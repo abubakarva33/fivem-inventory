@@ -1,6 +1,6 @@
 .inventory {
   display: grid;
-  grid-template-columns: 3fr 6fr 3fr;
+  grid-template-columns: 3.5fr 5fr 3.5fr;
   gap: 20px;
   background-color: #2e2e2e;
   padding: 20px 30px;
@@ -21,7 +21,9 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
 }
-
+.mainArea {
+  overflow: auto;
+}
 .mainArea div {
   grid-template-columns: repeat(6, 1fr);
 }
@@ -37,4 +39,37 @@
   color: #fff;
   font-size: 12px;
   border-radius: 3px;
+}
+.mainAreaSlot .slot {
+  height: 125px;
+}
+
+@media screen and (min-device-height: 720px) and (max-device-height: 1079px) {
+  .inventory {
+    zoom: 60%;
+  }
+}
+
+@media screen and (min-device-height: 1440px) and (max-device-height: 2159px) {
+  .inventory {
+    zoom: 120%;
+  }
+}
+
+@media screen and (min-device-height: 2160px) and (max-device-height: 2879px) {
+  .inventory {
+    zoom: 180%;
+  }
+}
+
+@media screen and (min-device-height: 2880px) and (max-device-height: 4319px) {
+  .inventory {
+    zoom: 230%;
+  }
+}
+
+@media screen and (min-device-height: 4320px) {
+  .inventory {
+    zoom: 380%;
+  }
 }
