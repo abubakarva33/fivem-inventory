@@ -62,6 +62,8 @@
   left: 0;
   right: 0;
   background-color: #2e2e2e;
+  border-bottom: 1px solid white;
+  margin-bottom: 10px;
 }
 .mainAreaTop > div {
   display: flex;
