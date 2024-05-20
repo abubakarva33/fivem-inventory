@@ -13,7 +13,6 @@ export const UserSlice = createSlice({
       state.token = payload.token;
       state.isLogin = Boolean(payload.token);
     },
-    
   },
 });
 
