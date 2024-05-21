@@ -1,3 +1,55 @@
+let dummyItems = {
+    water: {
+        name: 'water',
+        label: 'Water',
+        description: 'This item will reduce your thirst',
+        weight: 800,
+        shouldClose: true,
+    },
+    bread: {
+        name: 'bread',
+        label: 'Bread',
+        description: 'This item will reduce your hunger',
+        weight: 500,
+        shouldClose: true,
+    },
+    weapon_pistol: {
+        name: 'weapon_pistol',
+        label: 'Pistol',
+        description: 'This is a pistol',
+        weight: 2500,
+        shouldClose: true,
+    },
+    'backpack-s': {
+        name: 'backpack-s',
+        label: 'Backpack Small',
+        description: 'You can carry more items',
+        weight: 250,
+        shouldClose: true,
+    },
+    'backpack-l': {
+        name: 'backpack-l',
+        label: 'Backpack Large',
+        description: 'You can carry more items',
+        weight: 250,
+        shouldClose: true,
+    },
+    at_suppressor_heavy: {
+        name: 'at_suppressor_heavy',
+        label: 'Suppressor Heavy',
+        description: 'Heavy weapon suppressor',
+        weight: 250,
+        shouldClose: true,
+    },
+    at_grip: {
+        name: 'at_grip',
+        label: 'Heavy Grip',
+        description: 'Heavy weapon grip',
+        weight: 250,
+        shouldClose: true,
+    },
+}
+
 let primaryInvDummyData = {
     identifier: 'player1',
     type: 'playerinventory',
