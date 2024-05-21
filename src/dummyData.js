@@ -106,7 +106,26 @@ let primaryInvDummyData = {
                 serial: 12345678,
                 quality: 90.1,
                 registered: 'Player 1',
-                components: ['at_suppressor_heavy', 'at_grip']
+                components: {
+                    at_grip: {
+                        name: 'at_grip',
+                        label: 'Heavy Grip',
+                        description: 'Heavy weapon grip',
+                        quality: 100,
+                        weight: 250,
+                        slot: 1,
+                        shouldClose: true,
+                    },
+                    at_suppressor_heavy: {
+                        name: 'at_suppressor_heavy',
+                        label: 'Suppressor Heavy',
+                        description: 'Heavy weapon suppressor',
+                        quality: 100,
+                        weight: 250,
+                        slot: 7,
+                        shouldClose: true,
+                    },
+                }
             },
         },
         {
