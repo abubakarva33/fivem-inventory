@@ -14,10 +14,12 @@ const Inventory = () => {
     return slots.map((slot, ind) => <SlotEach key={ind} data={slot} />);
   };
   return (
-    <div className="inventory">
-      <BackpackSection renderSlots={renderSlots} backpack={backpack} />
-      <MainAreaSection renderSlots={renderSlots} mainArea={mainArea} />
-      <SecondaryArea renderSlots={renderSlots} ground={ground} />
+    <div className="mainSection">
+      <div className="inventory">
+        <BackpackSection renderSlots={renderSlots} backpack={backpack} />
+        <MainAreaSection renderSlots={renderSlots} mainArea={mainArea} />
+        <SecondaryArea renderSlots={renderSlots} ground={ground} />
+      </div>
     </div>
   );
 };

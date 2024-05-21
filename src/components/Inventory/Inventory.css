@@ -1,3 +1,11 @@
+.mainSection {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .inventory {
   display: grid;
   grid-template-columns: 3.5fr 5fr 3.5fr;
@@ -34,7 +42,7 @@
 }
 .activeBackpack {
   height: 90px;
-  width: 90px;
+  width: 150px;
   border-radius: 3px;
   background-color: #555;
   border: 1px solid #666;
@@ -79,6 +87,8 @@
 .ant-radio-button-wrapper {
   width: 50% !important;
 }
+
+/* responsive part */
 @media screen and (min-device-height: 720px) and (max-device-height: 1079px) {
   .inventory {
     zoom: 60%;
@@ -87,7 +97,7 @@
 
 @media screen and (min-device-height: 1440px) and (max-device-height: 2159px) {
   .inventory {
-    zoom: 120%;
+    zoom: 170%;
   }
 }
 
