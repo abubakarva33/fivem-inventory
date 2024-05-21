@@ -1,5 +1,5 @@
 const SlotEach = ({ data }) => {
-  return <div className="slot">{data}</div>;
+  return <div className="slot rounded-md">{data}</div>;
 };
 
 export default SlotEach;
