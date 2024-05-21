@@ -82,6 +82,7 @@
 }
 .ant-radio-button-wrapper {
   width: 50% !important;
+  border: none !important;
 }
 
 /* responsive part */
