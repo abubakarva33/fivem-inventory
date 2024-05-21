@@ -1,4 +1,6 @@
-const BackpackSection = ({ renderSlots, backpack }) => {
+import { smallBackpackDummyData } from "../../dummyData";
+
+const BackpackSection = ({ renderSlots }) => {
   return (
     <div className="backpackSection  border border-[#666] rounded-xl">
       <div className="backpackSectionTop mb-3">
@@ -37,7 +39,9 @@ const BackpackSection = ({ renderSlots, backpack }) => {
           </div>
         </div>
       </div>
-      <div className="section">{renderSlots(backpack)}</div>
+      <div className="section">
+        {renderSlots(smallBackpackDummyData?.items, smallBackpackDummyData?.slots)}
+      </div>
     </div>
   );
 };

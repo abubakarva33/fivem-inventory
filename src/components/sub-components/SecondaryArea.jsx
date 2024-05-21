@@ -1,6 +1,7 @@
 import { ConfigProvider, Progress, Radio } from "antd";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { secondaryInvDummyData } from "../../dummyData";
 
 const options = [
   {
@@ -13,7 +14,7 @@ const options = [
   },
 ];
 
-const SecondaryArea = ({ renderSlots, ground }) => {
+const SecondaryArea = ({ renderSlots }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
   const [value3, setValue3] = useState("glove");
   const onChange3 = ({ target: { value } }) => {
@@ -57,7 +58,9 @@ const SecondaryArea = ({ renderSlots, ground }) => {
         </ConfigProvider>
       </div>
       <div className="border py-2 rounded-[20px] px-3" style={{ borderColor: slotBorder }}>
-        <div className="section">{renderSlots(ground)}</div>
+        <div className="section">
+          {renderSlots(secondaryInvDummyData?.items, secondaryInvDummyData?.slots)}
+        </div>
       </div>
     </div>
   );

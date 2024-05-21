@@ -5,7 +5,7 @@ const SlotEach = ({ data }) => {
 
   return (
     <div className="slot rounded-md" style={{ backgroundColor: slotBg }}>
-      {data}
+      <img src={`/images/${data?.name}.png`} alt="" className="img-fluid" />
     </div>
   );
 };

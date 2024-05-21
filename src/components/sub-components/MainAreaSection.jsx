@@ -1,8 +1,9 @@
 import { Progress } from "antd";
 import { BsBoxes } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { primaryInvDummyData } from "../../dummyData";
 
-const MainAreaSection = ({ renderSlots, mainArea }) => {
+const MainAreaSection = ({ renderSlots }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
   return (
     <div className="mainArea">
@@ -87,7 +88,7 @@ const MainAreaSection = ({ renderSlots, mainArea }) => {
         </div>
       </div>
 
-      <div className="mainAreaSlot section">{renderSlots(mainArea)}</div>
+      <div className="mainAreaSlot section">{renderSlots(primaryInvDummyData?.items, primaryInvDummyData?.slots)}</div>
     </div>
   );
 };
