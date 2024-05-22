@@ -88,7 +88,9 @@ const MainAreaSection = ({ renderSlots }) => {
         </div>
       </div>
 
-      <div className="mainAreaSlot section">{renderSlots(primaryInvDummyData?.items, primaryInvDummyData?.slots)}</div>
+      <div className="mainAreaSlot section">
+        {renderSlots(primaryInvDummyData?.items, primaryInvDummyData?.slots)}
+      </div>
     </div>
   );
 };
