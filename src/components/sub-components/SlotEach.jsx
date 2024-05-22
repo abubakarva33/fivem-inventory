@@ -13,21 +13,21 @@ const SlotEach = ({ data, ind }) => {
           {data?.amount && <span className="">{data?.amount}x</span>}
           {data?.weight && <span className="">{gramsToKilograms(data?.weight)}kg</span>}
         </div>
-        <img src={`/images/${data?.name}.png`} alt="" className="img-fluid slotImg" />
+        <img src={`/images/${data?.name}.png`} alt="" className="img-fluid slotImg mb-[12px]" />
         {data?.quality && (
-          <div className="slotQuality w-full mt-[-18px]">
+          <div className="slotQuality w-full mt-[-24px]">
             <Progress
               percent={data?.quality}
               showInfo={false}
-              size={["100%", 2]}
-              strokeColor={slotBorder}
+              size={["100%", 4]}
+              strokeColor={"green"}
               trailColor="#555"
             />
           </div>
         )}
         {data?.label && (
           <div
-            className="slotItemLabel border  w-full text-center"
+            className="slotItemLabel border mt-[-6px]  w-full text-center"
             style={{ borderColor: slotBorder }}
           >
             <span>{data?.label}</span>

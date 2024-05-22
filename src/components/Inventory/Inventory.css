@@ -27,7 +27,8 @@
   overflow: auto;
 }
 .mainArea {
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .mainArea div {
   grid-template-columns: repeat(6, 1fr);
@@ -65,7 +66,7 @@
   border-radius: 3px;
 }
 .slotImg {
-  height: 70px;
+  height: 62px;
 }
 .slotItemLabel {
   border-bottom-left-radius: 7px;
@@ -73,6 +74,9 @@
 }
 .mainAreaSlot .slot {
   height: 130px;
+}
+.mainAreaSlot .slot img {
+  height: 78px;
 }
 
 .mainAreaTop {
@@ -94,9 +98,9 @@
 .ant-progress-line {
   margin-bottom: 0 !important;
 }
-.slotQuality > .ant-progress-line {
+/* .slotQuality > .ant-progress-line {
   margin-bottom: -5px !important;
-}
+} */
 .ant-radio-button-wrapper {
   width: 50% !important;
   border: none !important;
