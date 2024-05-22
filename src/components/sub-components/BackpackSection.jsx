@@ -1,7 +1,7 @@
 import { largeBackpackDummyData, smallBackpackDummyData } from "../../dummyData";
 import { gramsToKilograms } from "../../utilities/utilis";
 
-const BackpackSection = ({ renderSlots }) => {
+const BackpackSection = ({ renderSlots, drag = false }) => {
   return (
     <div className="backpackSection  border border-[#666] rounded-xl">
       <div className="backpackSectionTop bg-[#2e2e2e] mb-3">

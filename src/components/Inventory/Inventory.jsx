@@ -1,24 +1,20 @@
-import { useState } from "react";
 import "./Inventory.css";
 import SlotEach from "../sub-components/SlotEach";
-import BackpackSection from "../sub-components/backpackSection";
 import MainAreaSection from "../sub-components/MainAreaSection";
 import SecondaryArea from "../sub-components/SecondaryArea";
+import BackpackSection from "../sub-components/BackpackSection";
 
 const Inventory = () => {
-  const [backpack] = useState(Array(28).fill(null));
-  const [ground] = useState(Array(28).fill(null));
-
   const renderSlots = (items, slots) => {
     const allSlots = items.concat(Array(slots - items.length).fill(null));
-    return allSlots.map((slot, ind) => <SlotEach key={ind} data={slot} />);
+    return allSlots.map((slot, ind) => <SlotEach key={ind} data={slot} ind={ind} />);
   };
   return (
     <div className="mainSection">
       <div className="inventory">
-        <BackpackSection renderSlots={renderSlots} backpack={backpack} />
+        <BackpackSection renderSlots={renderSlots} />
         <MainAreaSection renderSlots={renderSlots} />
-        <SecondaryArea renderSlots={renderSlots} ground={ground} />
+        <SecondaryArea renderSlots={renderSlots} />
       </div>
     </div>
   );

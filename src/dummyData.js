@@ -213,7 +213,7 @@ export let largeBackpackDummyData = {
       description: "This item will reduce your hunger",
       amount: 5,
       slot: 2,
-      quality: 100,
+      quality: 70,
       info: {
         quality: 60.0,
       },

@@ -40,6 +40,7 @@
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
 }
 .backpackSectionTop > div {
   padding: 5px;
@@ -63,6 +64,13 @@
   font-size: 12px;
   border-radius: 3px;
 }
+.slotImg {
+  height: 70px;
+}
+.slotItemLabel {
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
 .mainAreaSlot .slot {
   height: 130px;
 }
@@ -72,6 +80,7 @@
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
   margin-bottom: 10px;
 }
 .mainAreaTop > div {
@@ -84,6 +93,9 @@
 }
 .ant-progress-line {
   margin-bottom: 0 !important;
+}
+.slotQuality > .ant-progress-line {
+  margin-bottom: -5px !important;
 }
 .ant-radio-button-wrapper {
   width: 50% !important;
