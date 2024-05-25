@@ -3,6 +3,7 @@ import storage from "redux-persist/lib/storage";
 import persistReducer from "redux-persist/es/persistReducer";
 import persistStore from "redux-persist/es/persistStore";
 import customizeSliceReducer from "./customizeSlice";
+import inventorySliceReducer from "./inventorySlice";
 
 const persistConfig = {
   key: "root",
@@ -12,6 +13,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   customizeSec: customizeSliceReducer,
+  inventory: inventorySliceReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

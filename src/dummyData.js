@@ -170,7 +170,7 @@ export let smallBackpackDummyData = {
       weight: 800,
       amount: 1,
       quality: 100,
-      slot: 1,
+      slot: 9,
       info: {},
     },
     {
