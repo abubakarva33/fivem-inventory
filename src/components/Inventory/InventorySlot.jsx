@@ -142,7 +142,7 @@ const InventorySlot = ({ item, inventoryId, inventoryType }, ref) => {
       {true && (
         <div
           className="item-slot-wrapper"
-          style={{ backgroundColor: "green", margin: 5, height: 50 }}
+          style={{ backgroundColor: "green", margin: 5, height: 100 }}
           onMouseEnter={() => {
             timerRef.current = window.setTimeout(() => {
               // dispatch(openTooltip({ item, inventoryType }));
@@ -175,9 +175,15 @@ const InventorySlot = ({ item, inventoryId, inventoryType }, ref) => {
               <p>{item.count ? item.count.toLocaleString("en-us") + `x` : ""}</p>
             </div>
           </div>
+          <img
+            src={`/images/${item?.name}.png`}
+            alt=""
+            className="img-fluid"
+            style={{ height: 40 }}
+          />
           <div>
             <div className="inventory-slot-label-box">
-              <div className="inventory-slot-label-text">{item?.name} change</div>
+              <div className="inventory-slot-label-text">{item?.name}</div>
             </div>
           </div>
         </div>
