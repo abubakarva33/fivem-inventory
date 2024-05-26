@@ -17,7 +17,7 @@ const Inventory = () => {
   return (
     <div className="mainSection">
       <div className="inventory">
-        <div>
+        {/* <div>
           <InventoryGrid inventory={backpackInventory}> </InventoryGrid>
         </div>
         <div>
@@ -25,10 +25,10 @@ const Inventory = () => {
         </div>
         <div>
           <InventoryGrid inventory={secondaryInventory}> </InventoryGrid>
-        </div>
-        {/* <BackpackSection renderSlots={renderSlots} />
-        <MainAreaSection renderSlots={renderSlots} />
-        <SecondaryArea renderSlots={renderSlots} /> */}
+        </div> */}
+        <BackpackSection inventory={backpackInventory} />
+        <MainAreaSection inventory={primaryInventory} />
+        <SecondaryArea inventory={secondaryInventory} />
       </div>
     </div>
   );

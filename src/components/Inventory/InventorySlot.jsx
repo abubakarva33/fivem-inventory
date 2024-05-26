@@ -1,17 +1,19 @@
 import React, { useRef } from "react";
 import { useDrag, useDragDropManager, useDrop } from "react-dnd";
 // import { canCraftItem, canPurchaseItem, getItemUrl, isSlotWithItem } from "../../helpers";
-import useNuiEvent from "../../hooks/useNuiEvent";
+// import useNuiEvent from "../../hooks/useNuiEvent";
 import { useMergeRefs } from "@floating-ui/react";
-import { useDispatch } from "react-redux";
-import { inventoryTypeChange } from "../../utilities/utilis";
+import { useDispatch, useSelector } from "react-redux";
+import { gramsToKilograms, inventoryTypeChange } from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
+import { Progress } from "antd";
 // import { onDrop } from "../../dnd/onDrop";
 
 const InventorySlot = ({ item, inventoryId, inventoryType }, ref) => {
-  const manager = useDragDropManager();
+  const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
+  // const manager = useDragDropManager();
   const dispatch = useDispatch();
-  const timerRef = useRef(null);
+  // const timerRef = useRef(null);
 
   // const canDrag = useCallback(() => {
   //   return (
@@ -80,53 +82,50 @@ const InventorySlot = ({ item, inventoryId, inventoryType }, ref) => {
     [inventoryType, item]
   );
 
-  useNuiEvent("refreshSlots", (data) => {
-    if (!isDragging && !data.items) return;
-    if (!Array.isArray(data.items)) return;
+  // useNuiEvent("refreshSlots", (data) => {
+  //   if (!isDragging && !data.items) return;
+  //   if (!Array.isArray(data.items)) return;
 
-    const itemSlot = data.items.find(
-      (dataItem) => dataItem.item.slot === item.slot && dataItem.inventory === inventoryId
-    );
+  //   const itemSlot = data.items.find(
+  //     (dataItem) => dataItem.item.slot === item.slot && dataItem.inventory === inventoryId
+  //   );
 
-    if (!itemSlot) return;
+  //   if (!itemSlot) return;
 
-    manager.dispatch({ type: "dnd-core/END_DRAG" });
-  });
+  //   manager.dispatch({ type: "dnd-core/END_DRAG" });
+  // });
 
   const connectRef = (element) => drag(drop(element));
 
-  const handleContext = (event) => {
-    event.preventDefault();
-    if (inventoryType !== "player" || !isSlotWithItem(item)) return;
+  // const handleContext = (event) => {
+  //   event.preventDefault();
+  //   if (inventoryType !== "player" || !isSlotWithItem(item)) return;
 
-    dispatch(openContextMenu({ item, coords: { x: event.clientX, y: event.clientY } }));
-  };
+  //   dispatch(openContextMenu({ item, coords: { x: event.clientX, y: event.clientY } }));
+  // };
 
-  const handleClick = (event) => {
-    // dispatch(closeTooltip());
-    if (timerRef.current) clearTimeout(timerRef.current);
-    // if (
-    //   event.ctrlKey &&
-    //   isSlotWithItem(item) &&
-    //   onDrop({ item: item, inventory: inventoryType });
-    //   inventoryType !== "shop" &&
-    //   inventoryType !== "crafting"
-    // ) {
-    // } else if (event.altKey && isSlotWithItem(item) && inventoryType === "player") {
-    //   onUse(item);
-    // }
-  };
+  // const handleClick = (event) => {
+  //   // dispatch(closeTooltip());
+  //   if (timerRef.current) clearTimeout(timerRef.current);
+  //   // if (
+  //   //   event.ctrlKey &&
+  //   //   isSlotWithItem(item) &&
+  //   //   onDrop({ item: item, inventory: inventoryType });
+  //   //   inventoryType !== "shop" &&
+  //   //   inventoryType !== "crafting"
+  //   // ) {
+  //   // } else if (event.altKey && isSlotWithItem(item) && inventoryType === "player") {
+  //   //   onUse(item);
+  //   // }
+  // };
 
   const refs = useMergeRefs([connectRef, ref]);
 
   return (
     <div
-      ref={refs}
-      onDrag={drag}
-      onDrop={drop}
-      onContextMenu={handleContext}
-      onClick={handleClick}
-      className="inventory-slot"
+      // onContextMenu={handleContext}
+      // onClick={handleClick}
+      className="relative"
       style={{
         userSelect: "none",
         // filter:
@@ -139,52 +138,43 @@ const InventorySlot = ({ item, inventoryId, inventoryType }, ref) => {
         border: isOver ? "1px dashed rgba(255,255,255,0.4)" : "",
       }}
     >
+      <div
+        ref={refs}
+        onDrag={drag}
+        onDrop={drop}
+        className="absolute top-0 left-0 right-0 bottom-0 z-40"
+      ></div>
+
       {true && (
-        <div
-          className="item-slot-wrapper"
-          style={{ backgroundColor: "green", margin: 5, height: 100 }}
-          onMouseEnter={() => {
-            timerRef.current = window.setTimeout(() => {
-              // dispatch(openTooltip({ item, inventoryType }));
-            }, 500);
-          }}
-          onMouseLeave={() => {
-            // dispatch(closeTooltip());
-            if (timerRef.current) {
-              clearTimeout(timerRef.current);
-              timerRef.current = null;
-            }
-          }}
-        >
-          <div>
-            {inventoryType === "player" && item.slot <= 5 && (
-              <div className="inventory-slot-number">{item.slot}</div>
+        <div className="slot rounded-md" style={{ backgroundColor: slotBg }}>
+          <div
+            className="flex items-center justify-between flex-col w-full h-full"
+            style={{ opacity: isDragging ? 0.5 : 1 }}
+          >
+            <div className="flex items-center justify-between w-full px-2">
+              {item?.amount && <span className="">{item?.amount}x</span>}
+              {item?.weight && <span className="">{gramsToKilograms(item?.weight)}kg</span>}
+            </div>
+            <img src={`/images/${item?.name}.png`} alt="" className="img-fluid slotImg mb-[12px]" />
+            {item?.quality && (
+              <div className="slotQuality w-full mt-[-24px]">
+                <Progress
+                  percent={item?.quality}
+                  showInfo={false}
+                  size={["100%", 4]}
+                  strokeColor={"green"}
+                  trailColor="#555"
+                />
+              </div>
             )}
-            <div className="item-slot-info-wrapper">
-              <p>
-                {item.weight > 0
-                  ? item.weight >= 1000
-                    ? `${(item.weight / 1000).toLocaleString("en-us", {
-                        minimumFractionDigits: 2,
-                      })}kg `
-                    : `${item.weight.toLocaleString("en-us", {
-                        minimumFractionDigits: 0,
-                      })}g `
-                  : ""}
-              </p>
-              <p>{item.count ? item.count.toLocaleString("en-us") + `x` : ""}</p>
-            </div>
-          </div>
-          <img
-            src={`/images/${item?.name}.png`}
-            alt=""
-            className="img-fluid"
-            style={{ height: 40 }}
-          />
-          <div>
-            <div className="inventory-slot-label-box">
-              <div className="inventory-slot-label-text">{item?.name}</div>
-            </div>
+            {item?.label && (
+              <div
+                className="slotItemLabel border mt-[-6px]  w-full text-center"
+                style={{ borderColor: slotBorder }}
+              >
+                <span>{item?.label}</span>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -1,7 +1,8 @@
 import { ConfigProvider, Progress, Radio } from "antd";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { secondaryInvDummyData } from "../../dummyData";
+import InventorySlot from "../Inventory/InventorySlot";
+import { useIntersection } from "../../hooks/useIntersection";
 
 const options = [
   {
@@ -13,14 +14,25 @@ const options = [
     value: "ground",
   },
 ];
+const PAGE_SIZE = 30;
 
-const SecondaryArea = ({ renderSlots }) => {
+const SecondaryArea = ({ inventory }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
   const [value3, setValue3] = useState("glove");
   const onChange3 = ({ target: { value } }) => {
     console.log("radio3 checked", value);
     setValue3(value);
   };
+  const [page, setPage] = useState(0);
+  const containerRef = useRef(null);
+  const { ref, entry } = useIntersection({ threshold: 0.5 });
+  // const isBusy = useSelector((state) => state.inventory.isBusy);
+
+  useEffect(() => {
+    if (entry && entry.isIntersecting) {
+      setPage((prev) => ++prev);
+    }
+  }, [entry]);
   return (
     <div className="secondaryArea ">
       <div className="secondaryAreaTop">
@@ -58,8 +70,17 @@ const SecondaryArea = ({ renderSlots }) => {
         </ConfigProvider>
       </div>
       <div className="border py-2 rounded-[20px] px-3" style={{ borderColor: slotBorder }}>
-        <div className="section">
-          {renderSlots(secondaryInvDummyData?.items, secondaryInvDummyData?.slots)}
+        <div className="section" ref={containerRef}>
+          {inventory.items.slice(0, (page + 1) * PAGE_SIZE).map((item, index) => (
+            <InventorySlot
+              key={`${inventory.type}-${inventory.id}-${item.slot}`}
+              item={item}
+              ref={index === (page + 1) * PAGE_SIZE - 1 ? ref : null}
+              inventoryType={inventory.type}
+              inventoryGroups={inventory.groups}
+              inventoryId={inventory.id}
+            />
+          ))}
         </div>
       </div>
     </div>
