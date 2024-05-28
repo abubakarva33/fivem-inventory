@@ -2,23 +2,9 @@ import { Progress } from "antd";
 import { BsBoxes } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import InventorySlot from "../Inventory/InventorySlot";
-import { useEffect, useRef, useState } from "react";
-import { useIntersection } from "../../hooks/useIntersection";
-
-const PAGE_SIZE = 30;
 
 const MainAreaSection = ({ inventory }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
-  const [page, setPage] = useState(0);
-  const containerRef = useRef(null);
-  const { ref, entry } = useIntersection({ threshold: 0.5 });
-  // const isBusy = useSelector((state) => state.inventory.isBusy);
-
-  useEffect(() => {
-    if (entry && entry.isIntersecting) {
-      setPage((prev) => ++prev);
-    }
-  }, [entry]);
   return (
     <div className="mainArea">
       <div className="mainAreaTop bg-[#2e2e2e] border-b " style={{ borderColor: slotBorder }}>
@@ -102,17 +88,15 @@ const MainAreaSection = ({ inventory }) => {
         </div>
       </div>
 
-      <div className="mainAreaSlot section" ref={containerRef}>
-        {inventory.items.slice(0, (page + 1) * PAGE_SIZE).map((item, index) => (
-          <InventorySlot
-            key={`${inventory.type}-${inventory.id}-${item.slot}`}
-            item={item}
-            ref={index === (page + 1) * PAGE_SIZE - 1 ? ref : null}
-            inventoryType={inventory.type}
-            inventoryGroups={inventory.groups}
-            inventoryId={inventory.id}
-          />
-        ))}
+      <div className="mainAreaSlot section">
+        {Array.isArray(inventory?.items) &&
+          inventory?.items?.map((item) => (
+            <InventorySlot
+              key={`${inventory.type}-${inventory.id}-${item.slot}`}
+              item={item}
+              inventoryType={inventory.type}
+            />
+          ))}
       </div>
     </div>
   );

@@ -1,34 +1,21 @@
 import "./Inventory.css";
-import SlotEach from "../sub-components/SlotEach";
 import MainAreaSection from "../sub-components/MainAreaSection";
 import SecondaryArea from "../sub-components/SecondaryArea";
 import BackpackSection from "../sub-components/BackpackSection";
 import { useSelector } from "react-redux";
-import InventoryGrid from "./InventoryGrid";
+import { useState } from "react";
 
 const Inventory = () => {
-  const { backpackInventory, primaryInventory, secondaryInventory } = useSelector(
-    (state) => state.inventory
-  );
-  // const renderSlots = (items, slots) => {
-  //   const allSlots = items.concat(Array(slots - items.length).fill(null));
-  //   return allSlots.map((slot, ind) => <SlotEach key={ind} data={slot} ind={ind} />);
-  // };
+  const [backpack, setBackpack] = useState("largeBackpack");
+  const [secondary, setSecondary] = useState("glovebox");
+  const state = useSelector((state) => state.inventory);
+
   return (
     <div className="mainSection">
       <div className="inventory">
-        {/* <div>
-          <InventoryGrid inventory={backpackInventory}> </InventoryGrid>
-        </div>
-        <div>
-          <InventoryGrid inventory={primaryInventory}> </InventoryGrid>
-        </div>
-        <div>
-          <InventoryGrid inventory={secondaryInventory}> </InventoryGrid>
-        </div> */}
-        <BackpackSection inventory={backpackInventory} />
-        <MainAreaSection inventory={primaryInventory} />
-        <SecondaryArea inventory={secondaryInventory} />
+        <BackpackSection inventory={state[backpack]} />
+        <MainAreaSection inventory={state.playerinventory} />
+        <SecondaryArea inventory={state[secondary]} />
       </div>
     </div>
   );

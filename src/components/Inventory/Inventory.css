@@ -112,6 +112,21 @@
   grid-template-columns: 3.3fr 5.4fr 3.3fr;
   gap: 10px;
 }
+
+.item-drag-preview {
+  width: 7.7vh;
+  height: 7.7vh;
+  z-index: 1;
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 7vh;
+  image-rendering: -webkit-optimize-contrast;
+}
+
 /* responsive part */
 @media screen and (min-device-height: 720px) and (max-device-height: 1079px) {
   .inventory {

@@ -157,7 +157,7 @@ export let primaryInvDummyData = {
 
 export let smallBackpackDummyData = {
   identifier: "backpack-s:123456789",
-  type: "backpack",
+  type: "smallBackpack",
   label: "Backpack Small",
   maxWeight: 25000.0,
   slots: 25,
@@ -190,7 +190,7 @@ export let smallBackpackDummyData = {
 
 export let largeBackpackDummyData = {
   identifier: "backpack-l:123456789",
-  type: "backpack",
+  type: "largeBackpack",
   label: "Backpack Large",
   maxWeight: 45000.0,
   slots: 30,

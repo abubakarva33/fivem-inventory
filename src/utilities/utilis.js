@@ -3,8 +3,3 @@ export const gramsToKilograms = (grams) => {
   return kilograms;
 };
 
-export const inventoryTypeChange = {
-  backpack: "backpackInventory",
-  playerinventory: "primaryInventory",
-  glovebox: "secondaryInventory",
-};

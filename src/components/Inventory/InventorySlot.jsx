@@ -1,51 +1,37 @@
-import React, { useRef } from "react";
-import { useDrag, useDragDropManager, useDrop } from "react-dnd";
-// import { canCraftItem, canPurchaseItem, getItemUrl, isSlotWithItem } from "../../helpers";
-// import useNuiEvent from "../../hooks/useNuiEvent";
+import React from "react";
+import { DragPreviewImage, useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { gramsToKilograms, inventoryTypeChange } from "../../utilities/utilis";
+import { gramsToKilograms } from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
-// import { onDrop } from "../../dnd/onDrop";
 
-const InventorySlot = ({ item, inventoryId, inventoryType }, ref) => {
+const InventorySlot = ({ item, inventoryType }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
-  // const manager = useDragDropManager();
+
   const dispatch = useDispatch();
-  // const timerRef = useRef(null);
 
-  // const canDrag = useCallback(() => {
-  //   return (
-  //     canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) &&
-  //     canCraftItem(item, inventoryType)
-  //   );
-  // }, [item, inventoryType, inventoryGroups]);
-
-  const [{ isDragging }, drag] = useDrag(
-    () => ({
+  const [{ isDragging }, drag, preview] = useDrag(() => {
+    return {
       type: "SLOT",
       collect: (monitor) => {
-        // console.log({ monitor, isDragging });
         return {
           isDragging: monitor.isDragging(),
         };
       },
-      item: (a) => {
-        // console.log({ a, inventoryType, item });
+      item: () => {
         return {
           inventory: inventoryType,
           item: {
             name: item.name,
             slot: item.slot,
           },
-          image: item?.name && `url(${item?.name + ".png" || "none"})`,
+          image: item?.name && `url(/images/${item?.name + ".png" || "none"})`,
         };
       },
-      canDrag: true,
-    }),
-    [inventoryType, item]
-  );
+      canDrag: Boolean(item.name),
+    };
+  }, [inventoryType, item]);
 
   const [{ isOver }, drop] = useDrop(
     () => ({
@@ -55,24 +41,11 @@ const InventorySlot = ({ item, inventoryId, inventoryType }, ref) => {
       }),
       drop: (main) => {
         const targetInventory = {
-          inventory: inventoryTypeChange[inventoryType],
+          inventory: inventoryType,
           item,
         };
-        const source = { ...main, inventory: inventoryTypeChange[main.inventory] };
+        const source = { ...main, inventory: main.inventory };
         dispatch(changeSlot({ source, targetInventory }));
-        // console.log({ inventory: inventoryTypeChange[inventoryType] });
-        // onDrop(source, { inventory: inventoryType, item: { slot: item.slot } });
-        // switch (source.inventory) {
-        //   case "shop":
-        //     onBuy(source, { inventory: inventoryType, item: { slot: item.slot } });
-        //     break;
-        //   case "crafting":
-        //     onCraft(source, { inventory: inventoryType, item: { slot: item.slot } });
-        //     break;
-        //   default:
-        //     onDrop(source, { inventory: inventoryType, item: { slot: item.slot } });
-        //     break;
-        // }
       },
       canDrop: (source) =>
         (source.item.slot !== item.slot || source.inventory !== inventoryType) &&
@@ -82,62 +55,20 @@ const InventorySlot = ({ item, inventoryId, inventoryType }, ref) => {
     [inventoryType, item]
   );
 
-  // useNuiEvent("refreshSlots", (data) => {
-  //   if (!isDragging && !data.items) return;
-  //   if (!Array.isArray(data.items)) return;
-
-  //   const itemSlot = data.items.find(
-  //     (dataItem) => dataItem.item.slot === item.slot && dataItem.inventory === inventoryId
-  //   );
-
-  //   if (!itemSlot) return;
-
-  //   manager.dispatch({ type: "dnd-core/END_DRAG" });
-  // });
-
   const connectRef = (element) => drag(drop(element));
-
-  // const handleContext = (event) => {
-  //   event.preventDefault();
-  //   if (inventoryType !== "player" || !isSlotWithItem(item)) return;
-
-  //   dispatch(openContextMenu({ item, coords: { x: event.clientX, y: event.clientY } }));
-  // };
-
-  // const handleClick = (event) => {
-  //   // dispatch(closeTooltip());
-  //   if (timerRef.current) clearTimeout(timerRef.current);
-  //   // if (
-  //   //   event.ctrlKey &&
-  //   //   isSlotWithItem(item) &&
-  //   //   onDrop({ item: item, inventory: inventoryType });
-  //   //   inventoryType !== "shop" &&
-  //   //   inventoryType !== "crafting"
-  //   // ) {
-  //   // } else if (event.altKey && isSlotWithItem(item) && inventoryType === "player") {
-  //   //   onUse(item);
-  //   // }
-  // };
-
-  const refs = useMergeRefs([connectRef, ref]);
+  const refs = useMergeRefs([connectRef]);
 
   return (
     <div
-      // onContextMenu={handleContext}
-      // onClick={handleClick}
       className="relative"
       style={{
         userSelect: "none",
-        // filter:
-        //   !canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) ||
-        //   !canCraftItem(item, inventoryType)
-        //     ? "brightness(80%) grayscale(100%)"
-        //     : undefined,
         opacity: isDragging ? 0.4 : 1.0,
         backgroundImage: `url(${item?.name + ".png"}`,
-        border: isOver ? "1px dashed rgba(255,255,255,0.4)" : "",
+        border: `1px dashed ${isOver ? " rgba(255,255,255,0.4)" : "transparent"}`,
       }}
     >
+      <DragPreviewImage connect={preview} src={item?.name} />
       <div
         ref={refs}
         onDrag={drag}
