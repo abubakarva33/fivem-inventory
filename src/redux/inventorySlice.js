@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setupInventoryFn } from "../utilities/helpers";
+import { setupInventoryFn } from "../utilities/utilis";
 
 const initialState = {};
 

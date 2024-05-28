@@ -1,6 +1,6 @@
 import { largeBackpackDummyData, smallBackpackDummyData } from "../../dummyData";
 import { gramsToKilograms } from "../../utilities/utilis";
-import InventorySlot from "../Inventory/InventorySlot";
+import InventorySlot from "./InventorySlot";
 
 const BackpackSection = ({ inventory }) => {
   return (

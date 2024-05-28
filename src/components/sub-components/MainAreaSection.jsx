@@ -1,7 +1,7 @@
 import { Progress } from "antd";
 import { BsBoxes } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import InventorySlot from "../Inventory/InventorySlot";
+import InventorySlot from "./InventorySlot";
 
 const MainAreaSection = ({ inventory }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);

@@ -1,7 +1,7 @@
 import { ConfigProvider, Progress, Radio } from "antd";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import InventorySlot from "../Inventory/InventorySlot";
+import InventorySlot from "./InventorySlot";
 
 const options = [
   {

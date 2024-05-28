@@ -8,13 +8,14 @@ import {
   smallBackpackDummyData,
   largeBackpackDummyData,
 } from "./dummyData";
-import DragPreview from "./components/Inventory/DragPreview";
+
 import { useEffect } from "react";
+import DragPreview from "./components/sub-components/DragPreview";
 
 function App() {
   const dispatch = useDispatch();
 
-  // store all inventory data
+  // store all inventory data here //
   const inventoryData = [
     primaryInvDummyData,
     secondaryInvDummyData,
@@ -25,14 +26,6 @@ function App() {
   useEffect(() => {
     inventoryData.map((item) => dispatch(setupInventory({ type: item.type, item })));
   }, [inventoryData]);
-
-  // dispatch(
-  //   setupInventory({
-  //     backpackInventory: smallBackpackDummyData,
-  //     primaryInventory: primaryInvDummyData,
-  //     secondaryInventory: secondaryInvDummyData,
-  //   })
-  // );
 
   return (
     <>
