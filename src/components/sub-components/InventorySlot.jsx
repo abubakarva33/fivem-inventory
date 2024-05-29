@@ -1,5 +1,5 @@
 import React from "react";
-import { DragPreviewImage, useDrag, useDrop } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { gramsToKilograms } from "../../utilities/utilis";
@@ -17,7 +17,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
     // TODO: Send your data to server from here //
   };
 
-  const [{ isDragging }, drag, preview] = useDrag(() => {
+  const [{ isDragging }, drag] = useDrag(() => {
     return {
       type: "SLOT",
       collect: (monitor) => {
@@ -82,7 +82,11 @@ const InventorySlotComponent = ({ item, inventory }) => {
       },
       canDrop: (source) => {
         if (source.item.slot !== item.slot || source.inventory !== inventoryType) {
-          return source.item.weight + state[inventoryType].weight <= maxWeight;
+          if (source.inventory !== inventoryType) {
+            return source.item.weight + state[inventoryType].weight <= maxWeight;
+          } else {
+            return state[inventoryType].weight <= maxWeight;
+          }
         }
       },
     }),
@@ -103,7 +107,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
         border: `1px dashed ${isOver ? " rgba(255,255,255,0.4)" : "transparent"}`,
       }}
     >
-      <DragPreviewImage connect={preview} src={item?.name} />
       <div
         ref={refs}
         onDrag={drag}
