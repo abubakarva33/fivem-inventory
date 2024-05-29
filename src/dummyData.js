@@ -1,4 +1,4 @@
-let dummyItems = {
+export let dummyItems = {
   water: {
     name: "water",
     label: "Water",
@@ -218,6 +218,30 @@ export let largeBackpackDummyData = {
         quality: 60.0,
       },
     },
+    {
+      name: "bread",
+      label: "Bread",
+      weight: 500,
+      description: "This item will reduce your hunger",
+      amount: 5,
+      slot: 5,
+      quality: 70,
+      info: {
+        quality: 60.0,
+      },
+    },
+    {
+      name: "bread",
+      label: "Bread",
+      weight: 500,
+      description: "This item will reduce your hunger",
+      amount: 5,
+      slot: 6,
+      quality: 70,
+      info: {
+        quality: 60.0,
+      },
+    },
   ],
 };
 
@@ -242,7 +266,7 @@ export let secondaryInvDummyData = {
   ],
 };
 
-let dropInvDummyData = {
+export let dropInvDummyData = {
   identifier: "drop-123456",
   type: "drop",
   label: "Drop",
@@ -263,7 +287,7 @@ let dropInvDummyData = {
   ],
 };
 
-let shopInvDummyData = {
+export let shopInvDummyData = {
   identifier: "shop-123456",
   type: "shop",
   label: "Shop",
@@ -298,7 +322,7 @@ let shopInvDummyData = {
   ],
 };
 
-let craftingInvDummyData = {
+export let craftingInvDummyData = {
   identifier: "crafting-123456",
   type: "crafting",
   label: "Crafting",

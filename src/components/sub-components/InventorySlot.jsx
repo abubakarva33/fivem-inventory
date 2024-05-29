@@ -6,9 +6,8 @@ import { gramsToKilograms } from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
 
-const InventorySlot = ({ item, inventoryType }) => {
+const InventorySlotComponent = ({ item, inventoryType }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
-
   const dispatch = useDispatch();
 
   const [{ isDragging }, drag, preview] = useDrag(() => {
@@ -47,10 +46,7 @@ const InventorySlot = ({ item, inventoryType }) => {
         const source = { ...main, inventory: main.inventory };
         dispatch(changeSlot({ source, targetInventory }));
       },
-      canDrop: (source) =>
-        (source.item.slot !== item.slot || source.inventory !== inventoryType) &&
-        inventoryType !== "shop" &&
-        inventoryType !== "crafting",
+      canDrop: (source) => source.item.slot !== item.slot || source.inventory !== inventoryType,
     }),
     [inventoryType, item]
   );
@@ -113,4 +109,7 @@ const InventorySlot = ({ item, inventoryType }) => {
   );
 };
 
-export default React.memo(React.forwardRef(InventorySlot));
+// export default React.memo(React.forwardRef(InventorySlot));
+
+const InventorySlot = React.memo(React.forwardRef(InventorySlotComponent));
+export default InventorySlot;

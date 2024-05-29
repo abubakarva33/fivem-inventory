@@ -1,25 +1,21 @@
 import { ConfigProvider, Progress, Radio } from "antd";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 
-const options = [
-  {
-    label: "Glove Box",
-    value: "glove",
-  },
-  {
-    label: "Ground",
-    value: "ground",
-  },
-];
-
-const SecondaryArea = ({ inventory }) => {
+const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
-  const [value3, setValue3] = useState("glove");
+  const options = [
+    {
+      label: "Glove Box",
+      value: "glovebox",
+    },
+    {
+      label: "Ground",
+      value: "ground",
+    },
+  ];
   const onChange3 = ({ target: { value } }) => {
-    console.log("radio3 checked", value);
-    setValue3(value);
+    setSecondary(value);
   };
   return (
     <div className="secondaryArea ">
@@ -50,7 +46,7 @@ const SecondaryArea = ({ inventory }) => {
             size="large"
             options={options}
             onChange={onChange3}
-            value={value3}
+            value={secondary}
             optionType="button"
             buttonStyle="solid"
             style={{ border: "none" }}

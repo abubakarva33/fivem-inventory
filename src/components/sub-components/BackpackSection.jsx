@@ -2,11 +2,14 @@ import { largeBackpackDummyData, smallBackpackDummyData } from "../../dummyData"
 import { gramsToKilograms } from "../../utilities/utilis";
 import InventorySlot from "./InventorySlot";
 
-const BackpackSection = ({ inventory }) => {
+const BackpackSection = ({ inventory, setBackpack }) => {
   return (
     <div className="backpackSection  border border-[#666] rounded-xl">
       <div className="backpackSectionTop bg-[#2e2e2e] mb-3">
-        <div className="me-1 rounded-lg border border-[#666]">
+        <div
+          className="me-1 rounded-lg border border-[#666]"
+          onClick={() => setBackpack("largeBackpack")}
+        >
           <div className="flex bg-[#666] p-2 items-center rounded-lg">
             <div className="activeBackpack "></div>
             <div className="w-full ms-2">
@@ -24,7 +27,10 @@ const BackpackSection = ({ inventory }) => {
             </div>
           </div>
         </div>
-        <div className="ms-1 rounded-lg border border-[#666]">
+        <div
+          className="ms-1 rounded-lg border border-[#666]"
+          onClick={() => setBackpack("smallBackpack")}
+        >
           <div className="flex bg-[#666] p-2 items-center rounded-lg">
             <div className="activeBackpack"></div>
             <div className="w-full ms-2">
