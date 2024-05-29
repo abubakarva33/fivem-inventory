@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,10 +7,16 @@ import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
 
 const InventorySlotComponent = ({ item, inventory }) => {
+  const dispatch = useDispatch();
+  const [isRightButtonClick, setIsRightButtonClick] = useState(false);
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
   const state = useSelector((state) => state.inventory);
   const { type: inventoryType, maxWeight } = inventory;
-  const dispatch = useDispatch();
+
+  const handleRightButtonClick = (event) => {
+    event.preventDefault();
+    setIsRightButtonClick(!isRightButtonClick);
+  };
 
   const UpdateDataToServer = (data) => {
     console.log({ data });
@@ -106,6 +112,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
         backgroundImage: `url(${item?.name + ".png"}`,
         border: `1px dashed ${isOver ? " rgba(255,255,255,0.4)" : "transparent"}`,
       }}
+      onContextMenu={handleRightButtonClick}
     >
       <div
         ref={refs}
