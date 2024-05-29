@@ -10,12 +10,17 @@ const Inventory = () => {
   const [secondary, setSecondary] = useState("glovebox");
   const state = useSelector((state) => state.inventory);
 
+  console.log(secondary);
   return (
     <div className="mainSection">
       <div className="inventory">
-        <BackpackSection inventory={state[backpack]} />
+        <BackpackSection inventory={state[backpack]} setBackpack={setBackpack} />
         <MainAreaSection inventory={state.playerinventory} />
-        <SecondaryArea inventory={state[secondary]} />
+        <SecondaryArea
+          inventory={state[secondary]}
+          secondary={secondary}
+          setSecondary={setSecondary}
+        />
       </div>
     </div>
   );

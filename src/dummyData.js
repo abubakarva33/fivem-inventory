@@ -218,6 +218,30 @@ export let largeBackpackDummyData = {
         quality: 60.0,
       },
     },
+    {
+      name: "bread",
+      label: "Bread",
+      weight: 500,
+      description: "This item will reduce your hunger",
+      amount: 5,
+      slot: 5,
+      quality: 70,
+      info: {
+        quality: 60.0,
+      },
+    },
+    {
+      name: "bread",
+      label: "Bread",
+      weight: 500,
+      description: "This item will reduce your hunger",
+      amount: 5,
+      slot: 6,
+      quality: 70,
+      info: {
+        quality: 60.0,
+      },
+    },
   ],
 };
 
