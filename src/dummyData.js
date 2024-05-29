@@ -1,4 +1,4 @@
-let dummyItems = {
+export let dummyItems = {
   water: {
     name: "water",
     label: "Water",
@@ -266,7 +266,7 @@ export let secondaryInvDummyData = {
   ],
 };
 
-let dropInvDummyData = {
+export let dropInvDummyData = {
   identifier: "drop-123456",
   type: "drop",
   label: "Drop",
@@ -287,7 +287,7 @@ let dropInvDummyData = {
   ],
 };
 
-let shopInvDummyData = {
+export let shopInvDummyData = {
   identifier: "shop-123456",
   type: "shop",
   label: "Shop",
@@ -322,7 +322,7 @@ let shopInvDummyData = {
   ],
 };
 
-let craftingInvDummyData = {
+export let craftingInvDummyData = {
   identifier: "crafting-123456",
   type: "crafting",
   label: "Crafting",

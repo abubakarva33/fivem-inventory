@@ -9,8 +9,6 @@ const Inventory = () => {
   const [backpack, setBackpack] = useState("largeBackpack");
   const [secondary, setSecondary] = useState("glovebox");
   const state = useSelector((state) => state.inventory);
-
-  console.log(secondary);
   return (
     <div className="mainSection">
       <div className="inventory">
