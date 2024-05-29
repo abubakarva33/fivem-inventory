@@ -46,10 +46,7 @@ const InventorySlotComponent = ({ item, inventoryType }) => {
         const source = { ...main, inventory: main.inventory };
         dispatch(changeSlot({ source, targetInventory }));
       },
-      canDrop: (source) =>
-        (source.item.slot !== item.slot || source.inventory !== inventoryType) &&
-        inventoryType !== "shop" &&
-        inventoryType !== "crafting",
+      canDrop: (source) => source.item.slot !== item.slot || source.inventory !== inventoryType,
     }),
     [inventoryType, item]
   );
