@@ -9,8 +9,13 @@ import { Progress } from "antd";
 const InventorySlotComponent = ({ item, inventory }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
   const state = useSelector((state) => state.inventory);
-  const dispatch = useDispatch();
   const { type: inventoryType, maxWeight } = inventory;
+  const dispatch = useDispatch();
+
+  const UpdateDataToServer = (data) => {
+    console.log({ data });
+    // TODO: Send your data to server from here //
+  };
 
   const [{ isDragging }, drag, preview] = useDrag(() => {
     return {
@@ -23,11 +28,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
       item: () => {
         return {
           inventory: inventoryType,
-          item: {
-            name: item.name,
-            slot: item.slot,
-            weight: item.weight,
-          },
+          item,
           image: item?.name && `url(/images/${item?.name + ".png" || "none"})`,
         };
       },
@@ -45,9 +46,39 @@ const InventorySlotComponent = ({ item, inventory }) => {
         const targetInventory = {
           inventory: inventoryType,
           item,
+          items: main.item,
         };
         const source = { ...main, inventory: main.inventory };
+
+        // for passing data to server //
+        const changeSlotData = {
+          identifier: source.inventory,
+          fromSlot: source.item.slot,
+          fromSlotData: source.item,
+          toSlot: targetInventory.item.slot,
+          toSlotData: targetInventory.items,
+        };
+        const transferSlotData = {
+          fromInv: {
+            identifier: source.inventory,
+            slot: source.item.slot,
+            slotData: source.item,
+          },
+          toInv: {
+            identifier: targetInventory.inventory,
+            slot: targetInventory.item.slot,
+            slotData: targetInventory.items,
+          },
+        };
+
+        // initially store and set data to redux(localhost)//
         dispatch(changeSlot({ source, targetInventory }));
+        // conditionally pass data for server //
+        if (source.inventory === targetInventory.inventory) {
+          UpdateDataToServer(changeSlotData);
+        } else {
+          UpdateDataToServer(transferSlotData);
+        }
       },
       canDrop: (source) => {
         if (source.item.slot !== item.slot || source.inventory !== inventoryType) {

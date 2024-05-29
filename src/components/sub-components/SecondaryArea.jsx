@@ -22,7 +22,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
     <div className="secondaryArea ">
       <div className="secondaryAreaTop">
         <Progress
-          percent={inventory.weightPercent}
+          percent={inventory?.weightPercent}
           showInfo={false}
           size={["100%", 35]}
           strokeColor={slotBorder}

@@ -389,6 +389,24 @@ let changeSlotDummy = {
   },
 };
 
+let data = {
+  source: {
+    inventory: "largeBackpack",
+    item: {
+      name: "bread",
+      slot: 2,
+      weight: 500,
+    },
+    image: "url(/images/bread.png)",
+  },
+  targetInventory: {
+    inventory: "largeBackpack",
+    item: {
+      slot: 3,
+    },
+  },
+};
+
 let transferDummy = {
   fromInv: {
     identifier: "player1",
