@@ -1,8 +1,9 @@
-import { largeBackpackDummyData, smallBackpackDummyData } from "../../dummyData";
+import { useSelector } from "react-redux";
 import { gramsToKilograms } from "../../utilities/utilis";
 import InventorySlot from "./InventorySlot";
 
 const BackpackSection = ({ inventory, setBackpack }) => {
+  const { largeBackpack, smallBackpack } = useSelector((state) => state.inventory);
   return (
     <div className="backpackSection  border border-[#666] rounded-xl">
       <div className="backpackSectionTop bg-[#2e2e2e] mb-3">
@@ -14,10 +15,10 @@ const BackpackSection = ({ inventory, setBackpack }) => {
             <div className="activeBackpack "></div>
             <div className="w-full ms-2">
               <div className="flex flex-col	border-b  mb-2 pb-2">
-                <h3 className="text-[20px] text-zinc-300  mb-0">{largeBackpackDummyData?.label}</h3>
+                <h3 className="text-[20px] text-zinc-300  mb-0">{largeBackpack?.label}</h3>
                 <p className="mb-0 text-[17px] text-zinc-300">
-                  Capacity <span>{gramsToKilograms(largeBackpackDummyData?.weight)}</span>/
-                  <span>{gramsToKilograms(largeBackpackDummyData?.maxWeight)}</span> kg
+                  Capacity <span>{gramsToKilograms(largeBackpack?.weight)}</span>/
+                  <span>{gramsToKilograms(largeBackpack?.maxWeight)}</span> kg
                 </p>
               </div>
               <p className=" text-[14px]">
@@ -35,10 +36,10 @@ const BackpackSection = ({ inventory, setBackpack }) => {
             <div className="activeBackpack"></div>
             <div className="w-full ms-2">
               <div className="flex flex-col	border-b mb-2 pb-2">
-                <h3 className="text-[20px] text-zinc-300  mb-0">{smallBackpackDummyData?.label}</h3>
+                <h3 className="text-[20px] text-zinc-300  mb-0">{smallBackpack?.label}</h3>
                 <p className="mb-0 text-[17px] text-zinc-300">
-                  Capacity <span>{gramsToKilograms(smallBackpackDummyData?.weight)}</span>/
-                  <span>{gramsToKilograms(smallBackpackDummyData?.maxWeight)}</span> kg
+                  Capacity <span>{gramsToKilograms(smallBackpack?.weight)}</span>/
+                  <span>{gramsToKilograms(smallBackpack?.maxWeight)}</span> kg
                 </p>
               </div>
               <p className=" text-[14px]">
@@ -55,7 +56,7 @@ const BackpackSection = ({ inventory, setBackpack }) => {
             <InventorySlot
               key={`${inventory.type}-${inventory.id}-${item.slot}`}
               item={item}
-              inventoryType={inventory.type}
+              inventory={inventory}
             />
           ))}
       </div>

@@ -6,9 +6,11 @@ import { gramsToKilograms } from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
 
-const InventorySlotComponent = ({ item, inventoryType }) => {
+const InventorySlotComponent = ({ item, inventory }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
+  const state = useSelector((state) => state.inventory);
   const dispatch = useDispatch();
+  const { type: inventoryType, maxWeight } = inventory;
 
   const [{ isDragging }, drag, preview] = useDrag(() => {
     return {
@@ -24,6 +26,7 @@ const InventorySlotComponent = ({ item, inventoryType }) => {
           item: {
             name: item.name,
             slot: item.slot,
+            weight: item.weight,
           },
           image: item?.name && `url(/images/${item?.name + ".png" || "none"})`,
         };
@@ -46,9 +49,14 @@ const InventorySlotComponent = ({ item, inventoryType }) => {
         const source = { ...main, inventory: main.inventory };
         dispatch(changeSlot({ source, targetInventory }));
       },
-      canDrop: (source) => source.item.slot !== item.slot || source.inventory !== inventoryType,
+      canDrop: (source) => {
+        if (source.item.slot !== item.slot || source.inventory !== inventoryType) {
+          return source.item.weight + state[inventoryType].weight <= maxWeight;
+        }
+      },
     }),
-    [inventoryType, item]
+
+    [inventoryType, item, state[inventoryType].weight]
   );
 
   const connectRef = (element) => drag(drop(element));
@@ -108,8 +116,6 @@ const InventorySlotComponent = ({ item, inventoryType }) => {
     </div>
   );
 };
-
-// export default React.memo(React.forwardRef(InventorySlot));
 
 const InventorySlot = React.memo(React.forwardRef(InventorySlotComponent));
 export default InventorySlot;

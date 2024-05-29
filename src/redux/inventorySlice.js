@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setupInventoryFn } from "../utilities/utilis";
+import { calculateTotalWeight, setupInventoryFn } from "../utilities/utilis";
 
 const initialState = {};
 
@@ -41,6 +41,22 @@ export const inventorySlice = createSlice({
             return item;
           }
         );
+
+        // target
+        const targetWeight = calculateTotalWeight(state[targetInventory.inventory].items);
+        state[targetInventory.inventory] = {
+          ...state[targetInventory.inventory],
+          weight: targetWeight,
+          weightPercent: (targetWeight * 100) / state[targetInventory.inventory].maxWeight,
+        };
+
+        // source
+        const sourceWeight = calculateTotalWeight(state[source.inventory].items);
+        state[source.inventory] = {
+          ...state[source.inventory],
+          weight: sourceWeight,
+          weightPercent: (sourceWeight * 100) / state[source.inventory].maxWeight,
+        };
       } else {
         console.log("not found");
       }

@@ -1,6 +1,7 @@
 import { ConfigProvider, Progress, Radio } from "antd";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
+import { calculateTotalWeight } from "../../utilities/utilis";
 
 const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
@@ -21,7 +22,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
     <div className="secondaryArea ">
       <div className="secondaryAreaTop">
         <Progress
-          percent={50}
+          percent={inventory.weightPercent}
           showInfo={false}
           size={["100%", 35]}
           strokeColor={slotBorder}
@@ -60,7 +61,8 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
               <InventorySlot
                 key={`${inventory.type}-${inventory.id}-${item.slot}`}
                 item={item}
-                inventoryType={inventory.type}
+                inventory={inventory}
+                totalWeight={calculateTotalWeight(inventory?.items)}
               />
             ))}
         </div>

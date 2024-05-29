@@ -54,7 +54,7 @@ export let primaryInvDummyData = {
   identifier: "player1",
   type: "playerinventory",
   label: "Player Inventory",
-  maxWeight: 50000.0,
+  maxWeight: 5000.0,
   slots: 50,
   weight: 10000.0,
   items: [
@@ -192,7 +192,7 @@ export let largeBackpackDummyData = {
   identifier: "backpack-l:123456789",
   type: "largeBackpack",
   label: "Backpack Large",
-  maxWeight: 45000.0,
+  maxWeight: 4000.0,
   slots: 30,
   weight: 1300.0,
   items: [
@@ -249,7 +249,7 @@ export let secondaryInvDummyData = {
   identifier: "glovebox-123456",
   type: "glovebox",
   label: "Glovebox-123456",
-  maxWeight: 10000.0,
+  maxWeight: 2000.0,
   slots: 5,
   weight: 100.0,
   items: [
@@ -364,7 +364,7 @@ export let craftingInvDummyData = {
 };
 
 let changeSlotDummy = {
-  identifier:'player1',
+  identifier: "player1",
   fromSlot: 1,
   fromSlotData: {
     name: "bread",
@@ -386,17 +386,17 @@ let changeSlotDummy = {
     quality: 100,
     slot: 2,
     info: {},
-  }
-}
+  },
+};
 
 let transferDummy = {
   fromInv: {
-    identifier: 'player1',
+    identifier: "player1",
     slot: 5,
-    slotData: null
+    slotData: null,
   },
-  fromInv: {
-    identifier: 'player1',
+  toInv: {
+    identifier: "player1",
     slot: 2,
     slotData: {
       name: "bread",
@@ -407,6 +407,6 @@ let transferDummy = {
       quality: 100,
       slot: 2,
       info: {},
-    }
+    },
   },
-}
+};

@@ -2,6 +2,7 @@ import { Progress } from "antd";
 import { BsBoxes } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
+import { calculateTotalWeight } from "../../utilities/utilis";
 
 const MainAreaSection = ({ inventory }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
@@ -24,7 +25,7 @@ const MainAreaSection = ({ inventory }) => {
             </p>
           </div>
           <Progress
-            percent={50}
+            percent={Number(inventory?.weightPercent)}
             showInfo={false}
             size={["100%", 35]}
             strokeColor={slotBorder}
@@ -94,7 +95,8 @@ const MainAreaSection = ({ inventory }) => {
             <InventorySlot
               key={`${inventory.type}-${inventory.id}-${item.slot}`}
               item={item}
-              inventoryType={inventory.type}
+              inventory={inventory}
+              totalWeight={calculateTotalWeight(inventory?.items)}
             />
           ))}
       </div>
