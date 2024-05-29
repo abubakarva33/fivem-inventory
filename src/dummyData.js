@@ -338,3 +338,51 @@ let craftingInvDummyData = {
     },
   ],
 };
+
+let changeSlotDummy = {
+  identifier:'player1',
+  fromSlot: 1,
+  fromSlotData: {
+    name: "bread",
+    label: "Bread",
+    description: "This item will reduce your hunger",
+    weight: 500,
+    amount: 1,
+    quality: 100,
+    slot: 2,
+    info: {},
+  },
+  toSlot: 1,
+  toSlotData: {
+    name: "bread",
+    label: "Bread",
+    description: "This item will reduce your hunger",
+    weight: 500,
+    amount: 3,
+    quality: 100,
+    slot: 2,
+    info: {},
+  }
+}
+
+let transferDummy = {
+  fromInv: {
+    identifier: 'player1',
+    slot: 5,
+    slotData: null
+  },
+  fromInv: {
+    identifier: 'player1',
+    slot: 2,
+    slotData: {
+      name: "bread",
+      label: "Bread",
+      description: "This item will reduce your hunger",
+      weight: 500,
+      amount: 3,
+      quality: 100,
+      slot: 2,
+      info: {},
+    }
+  },
+}
