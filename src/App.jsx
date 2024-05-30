@@ -18,11 +18,17 @@ import DragPreview from "./components/sub-components/DragPreview";
 function App() {
   const dispatch = useDispatch();
 
-  const [primaryInv, setPrimaryInv] = useState(!window.invokeNative ? primaryInvDummyData : []);
-  const [secondaryInv, setSecondaryInv] = useState(!window.invokeNative ? secondaryInvDummyData : []);
-  const [dropInv, setDropInv] = useState(!window.invokeNative ? dropInvDummyData : []);
-  const [smallBackpack, setSmallBackpack] = useState(!window.invokeNative ? smallBackpackDummyData : []);
-  const [largeBackpack, setLargeBackpack] = useState(!window.invokeNative ? largeBackpackDummyData : []);
+  const [primaryInv, setPrimaryInv] = useState(!window.invokeNative ? primaryInvDummyData : null);
+  const [secondaryInv, setSecondaryInv] = useState(
+    !window.invokeNative ? secondaryInvDummyData : null
+  );
+  const [dropInv, setDropInv] = useState(!window.invokeNative ? dropInvDummyData : null);
+  const [smallBackpack, setSmallBackpack] = useState(
+    !window.invokeNative ? smallBackpackDummyData : null
+  );
+  const [largeBackpack, setLargeBackpack] = useState(
+    !window.invokeNative ? largeBackpackDummyData : null
+  );
 
   useEffect(() => {
     dispatch(setupInventory({ type: primaryInv.type, item: primaryInv }));
@@ -56,7 +62,6 @@ function App() {
         setSmallBackpack(event.data.smallBackpack);
         setLargeBackpack(event.data.largeBackpack);
         setDropInv(event.data.dropInv);
-
       } else if (event.data.action == "setLocaleConfig") {
         setLocale(event.data.locale);
       } else if (event.data.action == "setPrimaryInv") {

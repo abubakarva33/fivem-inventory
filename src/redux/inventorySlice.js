@@ -8,7 +8,6 @@ export const inventorySlice = createSlice({
   initialState,
   reducers: {
     setupInventory: (state, { payload }) => {
-      console.log(payload)
       const { item, type } = payload;
       setupInventoryFn(item, state, type);
     },
@@ -29,6 +28,7 @@ export const inventorySlice = createSlice({
       if (findSource && findTarget) {
         state[source.inventory].items = state[source.inventory].items.map((item) => {
           if (item.slot === source.item.slot) {
+            console.log({ ...findTarget, slot: item.slot});
             return { ...findTarget, slot: item.slot };
           }
           return item;
@@ -37,6 +37,7 @@ export const inventorySlice = createSlice({
         state[targetInventory.inventory].items = state[targetInventory.inventory].items.map(
           (item) => {
             if (item.slot === targetInventory.item.slot) {
+              console.log({ amount: findSource?.amount + item?.amount });
               return { ...findSource, slot: item.slot };
             }
             return item;
@@ -50,7 +51,6 @@ export const inventorySlice = createSlice({
           weight: targetWeight,
           weightPercent: (targetWeight * 100) / state[targetInventory.inventory].maxWeight,
         };
-
         // source
         const sourceWeight = calculateTotalWeight(state[source.inventory].items);
         state[source.inventory] = {

@@ -38,7 +38,7 @@ export const setupInventoryFn = (inventory, state, name) => {
     weight,
     weightPercent: (weight * 100) / inventory.maxWeight,
     items: Array.from(Array(inventory.slots), (_, index) => {
-      const item = inventory.items.find((item) => item?.slot === index + 1) || {
+      const item = inventory?.items?.find((item) => item?.slot === index + 1) || {
         slot: index + 1,
       };
       return item;
