@@ -76,9 +76,7 @@ export let primaryInvDummyData = {
       amount: 5,
       slot: 2,
       quality: 100,
-      info: {
-        quality: 60.0,
-      },
+      info: {},
     },
     {
       name: "bread",
@@ -88,9 +86,7 @@ export let primaryInvDummyData = {
       amount: 5,
       slot: 4,
       quality: 100,
-      info: {
-        quality: 70.0,
-      },
+      info: {},
     },
     {
       name: "weapon_pistol",
@@ -99,13 +95,12 @@ export let primaryInvDummyData = {
       weight: 2500,
       amount: 1,
       slot: 5,
-      quality: 100,
+      quality: 90.0,
       info: {
         ammo: 12,
         tint: 0,
         serial: 12345678,
-        quality: 90.1,
-        registered: "Player 1",
+        owner: "Player 1",
         components: {
           at_grip: {
             name: "at_grip",
@@ -115,6 +110,7 @@ export let primaryInvDummyData = {
             weight: 250,
             slot: 1,
             shouldClose: true,
+            info = {}
           },
           at_suppressor_heavy: {
             name: "at_suppressor_heavy",
@@ -124,6 +120,7 @@ export let primaryInvDummyData = {
             weight: 250,
             slot: 7,
             shouldClose: true,
+            info = {}
           },
         },
       },
@@ -181,9 +178,7 @@ export let smallBackpackDummyData = {
       amount: 5,
       slot: 2,
       quality: 100,
-      info: {
-        quality: 60.0,
-      },
+      info: {},
     },
   ],
 };
@@ -214,9 +209,7 @@ export let largeBackpackDummyData = {
       amount: 5,
       slot: 2,
       quality: 70,
-      info: {
-        quality: 60.0,
-      },
+      info: {},
     },
     {
       name: "bread",
@@ -226,9 +219,7 @@ export let largeBackpackDummyData = {
       amount: 5,
       slot: 5,
       quality: 70,
-      info: {
-        quality: 60.0,
-      },
+      info: {},
     },
     {
       name: "bread",
@@ -238,9 +229,7 @@ export let largeBackpackDummyData = {
       amount: 5,
       slot: 6,
       quality: 70,
-      info: {
-        quality: 60.0,
-      },
+      info: {},
     },
   ],
 };
@@ -410,3 +399,11 @@ let transferDummy = {
     },
   },
 };
+
+//show this variables into description box (if the item have) when an item hovered.
+let infoToDescription = {
+  ammo: true,
+  tint: true,
+  serial: true,
+  owner: true,
+}
