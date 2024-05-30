@@ -110,7 +110,7 @@ export let primaryInvDummyData = {
             weight: 250,
             slot: 1,
             shouldClose: true,
-            info : {}
+            info: {},
           },
           at_suppressor_heavy: {
             name: "at_suppressor_heavy",
@@ -120,7 +120,7 @@ export let primaryInvDummyData = {
             weight: 250,
             slot: 7,
             shouldClose: true,
-            info : {}
+            info: {},
           },
         },
       },
@@ -406,4 +406,4 @@ let infoToDescription = {
   tint: true,
   serial: true,
   owner: true,
-}
+};

@@ -1,7 +1,7 @@
 import { ConfigProvider, Progress, Radio } from "antd";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
-import { calculateTotalWeight } from "../../utilities/utilis";
+import { calculateTotalWeight, checkItemsPresence } from "../../utilities/utilis";
 
 const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
@@ -56,7 +56,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
       </div>
       <div className="border py-2 rounded-[20px] px-3" style={{ borderColor: slotBorder }}>
         <div className="section">
-          {Array.isArray(inventory?.items) &&
+          {checkItemsPresence(inventory?.items) &&
             inventory?.items?.map((item) => (
               <InventorySlot
                 key={`${inventory.type}-${inventory.id}-${item.slot}`}

@@ -4,16 +4,22 @@ import SecondaryArea from "../sub-components/SecondaryArea";
 import BackpackSection from "../sub-components/BackpackSection";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { secondaryTypes } from "../../utilities/utilis";
+import { findSomethingInItems, secondaryTypes } from "../../utilities/utilis";
 
 const Inventory = () => {
   const [backpack, setBackpack] = useState("largeBackpack");
   const [secondary, setSecondary] = useState(secondaryTypes.glovebox);
   const state = useSelector((state) => state.inventory);
+
+  console.log(state.playerinventory);
+
   return (
     <div className="mainSection">
       <div className="inventory">
-        <BackpackSection inventory={state[backpack]} setBackpack={setBackpack} />
+        {/* condition for backpack, check backpack is present or not in primary inventory */}
+        {findSomethingInItems(state?.playerinventory?.items, "backpack") && (
+          <BackpackSection inventory={state[backpack]} setBackpack={setBackpack} />
+        )}
         <MainAreaSection inventory={state.playerinventory} />
         <SecondaryArea
           inventory={state[secondary]}
