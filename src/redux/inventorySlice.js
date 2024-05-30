@@ -8,6 +8,7 @@ export const inventorySlice = createSlice({
   initialState,
   reducers: {
     setupInventory: (state, { payload }) => {
+      console.log(payload)
       const { item, type } = payload;
       setupInventoryFn(item, state, type);
     },

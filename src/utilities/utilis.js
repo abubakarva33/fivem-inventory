@@ -1,3 +1,16 @@
+export const hideRoot = () => {
+  const rootElement = document.getElementById("root");
+  if (rootElement) {
+    rootElement.style.display = "none";
+  }
+};
+export const showRoot = () => {
+  const rootElement = document.getElementById("root");
+  if (rootElement) {
+    rootElement.style.display = "block";
+  }
+};
+
 export const gramsToKilograms = (grams) => {
   const kilograms = grams / 1000;
   return kilograms;
