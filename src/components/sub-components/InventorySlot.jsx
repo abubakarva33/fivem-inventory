@@ -116,7 +116,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
       style={{
         userSelect: "none",
         opacity: isDragging ? 0.4 : 1.0,
-        backgroundImage: `url(${item?.name + ".png"}`,
         border: `1px dashed ${isOver ? " rgba(255,255,255,0.4)" : "transparent"}`,
       }}
       onContextMenu={handleRightButtonClick}
@@ -165,5 +164,5 @@ const InventorySlotComponent = ({ item, inventory }) => {
   );
 };
 
-const InventorySlot = React.memo(React.forwardRef(InventorySlotComponent));
+const InventorySlot = React.memo(InventorySlotComponent);
 export default InventorySlot;
