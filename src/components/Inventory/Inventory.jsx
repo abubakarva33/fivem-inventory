@@ -11,8 +11,6 @@ const Inventory = () => {
   const [secondary, setSecondary] = useState(secondaryTypes.glovebox);
   const state = useSelector((state) => state.inventory);
 
-  console.log(state.playerinventory);
-
   return (
     <div className="mainSection">
       <div className="inventory">
