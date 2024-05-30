@@ -28,8 +28,8 @@ export const inventorySlice = createSlice({
       if (findSource && findTarget) {
         state[source.inventory].items = state[source.inventory].items.map((item) => {
           if (item.slot === source.item.slot) {
-            console.log({ ...findTarget, slot: item.slot});
-            return { ...findTarget, slot: item.slot };
+            // console.log({ item: item.amount, slot: item.slot });
+            return { ...findTarget, amount: item.amount, slot: item.slot };
           }
           return item;
         });
