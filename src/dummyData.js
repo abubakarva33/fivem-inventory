@@ -153,34 +153,34 @@ export let primaryInvDummyData = {
 };
 
 export let smallBackpackDummyData = {
-  identifier: "backpack-s:123456789",
-  type: "smallBackpack",
-  label: "Backpack Small",
-  maxWeight: 25000.0,
-  slots: 25,
-  weight: 1300.0,
-  items: [
-    {
-      name: "water",
-      label: "Water",
-      description: "This item will reduce your thirst",
-      weight: 800,
-      amount: 1,
-      quality: 100,
-      slot: 9,
-      info: {},
-    },
-    {
-      name: "bread",
-      label: "Bread",
-      weight: 500,
-      description: "This item will reduce your hunger",
-      amount: 5,
-      slot: 2,
-      quality: 100,
-      info: {},
-    },
-  ],
+  // identifier: "backpack-s:123456789",
+  // type: "smallBackpack",
+  // label: "Backpack Small",
+  // maxWeight: 25000.0,
+  // slots: 25,
+  // weight: 1300.0,
+  // items: [
+  //   {
+  //     name: "water",
+  //     label: "Water",
+  //     description: "This item will reduce your thirst",
+  //     weight: 800,
+  //     amount: 1,
+  //     quality: 100,
+  //     slot: 9,
+  //     info: {},
+  //   },
+  //   {
+  //     name: "bread",
+  //     label: "Bread",
+  //     weight: 500,
+  //     description: "This item will reduce your hunger",
+  //     amount: 5,
+  //     slot: 2,
+  //     quality: 100,
+  //     info: {},
+  //   },
+  // ],
 };
 
 export let largeBackpackDummyData = {
