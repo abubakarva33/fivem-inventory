@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,8 +13,17 @@ const InventorySlotComponent = ({ item, inventory }) => {
   const [isRightButtonClick, setIsRightButtonClick] = useState(false);
   const [rightBtnInputValue, setRightBtnInputValue] = useState(1);
   const { type: inventoryType, maxWeight } = inventory;
+  const [showTooltip, setShowTooltip] = useState(false);
 
-  console.log({ rightBtnInputValue });
+  useEffect(() => {
+    let timer;
+    if (showTooltip) {
+      timer = setTimeout(() => {
+        setShowTooltip(true);
+      }, 1000); // 1 second delay
+    }
+    return () => clearTimeout(timer);
+  }, [showTooltip]);
 
   const handleRightButtonClick = (event) => {
     event.preventDefault();
@@ -122,6 +131,8 @@ const InventorySlotComponent = ({ item, inventory }) => {
         border: `1px dashed ${isOver ? " rgba(255,255,255,0.4)" : "transparent"}`,
       }}
       onContextMenu={handleRightButtonClick}
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
     >
       <div
         ref={refs}
@@ -163,40 +174,52 @@ const InventorySlotComponent = ({ item, inventory }) => {
           </div>
         </div>
       )}
-      <div onContextMenu={handleRightButtonClick}>
-        {isRightButtonClick && item?.name && inventoryType === "playerinventory" && (
-          <div className="flex flex-col absolute top-8 left-8 z-10 bg-slate-800 w-[150px]">
-            <div className="flex">
-              <button
-                className="border bg-slate-300 py-1 border-b-0 w-1/4"
-                style={{ cursor: "pointer" }}
-                onClick={() => setRightBtnInputValue(rightBtnInputValue + 1)}
-              >
-                +
-              </button>
-              <input
-                type="number"
-                className="w-1/2  bg-slate-800 text-center border-t outline-none"
-                style={{ color: "white" }}
-                defaultValue={rightBtnInputValue}
-                onChange={(e) => setRightBtnInputValue(Number(e.target.value))}
-              />
-              <button
-                className="border py-1 border-b-0 w-1/4"
-                onClick={() => setRightBtnInputValue(rightBtnInputValue - 1)}
-              >
-                -
-              </button>
-            </div>
-            <button className="border py-1 border-b-0" onChange={() => console.log("clicked")}>
-              Use
+
+      {isRightButtonClick && item?.name && inventoryType === "playerinventory" && (
+        <div className="flex flex-col absolute top-8 left-8 z-10 bg-slate-800 w-[150px]">
+          <div className="flex">
+            <button
+              className="border py-1 border-b-0 w-1/4"
+              style={{ cursor: "pointer" }}
+              onClick={() => setRightBtnInputValue(rightBtnInputValue + 1)}
+            >
+              +
             </button>
-            <button className="border py-1 border-b-0">Give</button>
-            <button className="border py-1 border-b-0">Drop</button>
-            <button className="border py-1">Copy Serial</button>
+            <input
+              type="number"
+              className="w-1/2  bg-slate-800 text-center border-t outline-none"
+              style={{ color: "white" }}
+              defaultValue={rightBtnInputValue}
+              onChange={(e) => setRightBtnInputValue(Number(e.target.value))}
+            />
+            <button
+              className="border py-1 border-b-0 w-1/4"
+              onClick={() => setRightBtnInputValue(rightBtnInputValue - 1)}
+            >
+              -
+            </button>
           </div>
-        )}
-      </div>
+          <button className="border py-1 border-b-0" onChange={() => console.log("clicked")}>
+            Use
+          </button>
+          <button className="border py-1 border-b-0">Give</button>
+          <button className="border py-1 border-b-0">Drop</button>
+          <button className="border py-1">Copy Serial</button>
+        </div>
+      )}
+      {showTooltip && item?.name && !isRightButtonClick && (
+        <div className="flex flex-col absolute top-8 left-8 z-10 bg-slate-800 border w-[200px] p-2">
+          <h5> {item?.label}</h5>
+          <div className="flex flex-col">
+            <span> Amount: {item?.amount} </span>
+            <span> Weight: {item?.weight} </span>
+            <span> Quality: {item?.quality}</span>
+            <span> Serial: {item?.serial || "Change it later"}</span>
+            <span> Owner: {item?.owner || "Change it later"}</span>
+          </div>
+          <p>{item?.description}</p>
+        </div>
+      )}
     </div>
   );
 };
