@@ -88,6 +88,13 @@ const InventorySlotComponent = ({ item, inventory }) => {
       },
       canDrop: (source) => {
         if (source.item.slot !== item.slot || source.inventory !== inventoryType) {
+          // condition for backpack transfer in backpack inventory //
+          if (inventoryType === "smallBackpack" || inventoryType === "largeBackpack") {
+            if (source.item.name === "backpack-l" || source.item.name === "backpack-s") {
+              return false;
+            }
+          }
+          // condition for weight based transfer //
           if (source.inventory !== inventoryType) {
             return source.item.weight + state[inventoryType].weight <= maxWeight;
           } else {
@@ -109,7 +116,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
       style={{
         userSelect: "none",
         opacity: isDragging ? 0.4 : 1.0,
-        backgroundImage: `url(${item?.name + ".png"}`,
         border: `1px dashed ${isOver ? " rgba(255,255,255,0.4)" : "transparent"}`,
       }}
       onContextMenu={handleRightButtonClick}
@@ -158,5 +164,5 @@ const InventorySlotComponent = ({ item, inventory }) => {
   );
 };
 
-const InventorySlot = React.memo(React.forwardRef(InventorySlotComponent));
+const InventorySlot = React.memo(InventorySlotComponent);
 export default InventorySlot;
