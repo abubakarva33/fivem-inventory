@@ -8,10 +8,13 @@ import { Progress } from "antd";
 
 const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
-  const [isRightButtonClick, setIsRightButtonClick] = useState(false);
-  const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
   const state = useSelector((state) => state.inventory);
+  const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
+  const [isRightButtonClick, setIsRightButtonClick] = useState(false);
+  const [rightBtnInputValue, setRightBtnInputValue] = useState(1);
   const { type: inventoryType, maxWeight } = inventory;
+
+  console.log({ rightBtnInputValue });
 
   const handleRightButtonClick = (event) => {
     event.preventDefault();
@@ -160,6 +163,40 @@ const InventorySlotComponent = ({ item, inventory }) => {
           </div>
         </div>
       )}
+      <div onContextMenu={handleRightButtonClick}>
+        {isRightButtonClick && item?.name && inventoryType === "playerinventory" && (
+          <div className="flex flex-col absolute top-8 left-8 z-10 bg-slate-800 w-[150px]">
+            <div className="flex">
+              <button
+                className="border bg-slate-300 py-1 border-b-0 w-1/4"
+                style={{ cursor: "pointer" }}
+                onClick={() => setRightBtnInputValue(rightBtnInputValue + 1)}
+              >
+                +
+              </button>
+              <input
+                type="number"
+                className="w-1/2  bg-slate-800 text-center border-t outline-none"
+                style={{ color: "white" }}
+                defaultValue={rightBtnInputValue}
+                onChange={(e) => setRightBtnInputValue(Number(e.target.value))}
+              />
+              <button
+                className="border py-1 border-b-0 w-1/4"
+                onClick={() => setRightBtnInputValue(rightBtnInputValue - 1)}
+              >
+                -
+              </button>
+            </div>
+            <button className="border py-1 border-b-0" onChange={() => console.log("clicked")}>
+              Use
+            </button>
+            <button className="border py-1 border-b-0">Give</button>
+            <button className="border py-1 border-b-0">Drop</button>
+            <button className="border py-1">Copy Serial</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
