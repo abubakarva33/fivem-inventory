@@ -14,17 +14,22 @@ const InventorySlotComponent = ({ item, inventory }) => {
   const [rightBtnInputValue, setRightBtnInputValue] = useState(1);
   const { type: inventoryType, maxWeight } = inventory;
   const [showTooltip, setShowTooltip] = useState(false);
+  const [hoverTimer, setHoverTimer] = useState(null);
 
-  useEffect(() => {
-    let timer;
-    if (showTooltip) {
-      timer = setTimeout(() => {
-        setShowTooltip(true);
-      }, 1000); // 1 second delay
+  const handleMouseEnter = () => {
+    const timer = setTimeout(() => {
+      setShowTooltip(true);
+    }, 1000); // 1 second delay
+    setHoverTimer(timer);
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+    if (hoverTimer) {
+      clearTimeout(hoverTimer);
+      setHoverTimer(null);
     }
-    return () => clearTimeout(timer);
-  }, [showTooltip]);
-
+  };
   const handleRightButtonClick = (event) => {
     event.preventDefault();
     setIsRightButtonClick(!isRightButtonClick);
@@ -131,8 +136,8 @@ const InventorySlotComponent = ({ item, inventory }) => {
         border: `1px dashed ${isOver ? " rgba(255,255,255,0.4)" : "transparent"}`,
       }}
       onContextMenu={handleRightButtonClick}
-      onMouseEnter={() => setShowTooltip(true)}
-      onMouseLeave={() => setShowTooltip(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div
         ref={refs}
@@ -208,7 +213,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
         </div>
       )}
       {showTooltip && item?.name && !isRightButtonClick && (
-        <div className="flex flex-col absolute top-8 left-8 z-10 bg-slate-800 border w-[200px] p-2">
+        <div className="flex flex-col absolute top-8 left-8 z-50 bg-slate-800 border w-[200px] p-2">
           <h5> {item?.label}</h5>
           <div className="flex flex-col">
             <span> Amount: {item?.amount} </span>
