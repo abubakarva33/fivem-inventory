@@ -9,6 +9,7 @@ import {
   secondaryInvDummyData,
   smallBackpackDummyData,
   largeBackpackDummyData,
+  dropInvDummyData,
 } from "./dummyData";
 
 import { useEffect, useState } from "react";
@@ -19,6 +20,7 @@ function App() {
 
   const [primaryInv, setPrimaryInv] = useState(!window.invokeNative ? primaryInvDummyData : []);
   const [secondaryInv, setSecondaryInv] = useState(!window.invokeNative ? secondaryInvDummyData : []);
+  const [dropInv, setDropInv] = useState(!window.invokeNative ? dropInvDummyData : []);
   const [smallBackpack, setSmallBackpack] = useState(!window.invokeNative ? smallBackpackDummyData : []);
   const [largeBackpack, setLargeBackpack] = useState(!window.invokeNative ? largeBackpackDummyData : []);
 
@@ -29,6 +31,10 @@ function App() {
   useEffect(() => {
     dispatch(setupInventory({ type: secondaryInv.type, item: secondaryInv }));
   }, [secondaryInv]);
+
+  useEffect(() => {
+    dispatch(setupInventory({ type: dropInv.type, item: dropInv }));
+  }, [dropInv]);
 
   useEffect(() => {
     dispatch(setupInventory({ type: smallBackpack.type, item: smallBackpack }));
@@ -43,18 +49,26 @@ function App() {
       .then((retData) => {})
       .catch((e) => {});
     const EventListener = function (event) {
-      if (event.data.action == "show") {
+      if (event.data.action == "open") {
         showRoot();
+        setPrimaryInv(event.data.primaryInv);
+        setSecondaryInv(event.data.secondaryInv);
+        setSmallBackpack(event.data.smallBackpack);
+        setLargeBackpack(event.data.largeBackpack);
+        setDropInv(event.data.dropInv);
+
       } else if (event.data.action == "setLocaleConfig") {
         setLocale(event.data.locale);
       } else if (event.data.action == "setPrimaryInv") {
-        setPrimaryInv(event.data.inv);
+        setPrimaryInv(event.data.primaryInv);
       } else if (event.data.action == "setSecondaryInv") {
-        setSecondaryInv(event.data.inv);
+        setSecondaryInv(event.data.secondaryInv);
       } else if (event.data.action == "setSmallBackpack") {
-        setSmallBackpack(event.data.inv);
+        setSmallBackpack(event.data.smallBackpack);
       } else if (event.data.action == "setLargeBackpack") {
-        setLargeBackpack(event.data.inv);
+        setLargeBackpack(event.data.largeBackpack);
+      } else if (event.data.action == "setDropInv") {
+        setDropInv(event.data.dropInv);
       }
     };
     document.onkeyup = function (data) {
