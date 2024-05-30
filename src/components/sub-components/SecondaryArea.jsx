@@ -5,14 +5,16 @@ import { calculateTotalWeight, checkItemsPresence } from "../../utilities/utilis
 
 const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
+  const { glovebox } = useSelector((state) => state.inventory);
+
   const options = [
     {
       label: "Glove Box",
       value: "glovebox",
     },
     {
-      label: "Ground",
-      value: "ground",
+      label: "Drop",
+      value: "drop",
     },
   ];
   const onChange3 = ({ target: { value } }) => {

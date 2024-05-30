@@ -43,8 +43,8 @@
   grid-template-columns: repeat(6, 1fr);
 }
 .backpackSectionTop {
-  display: grid;
-  grid-template-columns: 1fr 1fr !important;
+  display: flex;
+  width: 100%;
   zoom: 80%;
   position: sticky;
   top: 0;
@@ -55,6 +55,7 @@
 .backpackSectionTop > div {
   padding: 5px;
   display: flex;
+  width: 100%;
 }
 .activeBackpack {
   height: 100px;

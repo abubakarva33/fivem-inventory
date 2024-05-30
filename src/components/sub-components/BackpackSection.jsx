@@ -13,7 +13,7 @@ const BackpackSection = ({ inventory, setBackpack }) => {
             className="me-1 rounded-lg border border-[#666]"
             onClick={() => setBackpack("largeBackpack")}
           >
-            <div className="flex bg-[#666] p-2 items-center rounded-lg">
+            <div className="flex bg-[#666] p-2 items-center rounded-lg w-full">
               <div className="activeBackpack "></div>
               <div className="w-full ms-2">
                 <div className="flex flex-col	border-b  mb-2 pb-2">
