@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { gramsToKilograms } from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
+import { fetchNui } from "../../utilities/fetchNui";
 
 const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
@@ -36,8 +37,15 @@ const InventorySlotComponent = ({ item, inventory }) => {
   };
 
   const UpdateDataToServer = (data) => {
-    console.log({ data });
-    // TODO: Send your data to server from here //
+    if (data.identifier) {
+      fetchNui("changeSlot", data)
+      .then((retData) => {})
+      .catch((e) => {});
+    }else{
+      fetchNui("transfer", data)
+      .then((retData) => {})
+      .catch((e) => {});
+    }
   };
 
   const [{ isDragging }, drag] = useDrag(() => {
