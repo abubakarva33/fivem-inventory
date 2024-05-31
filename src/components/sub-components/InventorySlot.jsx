@@ -129,7 +129,9 @@ const InventorySlotComponent = ({ item, inventory }) => {
           }
           // condition for weight based transfer //
           if (source.type !== inventoryType) {
-            return source.item.weight + state[inventoryType].weight <= maxWeight;
+            return (
+              source.item.weight * source.item.amount + state[inventoryType].weight <= maxWeight
+            );
           } else {
             return state[inventoryType].weight <= maxWeight;
           }

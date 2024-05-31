@@ -19,7 +19,7 @@ export const gramsToKilograms = (grams) => {
 export const calculateTotalWeight = (items) => {
   if (!Array.isArray(items)) return 0;
   return items.reduce((total, item) => {
-    const weight = Number(item.weight);
+    const weight = Number(item.weight) * item.amount;
     return total + (isNaN(weight) ? 0 : weight);
   }, 0);
 };

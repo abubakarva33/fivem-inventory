@@ -54,7 +54,7 @@ export let primaryInvDummyData = {
   identifier: "player1",
   type: "playerinventory",
   label: "Player Inventory",
-  maxWeight: 5000.0,
+  maxWeight: 10000.0,
   slots: 50,
   weight: 10000.0,
   items: [
@@ -187,7 +187,7 @@ export let largeBackpackDummyData = {
   identifier: "backpack-l:123456789",
   type: "largeBackpack",
   label: "Backpack Large",
-  maxWeight: 4000.0,
+  maxWeight: 10000.0,
   slots: 30,
   weight: 1300.0,
   items: [
@@ -238,7 +238,7 @@ export let secondaryInvDummyData = {
   identifier: "glovebox-123456",
   type: "glovebox",
   label: "Glovebox-123456",
-  maxWeight: 2000.0,
+  maxWeight: 10000.0,
   slots: 5,
   weight: 100.0,
   items: [
