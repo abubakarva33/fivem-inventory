@@ -45,12 +45,12 @@ const InventorySlotComponent = ({ item, inventory }) => {
   const UpdateDataToServer = (data) => {
     if (data.identifier) {
       fetchNui("changeSlot", data)
-      .then((retData) => {})
-      .catch((e) => {});
-    }else{
+        .then((retData) => {})
+        .catch((e) => {});
+    } else {
       fetchNui("transfer", data)
-      .then((retData) => {})
-      .catch((e) => {});
+        .then((retData) => {})
+        .catch((e) => {});
     }
   };
 
@@ -93,20 +93,20 @@ const InventorySlotComponent = ({ item, inventory }) => {
         const changeSlotData = {
           identifier: source.identifier,
           fromSlot: source.item.slot,
-          fromSlotData: source.item,
+          fromSlotData: {},
           toSlot: targetInventory.item.slot,
-          toSlotData: targetInventory.items,
+          toSlotData: { ...targetInventory.items, slot: targetInventory.item.slot },
         };
         const transferSlotData = {
           fromInv: {
             identifier: source.identifier,
             slot: source.item.slot,
-            slotData: source.item,
+            slotData: {},
           },
           toInv: {
             identifier: targetInventory.identifier,
             slot: targetInventory.item.slot,
-            slotData: targetInventory.items,
+            slotData: { ...targetInventory.items, slot: targetInventory.item.slot },
           },
         };
 

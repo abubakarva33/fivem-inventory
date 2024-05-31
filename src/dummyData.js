@@ -355,16 +355,7 @@ export let craftingInvDummyData = {
 let changeSlotDummy = {
   identifier: "player1",
   fromSlot: 1,
-  fromSlotData: {
-    name: "bread",
-    label: "Bread",
-    description: "This item will reduce your hunger",
-    weight: 500,
-    amount: 1,
-    quality: 100,
-    slot: 2,
-    info: {},
-  },
+  fromSlotData: {},
   toSlot: 1,
   toSlotData: {
     name: "bread",
