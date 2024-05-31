@@ -43,6 +43,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
   };
 
   const UpdateDataToServer = (data) => {
+    console.log(data);
     if (data.identifier) {
       fetchNui("changeSlot", data)
         .then((retData) => {})
@@ -85,37 +86,65 @@ const InventorySlotComponent = ({ item, inventory }) => {
           type: inventoryType,
           identifier,
           item,
-          items: main.item,
+          // items: main.item,
         };
         const source = { ...main, type: main.type };
-
-        // for passing data to server //
-        const changeSlotData = {
-          identifier: source.identifier,
-          fromSlot: source.item.slot,
-          fromSlotData: {},
-          toSlot: targetInventory.item.slot,
-          toSlotData: { ...targetInventory.items, slot: targetInventory.item.slot },
-        };
-        const transferSlotData = {
-          fromInv: {
-            identifier: source.identifier,
-            slot: source.item.slot,
-            slotData: {},
-          },
-          toInv: {
-            identifier: targetInventory.identifier,
-            slot: targetInventory.item.slot,
-            slotData: { ...targetInventory.items, slot: targetInventory.item.slot },
-          },
-        };
 
         // initially store and set data to redux(localhost)//
         dispatch(changeSlot({ source, targetInventory }));
         // conditionally pass data for server //
         if (source.type === targetInventory.type) {
+          // for passing data to server same inventory //
+          const changeSlotData = {
+            identifier: source.identifier,
+            fromSlot: source.item.slot,
+            fromSlotData:
+              targetInventory?.item?.name && targetInventory?.item?.name !== source?.item?.name
+                ? {
+                    ...targetInventory.item,
+                    slot: source.item.slot,
+                  }
+                : {},
+            toSlot: targetInventory.item.slot,
+            toSlotData: {
+              ...source.item,
+              slot: targetInventory.item.slot,
+              amount:
+                targetInventory?.item?.name === source?.item?.name
+                  ? Number(targetInventory.item.amount) + Number(source.item.amount)
+                  : source.item.amount,
+            },
+          };
+
           UpdateDataToServer(changeSlotData);
         } else {
+          // for passing data to server dif inventory //
+          const transferSlotData = {
+            fromInv: {
+              identifier: source.identifier,
+              slot: source.item.slot,
+              slotData:
+                targetInventory?.item?.name && targetInventory?.item?.name !== source?.item?.name
+                  ? {
+                      ...targetInventory.item,
+                      slot: source.item.slot,
+                    }
+                  : {},
+            },
+            toInv: {
+              identifier: targetInventory.identifier,
+              slot: targetInventory.item.slot,
+              slotData: {
+                ...source.item,
+                slot: targetInventory.item.slot,
+                amount:
+                  targetInventory?.item?.name === source?.item?.name
+                    ? Number(targetInventory.item.amount) + Number(source.item.amount)
+                    : source.item.amount,
+              },
+            },
+          };
+
           UpdateDataToServer(transferSlotData);
         }
       },
