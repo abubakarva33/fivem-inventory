@@ -12,7 +12,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
   const [isRightButtonClick, setIsRightButtonClick] = useState(false);
   const [rightBtnInputValue, setRightBtnInputValue] = useState(1);
-  const { type: inventoryType, maxWeight } = inventory;
+  const { type: inventoryType, maxWeight, identifier } = inventory;
   const [showTooltip, setShowTooltip] = useState(false);
   const [hoverTimer, setHoverTimer] = useState(null);
 
@@ -50,7 +50,8 @@ const InventorySlotComponent = ({ item, inventory }) => {
       },
       item: () => {
         return {
-          inventory: inventoryType,
+          type: inventoryType,
+          identifier,
           item,
           image: item?.name && `url(/images/${item?.name + ".png" || "none"})`,
         };
@@ -67,15 +68,16 @@ const InventorySlotComponent = ({ item, inventory }) => {
       }),
       drop: (main) => {
         const targetInventory = {
-          inventory: inventoryType,
+          type: inventoryType,
+          identifier,
           item,
           items: main.item,
         };
-        const source = { ...main, inventory: main.inventory };
+        const source = { ...main, type: main.type };
 
         // for passing data to server //
         const changeSlotData = {
-          identifier: source.inventory,
+          identifier: source.identifier,
           fromSlot: source.item.slot,
           fromSlotData: source.item,
           toSlot: targetInventory.item.slot,
@@ -83,12 +85,12 @@ const InventorySlotComponent = ({ item, inventory }) => {
         };
         const transferSlotData = {
           fromInv: {
-            identifier: source.inventory,
+            identifier: source.identifier,
             slot: source.item.slot,
             slotData: source.item,
           },
           toInv: {
-            identifier: targetInventory.inventory,
+            identifier: targetInventory.identifier,
             slot: targetInventory.item.slot,
             slotData: targetInventory.items,
           },
@@ -97,14 +99,14 @@ const InventorySlotComponent = ({ item, inventory }) => {
         // initially store and set data to redux(localhost)//
         dispatch(changeSlot({ source, targetInventory }));
         // conditionally pass data for server //
-        if (source.inventory === targetInventory.inventory) {
+        if (source.type === targetInventory.type) {
           UpdateDataToServer(changeSlotData);
         } else {
           UpdateDataToServer(transferSlotData);
         }
       },
       canDrop: (source) => {
-        if (source.item.slot !== item.slot || source.inventory !== inventoryType) {
+        if (source.item.slot !== item.slot || source.type !== inventoryType) {
           // condition for backpack transfer in backpack inventory //
           if (inventoryType === "smallBackpack" || inventoryType === "largeBackpack") {
             if (source.item.name === "backpack-l" || source.item.name === "backpack-s") {
@@ -112,7 +114,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
             }
           }
           // condition for weight based transfer //
-          if (source.inventory !== inventoryType) {
+          if (source.type !== inventoryType) {
             return source.item.weight + state[inventoryType].weight <= maxWeight;
           } else {
             return state[inventoryType].weight <= maxWeight;
