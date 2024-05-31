@@ -86,7 +86,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
           type: inventoryType,
           identifier,
           item,
-          // items: main.item,
         };
         const source = { ...main, type: main.type };
 
