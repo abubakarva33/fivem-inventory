@@ -1,3 +1,6 @@
+#root {
+  background: url(./images/gamebg.png)
+}
 
 ::-webkit-scrollbar {
   width: 0;
