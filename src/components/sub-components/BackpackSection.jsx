@@ -8,7 +8,7 @@ const BackpackSection = ({ inventory, setBackpack }) => {
   return (
     <div className="backpackSection  border border-[#666] rounded-xl">
       <div className="backpackSectionTop bg-[#2e2e2e] mb-3">
-        {checkItemsPresence(largeBackpack?.items) && (
+        {largeBackpack?.identifier && (
           <div
             className="me-1 rounded-lg border border-[#666]"
             onClick={() => setBackpack("largeBackpack")}
@@ -32,7 +32,7 @@ const BackpackSection = ({ inventory, setBackpack }) => {
           </div>
         )}
 
-        {checkItemsPresence(smallBackpack?.items) && (
+        {smallBackpack?.identifier && (
           <div
             className="ms-1 rounded-lg border border-[#666]"
             onClick={() => setBackpack("smallBackpack")}

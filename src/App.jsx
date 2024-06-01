@@ -27,9 +27,7 @@ function App() {
   const [smallBackpack, setSmallBackpack] = useState(
     !window.invokeNative ? smallBackpackDummyData : null
   );
-  const [largeBackpack, setLargeBackpack] = useState(
-    !window.invokeNative ? largeBackpackDummyData : null
-  );
+  const [largeBackpack, setLargeBackpack] = useState(null);
 
   useEffect(() => {
     dispatch(setupInventory({ type: primaryInv?.type, item: primaryInv }));

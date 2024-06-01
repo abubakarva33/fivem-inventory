@@ -2,6 +2,7 @@ export let dummyItems = {
   water: {
     name: "water",
     label: "Water",
+    type: "item",
     description: "This item will reduce your thirst",
     weight: 800,
     shouldClose: true,
@@ -9,6 +10,7 @@ export let dummyItems = {
   bread: {
     name: "bread",
     label: "Bread",
+    type: "item",
     description: "This item will reduce your hunger",
     weight: 500,
     shouldClose: true,
@@ -16,6 +18,7 @@ export let dummyItems = {
   weapon_pistol: {
     name: "weapon_pistol",
     label: "Pistol",
+    type: "weapon",
     description: "This is a pistol",
     weight: 2500,
     shouldClose: true,
@@ -23,6 +26,7 @@ export let dummyItems = {
   "backpack-s": {
     name: "backpack-s",
     label: "Backpack Small",
+    type: "backpack",
     description: "You can carry more items",
     weight: 250,
     shouldClose: true,
@@ -30,6 +34,7 @@ export let dummyItems = {
   "backpack-l": {
     name: "backpack-l",
     label: "Backpack Large",
+    type: "backpack",
     description: "You can carry more items",
     weight: 250,
     shouldClose: true,
@@ -37,6 +42,7 @@ export let dummyItems = {
   at_suppressor_heavy: {
     name: "at_suppressor_heavy",
     label: "Suppressor Heavy",
+    type: "item",
     description: "Heavy weapon suppressor",
     weight: 250,
     shouldClose: true,
@@ -44,6 +50,7 @@ export let dummyItems = {
   at_grip: {
     name: "at_grip",
     label: "Heavy Grip",
+    type: "item",
     description: "Heavy weapon grip",
     weight: 250,
     shouldClose: true,
@@ -61,6 +68,7 @@ export let primaryInvDummyData = {
     {
       name: "water",
       label: "Water",
+      type: "item",
       description: "This item will reduce your thirst",
       weight: 800,
       amount: 1,
@@ -71,6 +79,7 @@ export let primaryInvDummyData = {
     {
       name: "bread",
       label: "Bread",
+      type: "item",
       description: "This item will reduce your hunger",
       weight: 500,
       amount: 5,
@@ -81,6 +90,7 @@ export let primaryInvDummyData = {
     {
       name: "bread",
       label: "Bread",
+      type: "item",
       description: "This item will reduce your hunger",
       weight: 500,
       amount: 5,
@@ -91,6 +101,7 @@ export let primaryInvDummyData = {
     {
       name: "weapon_pistol",
       label: "Pistol",
+      type: "weapon",
       description: "This is a pistol",
       weight: 2500,
       amount: 1,
@@ -105,6 +116,7 @@ export let primaryInvDummyData = {
           at_grip: {
             name: "at_grip",
             label: "Heavy Grip",
+            type: "item",
             description: "Heavy weapon grip",
             quality: 100,
             weight: 250,
@@ -115,6 +127,7 @@ export let primaryInvDummyData = {
           at_suppressor_heavy: {
             name: "at_suppressor_heavy",
             label: "Suppressor Heavy",
+            type: "item",
             description: "Heavy weapon suppressor",
             quality: 100,
             weight: 250,
@@ -128,6 +141,7 @@ export let primaryInvDummyData = {
     {
       name: "backpack-s",
       label: "Backpack Small",
+      type: "backpack",
       description: "You can carry more items",
       weight: 250,
       amount: 1,
@@ -140,6 +154,7 @@ export let primaryInvDummyData = {
     {
       name: "backpack-l",
       label: "Backpack Large",
+      type: "backpack",
       description: "You can carry more items",
       weight: 250,
       amount: 1,
@@ -163,6 +178,7 @@ export let smallBackpackDummyData = {
     {
       name: "water",
       label: "Water",
+      type: "item",
       description: "This item will reduce your thirst",
       weight: 800,
       amount: 1,
@@ -173,6 +189,7 @@ export let smallBackpackDummyData = {
     {
       name: "bread",
       label: "Bread",
+      type: "item",
       weight: 500,
       description: "This item will reduce your hunger",
       amount: 5,
@@ -194,6 +211,7 @@ export let largeBackpackDummyData = {
     {
       name: "water",
       label: "Water",
+      type: "item",
       description: "This item will reduce your thirst",
       weight: 800,
       amount: 1,
@@ -204,6 +222,7 @@ export let largeBackpackDummyData = {
     {
       name: "bread",
       label: "Bread",
+      type: "item",
       weight: 500,
       description: "This item will reduce your hunger",
       amount: 5,
@@ -214,6 +233,7 @@ export let largeBackpackDummyData = {
     {
       name: "bread",
       label: "Bread",
+      type: "item",
       weight: 500,
       description: "This item will reduce your hunger",
       amount: 5,
@@ -224,6 +244,7 @@ export let largeBackpackDummyData = {
     {
       name: "bread",
       label: "Bread",
+      type: "item",
       weight: 500,
       description: "This item will reduce your hunger",
       amount: 5,
@@ -245,6 +266,7 @@ export let secondaryInvDummyData = {
     {
       name: "water",
       label: "Water",
+      type: "item",
       description: "This item will reduce your thirst",
       weight: 800,
       amount: 1,
@@ -266,6 +288,7 @@ export let dropInvDummyData = {
     {
       name: "water",
       label: "Water",
+      type: "item",
       description: "This item will reduce your thirst",
       weight: 800,
       amount: 1,
@@ -287,6 +310,7 @@ export let shopInvDummyData = {
     {
       name: "water",
       label: "Water",
+      type: "item",
       description: "This item will reduce your thirst",
       weight: 800,
       amount: 25,
@@ -299,6 +323,7 @@ export let shopInvDummyData = {
     {
       name: "bread",
       label: "Bread",
+      type: "item",
       description: "This item will reduce your hunger",
       weight: 500,
       amount: 25,
@@ -322,6 +347,7 @@ export let craftingInvDummyData = {
     {
       name: "water",
       label: "Water",
+      type: "item",
       description: "This item will reduce your thirst",
       weight: 800,
       amount: 5,
@@ -337,6 +363,7 @@ export let craftingInvDummyData = {
     {
       name: "bread",
       label: "Bread",
+      type: "item",
       description: "This item will reduce your hunger",
       weight: 500,
       amount: 5,
@@ -360,6 +387,7 @@ let changeSlotDummy = {
   toSlotData: {
     name: "bread",
     label: "Bread",
+    type: "item",
     description: "This item will reduce your hunger",
     weight: 500,
     amount: 3,
@@ -381,6 +409,7 @@ let transferDummy = {
     slotData: {
       name: "bread",
       label: "Bread",
+      type: "item",
       description: "This item will reduce your hunger",
       weight: 500,
       amount: 3,

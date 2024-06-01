@@ -8,7 +8,7 @@ const MainAreaSection = ({ inventory }) => {
   const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
   return (
     <div className="mainArea">
-      <div className="mainAreaTop bg-[#2e2e2e] border-b " style={{ borderColor: slotBorder }}>
+      <div className="mainAreaTop border-b " style={{ borderColor: slotBorder }}>
         <div className="mb-3">
           <div className="flex items-center	w-[36%]">
             <div

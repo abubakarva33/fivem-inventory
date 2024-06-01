@@ -4,7 +4,7 @@ import SecondaryArea from "../sub-components/SecondaryArea";
 import BackpackSection from "../sub-components/BackpackSection";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { checkItemsPresence, findSomethingInItems, secondaryTypes } from "../../utilities/utilis";
+import { checkItemsPresence, findTypeInItems, secondaryTypes } from "../../utilities/utilis";
 import { closeContextMenu } from "../../redux/contextSlice";
 
 const Inventory = () => {
@@ -32,8 +32,8 @@ const Inventory = () => {
     <div className="mainSection relative">
       <div className="inventory">
         {/* condition for backpack, check backpack is present or not in primary inventory */}
-        {checkItemsPresence(state[backpack]?.items) &&
-          findSomethingInItems(state?.playerinventory?.items, "backpack") && (
+        {state[backpack]?.identifier &&
+          findTypeInItems(state?.playerinventory?.items, "backpack") && (
             <BackpackSection inventory={state[backpack]} setBackpack={setBackpack} />
           )}
         <MainAreaSection inventory={state.playerinventory} />
