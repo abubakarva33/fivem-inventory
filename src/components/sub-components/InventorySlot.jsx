@@ -202,7 +202,11 @@ const InventorySlotComponent = ({ item, inventory }) => {
               {item?.amount && <span className="">{item?.amount}x</span>}
               {item?.weight && <span className="">{gramsToKilograms(item?.weight)}kg</span>}
             </div>
-            <img src={`./images/${item?.name}.png`} alt="" className="img-fluid slotImg mb-[12px]" />
+            <img
+              src={`./images/${item?.name}.png`}
+              alt=""
+              className="img-fluid slotImg mb-[12px]"
+            />
             {item?.quality && (
               <div className="slotQuality w-full mt-[-24px]">
                 <Progress

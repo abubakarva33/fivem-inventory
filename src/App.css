@@ -1,5 +1,6 @@
 #root {
-  background: url(./images/gamebg.png)
+  background: url(./images/gamebg.png);
+  background-size: cover;
 }
 
 ::-webkit-scrollbar {
@@ -14,4 +15,3 @@
   background: rgba(255, 255, 255, 0.12);
   border-radius: 10px;
 }
-

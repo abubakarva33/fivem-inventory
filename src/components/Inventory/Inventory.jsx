@@ -10,16 +10,22 @@ import { closeContextMenu } from "../../redux/contextSlice";
 const Inventory = () => {
   const dispatch = useDispatch();
   const { item, coords } = useSelector((state) => state.context);
+  const state = useSelector((state) => state.inventory);
   const [backpack, setBackpack] = useState("largeBackpack");
   const [secondary, setSecondary] = useState(secondaryTypes.glovebox);
-  const state = useSelector((state) => state.inventory);
+
+  useEffect(() => {
+    const newBackpack = state?.largeBackpack
+      ? "largeBackpack"
+      : state?.smallBackpack && "smallBackpack";
+    setBackpack(newBackpack);
+  }, [state.largeBackpack, state.smallBackpack]);
 
   useEffect(() => {
     const keyHandler = (e) => {
       if (!e.target.closest(".no-close")) {
         dispatch(closeContextMenu());
       }
-      // dispatch(closeContextMenu());
     };
 
     window.addEventListener("click", keyHandler);
@@ -33,7 +39,8 @@ const Inventory = () => {
       <div className="inventory">
         {/* condition for backpack, check backpack is present or not in primary inventory */}
         {state[backpack]?.identifier &&
-          findTypeInItems(state?.playerinventory?.items, "backpack") && (
+          findTypeInItems(state?.playerinventory?.items, "backpack") &&
+          checkItemsPresence(state[backpack]?.items) && (
             <BackpackSection inventory={state[backpack]} setBackpack={setBackpack} />
           )}
         <MainAreaSection inventory={state.playerinventory} />

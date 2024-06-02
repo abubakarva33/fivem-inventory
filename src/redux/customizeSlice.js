@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  slotBg: "#555",
+  slotBg: "rgb(144 140 140 / 50%)",
   slotBorder: "#908c8c",
 };
 
