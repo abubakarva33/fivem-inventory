@@ -16,12 +16,12 @@ import { useEffect, useState } from "react";
 import DragPreview from "./components/sub-components/DragPreview";
 
 function App() {
-  if (!window.invokeNative){
-    let root = document.getElementById('root')
+  if (!window.invokeNative) {
+    let root = document.getElementById("root");
     root.style.backgroundImage = "url('./images/gamebg.png')";
     root.style.backgroundSize = "cover";
   }
-  
+
   const dispatch = useDispatch();
 
   const [primaryInv, setPrimaryInv] = useState(!window.invokeNative ? primaryInvDummyData : null);
@@ -32,7 +32,7 @@ function App() {
   const [smallBackpack, setSmallBackpack] = useState(
     !window.invokeNative ? smallBackpackDummyData : null
   );
-  const [largeBackpack, setLargeBackpack] = useState(null);
+  const [largeBackpack, setLargeBackpack] = useState(largeBackpackDummyData);
 
   useEffect(() => {
     dispatch(setupInventory({ type: primaryInv?.type, item: primaryInv }));

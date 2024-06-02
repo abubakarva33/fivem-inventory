@@ -8,8 +8,15 @@ import { customizeSlot } from "../../redux/customizeSlice";
 
 const MainAreaSection = ({ inventory }) => {
   const dispatch = useDispatch();
-  const { boxBg, boxBorderColor, boxBorderRound, slotBg, slotBorderColor, slotBorderRound } =
-    useSelector((state) => state.customizeSec);
+  const {
+    boxBg,
+    boxBorderColor,
+    boxBorderRound,
+    slotBg,
+    slotBorderColor,
+    textColor,
+    slotBorderRound,
+  } = useSelector((state) => state.customizeSec);
   const [color, setColor] = useState(slotBg);
 
   useEffect(() => {
@@ -28,7 +35,10 @@ const MainAreaSection = ({ inventory }) => {
         borderRadius: boxBorderRound,
       }}
     >
-      <div className="mainAreaTop pt-2">
+      <div
+        className="mainAreaTop pt-1 border-b pb-1"
+        style={{ borderBottom: `4px solid ${slotBg}`, color: textColor }}
+      >
         <div className="mb-3 pt-2">
           <div className="flex items-center	w-[36%]">
             <div
@@ -112,16 +122,18 @@ const MainAreaSection = ({ inventory }) => {
         </div>
       </div>
 
-      <div className="mainAreaSlot section">
-        {Array.isArray(inventory?.items) &&
-          inventory?.items?.map((item) => (
-            <InventorySlot
-              key={`${inventory.type}-${inventory.id}-${item.slot}`}
-              item={item}
-              inventory={inventory}
-              totalWeight={calculateTotalWeight(inventory?.items)}
-            />
-          ))}
+      <div style={{ height: "calc(100% - 145px)", overflowY: "auto" }}>
+        <div className="mainAreaSlot section">
+          {Array.isArray(inventory?.items) &&
+            inventory?.items?.map((item) => (
+              <InventorySlot
+                key={`${inventory.type}-${inventory.id}-${item.slot}`}
+                item={item}
+                inventory={inventory}
+                totalWeight={calculateTotalWeight(inventory?.items)}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );
