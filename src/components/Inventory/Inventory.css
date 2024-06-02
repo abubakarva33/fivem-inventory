@@ -28,7 +28,7 @@
   height: 100%;
 }
 .mainArea {
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto;
   height: 100%;
   width: 45%;

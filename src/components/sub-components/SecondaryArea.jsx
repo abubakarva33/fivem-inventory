@@ -4,8 +4,16 @@ import InventorySlot from "./InventorySlot";
 import { calculateTotalWeight, checkItemsPresence } from "../../utilities/utilis";
 
 const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
-  const { boxBg, boxBorderColor, boxBorderRound, slotBg, slotBorderColor, slotBorderRound } =
-    useSelector((state) => state.customizeSec);
+  const {
+    boxBg,
+    boxBorderColor,
+    boxBorderRound,
+    slotBg,
+    slotBorderColor,
+    slotBorderRound,
+    textColor,
+    btnColor,
+  } = useSelector((state) => state.customizeSec);
   const { glovebox } = useSelector((state) => state.inventory);
 
   const options = [
@@ -30,13 +38,14 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
         borderRadius: boxBorderRound,
       }}
     >
-      <div className="secondaryAreaTop px-3">
+      <div className="secondaryAreaTop px-3 pt-4">
         <Progress
           percent={inventory?.weightPercent}
           showInfo={false}
           size={["100%", 35]}
-          strokeColor={slotBorderColor}
-          trailColor="#555"
+          strokeColor="green" //!  change  with condition //
+          trailColor={boxBg}
+          style={{ border: `2px solid ${slotBorderColor}`, borderRadius: 50 }}
         />
         <ConfigProvider
           theme={{
@@ -45,9 +54,9 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
                 buttonBg: slotBg,
                 buttonColor: "white",
                 buttonSolidCheckedColor: "white",
-                buttonSolidCheckedBg: slotBorderColor,
-                buttonSolidCheckedActiveBg: slotBorderColor,
-                buttonSolidCheckedHoverBg: slotBorderColor,
+                buttonSolidCheckedBg: btnColor,
+                buttonSolidCheckedActiveBg: btnColor,
+                buttonSolidCheckedHoverBg: btnColor,
               },
             },
           }}

@@ -28,18 +28,18 @@ const MainAreaSection = ({ inventory }) => {
         borderRadius: boxBorderRound,
       }}
     >
-      <div className="mainAreaTop border-b " style={{ borderColor: slotBorderColor }}>
-        <div className="mb-3">
+      <div className="mainAreaTop pt-2">
+        <div className="mb-3 pt-2">
           <div className="flex items-center	w-[36%]">
             <div
               className="border rounded-full p-2 text-xl me-2"
-              style={{ backgroundColor: slotBg, borderColor: slotBorderColor }}
+              style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes />
             </div>
             <p
               className="border px-5 py-1  text-lg rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBorderColor }}
+              style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               Menan AK47
             </p>
@@ -48,12 +48,13 @@ const MainAreaSection = ({ inventory }) => {
             percent={Number(inventory?.weightPercent)}
             showInfo={false}
             size={["100%", 35]}
-            strokeColor={slotBorderColor}
-            trailColor="#555"
+            strokeColor="green" //!  change  with condition //
+            trailColor={boxBg}
+            style={{ border: `2px solid ${slotBorderColor}`, borderRadius: 50 }}
           />
           <div
             className="border rounded-full  p-2 text-xl"
-            style={{ backgroundColor: slotBg, borderColor: slotBorderColor }}
+            style={{ backgroundColor: slotBg, borderColor: slotBg }}
           >
             <ColorPicker value={color} onChange={setColor} placement="top">
               <BsBoxes />
@@ -64,28 +65,28 @@ const MainAreaSection = ({ inventory }) => {
           <div className="flex items-center">
             <div
               className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBorderColor }}
+              style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
               <span>95%</span>
             </div>
             <div
               className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBorderColor }}
+              style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
               <span>95%</span>
             </div>
             <div
               className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBorderColor }}
+              style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
               <span>95%</span>
             </div>
             <div
               className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBorderColor }}
+              style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
               <span>95%</span>
@@ -95,14 +96,14 @@ const MainAreaSection = ({ inventory }) => {
           <div className="flex items-center">
             <div
               className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBorderColor }}
+              style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
               <span>9565465</span>
             </div>
             <div
               className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBorderColor }}
+              style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
               <span>95655</span>

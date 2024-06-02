@@ -21,3 +21,7 @@
 .ant-color-picker-color-block {
   display: none !important;
 }
+
+.ant-progress .ant-progress-bg {
+  border-right: 2px solid;
+}
