@@ -1,13 +1,12 @@
-import { ColorPicker, Progress } from "antd";
+import { Progress } from "antd";
 import { BsBoxes } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 import { calculateTotalWeight } from "../../utilities/utilis";
-import { useEffect, useState } from "react";
-import { customizeSlot } from "../../redux/customizeSlice";
+import { useState } from "react";
+import CustomizeModal from "./CustomizeModal";
 
 const MainAreaSection = ({ inventory }) => {
-  const dispatch = useDispatch();
   const {
     boxBg,
     boxBorderColor,
@@ -17,14 +16,10 @@ const MainAreaSection = ({ inventory }) => {
     textColor,
     slotBorderRound,
   } = useSelector((state) => state.customizeSec);
-  const [color, setColor] = useState(slotBg);
-
-  useEffect(() => {
-    if (color?.metaColor) {
-      const { r, g, b } = color?.metaColor || null;
-      dispatch(customizeSlot(`rgba(${r.toFixed(0)},${g.toFixed(0)},${b.toFixed(0)},0.50)`));
-    }
-  }, [color]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <div
@@ -66,9 +61,7 @@ const MainAreaSection = ({ inventory }) => {
             className="border rounded-full  p-2 text-xl"
             style={{ backgroundColor: slotBg, borderColor: slotBg }}
           >
-            <ColorPicker value={color} onChange={setColor} placement="top">
-              <BsBoxes />
-            </ColorPicker>
+            <BsBoxes onClick={showModal} />
           </div>
         </div>
         <div className="flex items-center text-xl justify-between mb-2">
@@ -135,6 +128,7 @@ const MainAreaSection = ({ inventory }) => {
             ))}
         </div>
       </div>
+      <CustomizeModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );
 };
