@@ -7,6 +7,8 @@ const initialState = {
   slotBg: "rgb(0 0 0 / 50%)",
   slotBorderColor: "rgb(0, 0, 0)",
   slotBorderRound: 10,
+  textColor: "rgb(204, 204, 204)",
+  btnColor: "rgb(0 0 0 / 70%)",
 };
 
 export const customizeSlice = createSlice({

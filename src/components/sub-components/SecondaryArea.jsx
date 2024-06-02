@@ -30,7 +30,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
         borderRadius: boxBorderRound,
       }}
     >
-      <div className="secondaryAreaTop">
+      <div className="secondaryAreaTop px-3">
         <Progress
           percent={inventory?.weightPercent}
           showInfo={false}
@@ -64,7 +64,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
           />
         </ConfigProvider>
       </div>
-      <div className="border py-2 rounded-[20px] px-3" style={{ borderColor: slotBorderColor }}>
+      <div className="py-2  px-3">
         <div className="section">
           {checkItemsPresence(inventory?.items) &&
             inventory?.items?.map((item) => (
