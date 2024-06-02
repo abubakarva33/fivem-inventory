@@ -4,7 +4,8 @@ import InventorySlot from "./InventorySlot";
 import { calculateTotalWeight, checkItemsPresence } from "../../utilities/utilis";
 
 const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
-  const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
+  const { boxBg, boxBorderColor, boxBorderRound, slotBg, slotBorderColor, slotBorderRound } =
+    useSelector((state) => state.customizeSec);
   const { glovebox } = useSelector((state) => state.inventory);
 
   const options = [
@@ -21,13 +22,20 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
     setSecondary(value);
   };
   return (
-    <div className="secondaryArea ">
+    <div
+      className="secondaryArea"
+      style={{
+        backgroundColor: boxBg,
+        border: `1px solid ${boxBorderColor}`,
+        borderRadius: boxBorderRound,
+      }}
+    >
       <div className="secondaryAreaTop">
         <Progress
           percent={inventory?.weightPercent}
           showInfo={false}
           size={["100%", 35]}
-          strokeColor={slotBorder}
+          strokeColor={slotBorderColor}
           trailColor="#555"
         />
         <ConfigProvider
@@ -37,9 +45,9 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
                 buttonBg: slotBg,
                 buttonColor: "white",
                 buttonSolidCheckedColor: "white",
-                buttonSolidCheckedBg: slotBorder,
-                buttonSolidCheckedActiveBg: slotBorder,
-                buttonSolidCheckedHoverBg: slotBorder,
+                buttonSolidCheckedBg: slotBorderColor,
+                buttonSolidCheckedActiveBg: slotBorderColor,
+                buttonSolidCheckedHoverBg: slotBorderColor,
               },
             },
           }}
@@ -56,7 +64,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
           />
         </ConfigProvider>
       </div>
-      <div className="border py-2 rounded-[20px] px-3" style={{ borderColor: slotBorder }}>
+      <div className="border py-2 rounded-[20px] px-3" style={{ borderColor: slotBorderColor }}>
         <div className="section">
           {checkItemsPresence(inventory?.items) &&
             inventory?.items?.map((item) => (

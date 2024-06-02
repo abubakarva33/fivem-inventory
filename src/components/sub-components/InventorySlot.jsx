@@ -12,7 +12,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
 
-  const { slotBg, slotBorder } = useSelector((state) => state.customizeSec);
+  const { slotBg, slotBorderColor } = useSelector((state) => state.customizeSec);
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
   const [rightBtnInputValue, setRightBtnInputValue] = useState(1);
   const { type: inventoryType, maxWeight, identifier } = inventory;
@@ -221,7 +221,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
             {item?.label && (
               <div
                 className="slotItemLabel border mt-[-6px]  w-full text-center"
-                style={{ borderColor: slotBorder }}
+                style={{ borderColor: slotBorderColor }}
               >
                 <span>{item?.label}</span>
               </div>

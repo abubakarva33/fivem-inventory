@@ -3,10 +3,19 @@ import { checkItemsPresence, gramsToKilograms } from "../../utilities/utilis";
 import InventorySlot from "./InventorySlot";
 
 const BackpackSection = ({ inventory, setBackpack }) => {
+  const { boxBg, boxBorderColor, boxBorderRound, slotBg, slotBorderColor, slotBorderRound } =
+    useSelector((state) => state.customizeSec);
   const { largeBackpack, smallBackpack } = useSelector((state) => state.inventory);
 
   return (
-    <div className="backpackSection  border border-[#666] rounded-xl">
+    <div
+      className="backpackSection  border border-[#666] rounded-xl"
+      style={{
+        backgroundColor: boxBg,
+        border: `1px solid ${boxBorderColor}`,
+        borderRadius: boxBorderRound,
+      }}
+    >
       <div className="backpackSectionTop bg-[#2e2e2e] mb-3">
         {largeBackpack?.identifier && (
           <div
