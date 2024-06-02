@@ -15,11 +15,9 @@ const MainAreaSection = ({ inventory }) => {
   useEffect(() => {
     if (color?.metaColor) {
       const { r, g, b } = color?.metaColor || null;
-      dispatch(customizeSlot(`rgba(${r.toFixed(0)},${g.toFixed(0)},${b.toFixed(0)},0.4)`));
+      dispatch(customizeSlot(`rgba(${r.toFixed(0)},${g.toFixed(0)},${b.toFixed(0)},0.50)`));
     }
   }, [color]);
-
-  console.log(color);
 
   return (
     <div

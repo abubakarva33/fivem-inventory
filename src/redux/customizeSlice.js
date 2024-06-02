@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  boxBg: "rgb(144 140 140 / 50%)",
-  boxBorderColor: "#f54e",
+  boxBg: "rgb(0 0 0 / 25%)",
+  boxBorderColor: "rgb(0, 0, 0)",
   boxBorderRound: 10,
-  slotBg: "rgb(144 140 140 / 50%)",
-  slotBorderColor: "#908c8c",
+  slotBg: "rgb(0 0 0 / 50%)",
+  slotBorderColor: "rgb(0, 0, 0)",
   slotBorderRound: 10,
 };
 
