@@ -16,6 +16,12 @@ import { useEffect, useState } from "react";
 import DragPreview from "./components/sub-components/DragPreview";
 
 function App() {
+  if (!window.invokeNative){
+    let root = document.getElementById('root')
+    root.style.backgroundImage = "url('./images/gamebg.png')";
+    root.style.backgroundSize = "cover";
+  }
+  
   const dispatch = useDispatch();
 
   const [primaryInv, setPrimaryInv] = useState(!window.invokeNative ? primaryInvDummyData : null);
