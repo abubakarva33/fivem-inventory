@@ -38,7 +38,10 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
         borderRadius: boxBorderRound,
       }}
     >
-      <div className="secondaryAreaTop px-3 pt-4">
+      <div
+        className="secondaryAreaTop mx-3 pt-3 border-b pb-1"
+        style={{ borderBottom: `4px solid ${slotBg}` }}
+      >
         <Progress
           percent={inventory?.weightPercent}
           showInfo={false}
@@ -62,7 +65,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
           }}
         >
           <Radio.Group
-            className="w-full my-2 mt-4"
+            className="w-full my-2 mt-3"
             size="large"
             options={options}
             onChange={onChange3}
@@ -73,8 +76,9 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
           />
         </ConfigProvider>
       </div>
-      <div className="py-2  px-3">
-        <div className="section">
+
+      <div style={{ height: "calc(100% - 135px)", overflowY: "auto" }}>
+        <div className="section px-3 mt-2">
           {checkItemsPresence(inventory?.items) &&
             inventory?.items?.map((item) => (
               <InventorySlot
