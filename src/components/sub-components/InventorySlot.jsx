@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,7 +43,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
   };
 
   const UpdateDataToServer = (data) => {
-    console.log(data);
     if (data.identifier) {
       fetchNui("changeSlot", data)
         .then((retData) => {})

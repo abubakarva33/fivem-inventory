@@ -4,32 +4,15 @@ import SecondaryArea from "../sub-components/SecondaryArea";
 import BackpackSection from "../sub-components/BackpackSection";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { checkItemsPresence, findTypeInItems, secondaryTypes } from "../../utilities/utilis";
+import { checkItemsPresence, secondaryTypes } from "../../utilities/utilis";
 import { closeContextMenu } from "../../redux/contextSlice";
 
 const Inventory = () => {
   const dispatch = useDispatch();
   const { item, coords } = useSelector((state) => state.context);
   const state = useSelector((state) => state.inventory);
-  const [backpack, setBackpack] = useState("largeBackpack");
   const [secondary, setSecondary] = useState(secondaryTypes.glovebox);
   const [openBackpacks, setOpenBackpacks] = useState([]);
-
-  console.log({ backpack });
-
-  useEffect(() => {
-    const largeBackpack = openBackpacks.find((item) => item.name === "backpack-l");
-    const smallBackpack = openBackpacks.find((item) => item.name === "backpack-s");
-    const newBackpack = largeBackpack ? "largeBackpack" : smallBackpack ? "smallBackpack" : null;
-    setBackpack(newBackpack);
-  }, [openBackpacks]);
-
-  // const getBackpackData = () => {
-  //   const largeBackpack = openBackpacks.find((item) => item.name === "backpack-l");
-  //   const smallBackpack = openBackpacks.find((item) => item.name === "backpack-s");
-  //   const newBackpack = largeBackpack ? "largeBackpack" : smallBackpack ? "smallBackpack" : null;
-  //   return setBackpack(newBackpack);
-  // };
 
   useEffect(() => {
     const keyHandler = (e) => {
@@ -65,10 +48,7 @@ const Inventory = () => {
   return (
     <div className="mainSection relative">
       <div className="inventory">
-        {openBackpacks?.length && (
-          <BackpackSection inventory={state[backpack]} setBackpack={setBackpack} />
-          // <BackpackSection inventory={getBackpackData()} setBackpack={setBackpack} />
-        )}
+        {openBackpacks?.length && <BackpackSection openBackpacks={openBackpacks} />}
 
         <MainAreaSection inventory={state.playerinventory} />
 
