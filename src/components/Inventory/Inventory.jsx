@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { checkItemsPresence, secondaryTypes } from "../../utilities/utilis";
 import { closeContextMenu } from "../../redux/contextSlice";
+import { fetchNui } from "../../utilities/fetchNui";
 
 const Inventory = () => {
   const dispatch = useDispatch();
@@ -33,16 +34,18 @@ const Inventory = () => {
       const isOpen = prevOpenBackpacks.some((backpack) => backpack.info?.identifier === identifier);
       if (isOpen) {
         // Remove the item if it's already in the array //
+        fetchNui("closeBackpack", backpackData.info)
+        .then((retData) => {})
+        .catch((e) => {});
         return prevOpenBackpacks.filter((backpack) => backpack.info?.identifier !== identifier);
       } else {
         // Add the item to the array //
+        fetchNui("openBackpack", backpackData.info)
+        .then((retData) => {})
+        .catch((e) => {});
         return [...prevOpenBackpacks, backpackData];
       }
     });
-
-    //!  send below data to server //
-    const data = backpackData?.info;
-    console.log(data);
   };
 
   return (
