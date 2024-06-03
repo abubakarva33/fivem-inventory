@@ -2,6 +2,7 @@ import { ColorPicker, Slider } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { customizeSlot } from "../../redux/customizeSlice";
+import { ChromePicker, PhotoshopPicker, SketchPicker } from "react-color";
 
 const CustomizeInventory = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,12 @@ const CustomizeInventory = () => {
     }));
   };
 
+  const [colorDummy, setColorDummy] = useState("#fff");
+
+  const handleChange = (color) => {
+    setColorDummy(color.hex);
+  };
+
   useEffect(() => {
     if (color?.slotBg?.metaColor) {
       const { r, g, b } = color?.slotBg?.metaColor || null;
@@ -47,14 +54,16 @@ const CustomizeInventory = () => {
         backgroundColor: boxBg,
         border: `1px solid ${boxBorderColor}`,
         borderRadius: boxBorderRound,
+        color: textColor,
       }}
     >
       <div
-        className="text-center rounded-xl h-[35px]"
-        style={{ border: `2px solid ${slotBorderColor}` }}
+        className="flex items-center justify-center text-[18px] rounded-xl h-[40px]"
+        style={{ border: `2px solid ${slotBorderColor}`, backgroundColor: slotBg }}
       >
         Customizer
       </div>
+      <ChromePicker color={colorDummy} onChange={handleChange} disableAlpha={true} width={250} />
       <div className="flex">
         <div className="w-full">
           <Slider defaultValue={30} />
