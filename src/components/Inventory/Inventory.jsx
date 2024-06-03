@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { checkItemsPresence, secondaryTypes } from "../../utilities/utilis";
 import { closeContextMenu } from "../../redux/contextSlice";
+import { fetchNui } from "../../utilities/fetchNui";
 
 const Inventory = () => {
   const dispatch = useDispatch();
