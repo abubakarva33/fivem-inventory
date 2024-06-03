@@ -1,9 +1,9 @@
-import { ColorPicker, Modal, Slider } from "antd";
+import { ColorPicker, Slider } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { customizeSlot } from "../../redux/customizeSlice";
 
-const CustomizeModal = ({ isModalOpen, setIsModalOpen }) => {
+const CustomizeInventory = () => {
   const dispatch = useDispatch();
   const {
     boxBg,
@@ -25,12 +25,6 @@ const CustomizeModal = ({ isModalOpen, setIsModalOpen }) => {
     slotBorderRound,
     btnColor,
   });
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   const colorHandler = (type, value) => {
     setColor((prevColor) => ({
@@ -47,7 +41,20 @@ const CustomizeModal = ({ isModalOpen, setIsModalOpen }) => {
   }, [color]);
 
   return (
-    <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+    <div
+      className="customizeArea px-3 pt-3"
+      style={{
+        backgroundColor: boxBg,
+        border: `1px solid ${boxBorderColor}`,
+        borderRadius: boxBorderRound,
+      }}
+    >
+      <div
+        className="text-center rounded-xl h-[35px]"
+        style={{ border: `2px solid ${slotBorderColor}` }}
+      >
+        Customizer
+      </div>
       <div className="flex">
         <div className="w-full">
           <Slider defaultValue={30} />
@@ -108,8 +115,8 @@ const CustomizeModal = ({ isModalOpen, setIsModalOpen }) => {
           </ColorPicker>
         </div>
       </div>
-    </Modal>
+    </div>
   );
 };
 
-export default CustomizeModal;
+export default CustomizeInventory;

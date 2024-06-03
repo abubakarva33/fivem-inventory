@@ -38,10 +38,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
         borderRadius: boxBorderRound,
       }}
     >
-      <div
-        className="secondaryAreaTop mx-3 pt-3 border-b pb-1"
-        style={{ borderBottom: `4px solid ${slotBg}` }}
-      >
+      <div className=" mx-3 pt-3 border-b pb-1" style={{ borderBottom: `4px solid ${slotBg}` }}>
         <Progress
           percent={inventory?.weightPercent}
           showInfo={false}

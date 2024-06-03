@@ -7,13 +7,15 @@ import { useEffect, useState } from "react";
 import { checkItemsPresence, secondaryTypes } from "../../utilities/utilis";
 import { closeContextMenu } from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
+import CustomizeInventory from "../sub-components/CustomizeInventory";
 
 const Inventory = () => {
   const dispatch = useDispatch();
-  const { item, coords } = useSelector((state) => state.context);
   const state = useSelector((state) => state.inventory);
+  const { item, coords } = useSelector((state) => state.context);
   const [secondary, setSecondary] = useState(secondaryTypes.glovebox);
   const [openBackpacks, setOpenBackpacks] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const keyHandler = (e) => {
@@ -80,15 +82,20 @@ const Inventory = () => {
       <div className="inventory">
         {openBackpacks?.length && <BackpackSection openBackpacks={openBackpacks} />}
 
-        <MainAreaSection inventory={state.playerinventory} />
+        <MainAreaSection
+          inventory={state.playerinventory}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
 
-        {checkItemsPresence(state[secondary]?.items) && (
+        {checkItemsPresence(state[secondary]?.items) && !isModalOpen && (
           <SecondaryArea
             inventory={state[secondary]}
             secondary={secondary}
             setSecondary={setSecondary}
           />
         )}
+        {isModalOpen && <CustomizeInventory />}
       </div>
 
       {item?.name && (

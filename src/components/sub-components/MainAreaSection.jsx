@@ -3,10 +3,8 @@ import { BsBoxes } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 import { calculateTotalWeight } from "../../utilities/utilis";
-import { useState } from "react";
-import CustomizeModal from "./CustomizeModal";
 
-const MainAreaSection = ({ inventory }) => {
+const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
   const {
     boxBg,
     boxBorderColor,
@@ -16,10 +14,6 @@ const MainAreaSection = ({ inventory }) => {
     textColor,
     slotBorderRound,
   } = useSelector((state) => state.customizeSec);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
 
   return (
     <div
@@ -61,7 +55,7 @@ const MainAreaSection = ({ inventory }) => {
             className="border rounded-full  p-2 text-xl"
             style={{ backgroundColor: slotBg, borderColor: slotBg }}
           >
-            <BsBoxes onClick={showModal} />
+            <BsBoxes onClick={() => setIsModalOpen(!isModalOpen)} />
           </div>
         </div>
         <div className="flex items-center text-xl justify-between mb-2">
@@ -128,7 +122,6 @@ const MainAreaSection = ({ inventory }) => {
             ))}
         </div>
       </div>
-      <CustomizeModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );
 };

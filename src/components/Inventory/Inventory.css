@@ -39,6 +39,10 @@
   width: 27.5%;
   height: 100%;
 }
+.customizeArea {
+  width: 27.5%;
+  height: 100%;
+}
 .mainArea div {
   grid-template-columns: repeat(6, 1fr);
 }
