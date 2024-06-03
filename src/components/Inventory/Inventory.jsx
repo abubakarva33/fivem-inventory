@@ -13,13 +13,23 @@ const Inventory = () => {
   const state = useSelector((state) => state.inventory);
   const [backpack, setBackpack] = useState("largeBackpack");
   const [secondary, setSecondary] = useState(secondaryTypes.glovebox);
+  const [openBackpacks, setOpenBackpacks] = useState([]);
+
+  console.log({ backpack });
 
   useEffect(() => {
-    const newBackpack = state?.largeBackpack
-      ? "largeBackpack"
-      : state?.smallBackpack && "smallBackpack";
+    const largeBackpack = openBackpacks.find((item) => item.name === "backpack-l");
+    const smallBackpack = openBackpacks.find((item) => item.name === "backpack-s");
+    const newBackpack = largeBackpack ? "largeBackpack" : smallBackpack ? "smallBackpack" : null;
     setBackpack(newBackpack);
-  }, [state.largeBackpack, state.smallBackpack]);
+  }, [openBackpacks]);
+
+  // const getBackpackData = () => {
+  //   const largeBackpack = openBackpacks.find((item) => item.name === "backpack-l");
+  //   const smallBackpack = openBackpacks.find((item) => item.name === "backpack-s");
+  //   const newBackpack = largeBackpack ? "largeBackpack" : smallBackpack ? "smallBackpack" : null;
+  //   return setBackpack(newBackpack);
+  // };
 
   useEffect(() => {
     const keyHandler = (e) => {
@@ -34,15 +44,32 @@ const Inventory = () => {
     };
   }, []);
 
+  const openBackpackHandler = (backpackData) => {
+    setOpenBackpacks((prevOpenBackpacks) => {
+      const identifier = backpackData?.info?.identifier;
+      const isOpen = prevOpenBackpacks.some((backpack) => backpack.info?.identifier === identifier);
+      if (isOpen) {
+        // Remove the item if it's already in the array //
+        return prevOpenBackpacks.filter((backpack) => backpack.info?.identifier !== identifier);
+      } else {
+        // Add the item to the array //
+        return [...prevOpenBackpacks, backpackData];
+      }
+    });
+
+    //!  send below data to server //
+    const data = backpackData?.info;
+    console.log(data);
+  };
+
   return (
     <div className="mainSection relative">
       <div className="inventory">
-        {/* condition for backpack, check backpack is present or not in primary inventory */}
-        {state[backpack]?.identifier &&
-          findTypeInItems(state?.playerinventory?.items, "backpack") &&
-          checkItemsPresence(state[backpack]?.items) && (
-            <BackpackSection inventory={state[backpack]} setBackpack={setBackpack} />
-          )}
+        {openBackpacks?.length && (
+          <BackpackSection inventory={state[backpack]} setBackpack={setBackpack} />
+          // <BackpackSection inventory={getBackpackData()} setBackpack={setBackpack} />
+        )}
+
         <MainAreaSection inventory={state.playerinventory} />
 
         {checkItemsPresence(state[secondary]?.items) && (
@@ -84,7 +111,20 @@ const Inventory = () => {
                 -
               </button>
             </div>
-            <button className="border py-1 border-b-0">Use</button>
+            {!item?.name?.includes("backpack") && (
+              <button className="border py-1 border-b-0">Use</button>
+            )}
+
+            {item?.name?.includes("backpack") && (
+              <button className="border py-1 border-b-0" onClick={() => openBackpackHandler(item)}>
+                {openBackpacks.some(
+                  (backpack) => backpack.info?.identifier === item.info?.identifier
+                )
+                  ? "Close"
+                  : "Open"}
+              </button>
+            )}
+
             <button className="border py-1 border-b-0">Give</button>
             <button className="border py-1 border-b-0">Drop</button>
             <button className="border py-1">Copy Serial</button>
@@ -96,3 +136,14 @@ const Inventory = () => {
 };
 
 export default Inventory;
+
+{
+  /* condition for backpack, check backpack is present or not in primary inventory */
+}
+{
+  /* {state[backpack]?.identifier &&
+          findTypeInItems(state?.playerinventory?.items, "backpack") &&
+          checkItemsPresence(state[backpack]?.items) && (
+            <BackpackSection inventory={state[backpack]} setBackpack={setBackpack} />
+          )} */
+}
