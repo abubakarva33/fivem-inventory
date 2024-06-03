@@ -34,14 +34,16 @@ const Inventory = () => {
     setOpenBackpacks((prevOpenBackpacks) => {
       const name = backpackData?.name;
       let updatedBackpacks = [...prevOpenBackpacks];
+
       const existingBackpackIndex = updatedBackpacks.findIndex(
-        (backpack) => backpack.type2 === backpackData.info.type2
+        (backpack) =>backpack.info.type2 === backpackData.info.type2
       );
 
       // Handle closing the backpack
       if (action) {
         if (existingBackpackIndex !== -1) {
           const backpackToClose = updatedBackpacks[existingBackpackIndex];
+          console.log(backpackToClose)
           fetchNui("closeBackpack", backpackToClose.info)
             .then((retData) => {})
             .catch((e) => {});
