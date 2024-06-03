@@ -152,6 +152,19 @@ export let primaryInvDummyData = {
       },
     },
     {
+      name: "backpack-s",
+      label: "Backpack Small",
+      type: "backpack",
+      description: "You can carry more items",
+      weight: 250,
+      amount: 1,
+      slot: 10,
+      quality: 100,
+      info: {
+        identifier: "backpack-s:1234",
+      },
+    },
+    {
       name: "backpack-l",
       label: "Backpack Large",
       type: "backpack",
@@ -162,6 +175,19 @@ export let primaryInvDummyData = {
       quality: 100,
       info: {
         identifier: "backpack-l:123456789",
+      },
+    },
+    {
+      name: "backpack-l",
+      label: "Backpack Large",
+      type: "backpack",
+      description: "You can carry more items",
+      weight: 250,
+      amount: 1,
+      slot: 11,
+      quality: 100,
+      info: {
+        identifier: "backpack-l:1234",
       },
     },
   ],

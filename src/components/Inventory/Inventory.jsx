@@ -27,20 +27,39 @@ const Inventory = () => {
     };
   }, []);
 
+  // const openBackpackHandler = (backpackData) => {
+  //   setOpenBackpacks((prevOpenBackpacks) => {
+  //     const identifier = backpackData?.info?.identifier;
+  //     const isOpen = prevOpenBackpacks.some((backpack) => backpack.info?.identifier === identifier);
+  //     if (isOpen) {
+  //       // Remove the item if it's already in the array //
+  //       return prevOpenBackpacks.filter((backpack) => backpack.info?.identifier !== identifier);
+  //     } else {
+  //       // Add the item to the array //
+  //       return [...prevOpenBackpacks, backpackData];
+  //     }
+  //   });
+
+  //   //!  send below data to server //
+  //   const data = backpackData?.info;
+  //   console.log(data);
+  // };
+
   const openBackpackHandler = (backpackData) => {
     setOpenBackpacks((prevOpenBackpacks) => {
-      const identifier = backpackData?.info?.identifier;
-      const isOpen = prevOpenBackpacks.some((backpack) => backpack.info?.identifier === identifier);
-      if (isOpen) {
-        // Remove the item if it's already in the array //
-        return prevOpenBackpacks.filter((backpack) => backpack.info?.identifier !== identifier);
-      } else {
-        // Add the item to the array //
-        return [...prevOpenBackpacks, backpackData];
+      const name = backpackData?.name;
+      // Check if the same type of item is already open, if so, replace it
+      const updatedBackpacks = prevOpenBackpacks.filter((backpack) => backpack.name !== name);
+
+      // If the array has reached the limit of 2 items
+      if (updatedBackpacks.length >= 2) {
+        updatedBackpacks.shift();
       }
+      updatedBackpacks.push(backpackData);
+      return updatedBackpacks;
     });
 
-    //!  send below data to server //
+    //! send below data to server //
     const data = backpackData?.info;
     console.log(data);
   };
