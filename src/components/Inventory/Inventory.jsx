@@ -28,22 +28,49 @@ const Inventory = () => {
     };
   }, []);
 
-  const openBackpackHandler = (backpackData) => {
+  const openBackpackHandler = (backpackData, action) => {
     setOpenBackpacks((prevOpenBackpacks) => {
       const name = backpackData?.name;
-      // Check if the same type of item is already open, if so, replace it
-      const updatedBackpacks = prevOpenBackpacks.filter((backpack) => backpack.name !== name);
-      // If the array has reached the limit of 2 items
-      if (updatedBackpacks.length >= 2) {
-        updatedBackpacks.shift();
+      let updatedBackpacks = [...prevOpenBackpacks];
+      const existingBackpackIndex = updatedBackpacks.findIndex((backpack) => backpack.type2 === backpackData.info.type2);
+
+      // Handle closing the backpack
+      if (action) {
+        if (existingBackpackIndex !== -1) {
+          const backpackToClose = updatedBackpacks[existingBackpackIndex];
+          fetchNui("closeBackpack", backpackToClose.info)
+            .then((retData) => {})
+            .catch((e) => {});
+          updatedBackpacks.splice(existingBackpackIndex, 1); // Remove the existing backpack
+        }
+        return updatedBackpacks;
       }
+
+      // Handle opening the backpack
+      if (existingBackpackIndex !== -1) {
+        const backpackToClose = updatedBackpacks[existingBackpackIndex];
+        fetchNui("closeBackpack", backpackToClose.info)
+          .then((retData) => {})
+          .catch((e) => {});
+        updatedBackpacks.splice(existingBackpackIndex, 1); // Remove the existing backpack
+      }
+
+      // If the array has reached the limit of 2 items, remove the oldest one
+      if (updatedBackpacks.length >= 2) {
+        const backpackToClose = updatedBackpacks.shift();
+        fetchNui("closeBackpack", backpackToClose.info)
+          .then((retData) => {})
+          .catch((e) => {});
+      }
+
+      // Open the new backpack
+      fetchNui("openBackpack", backpackData.info)
+        .then((retData) => {})
+        .catch((e) => {});
       updatedBackpacks.push(backpackData);
+
       return updatedBackpacks;
     });
-
-    //! send below data to server //
-    const data = backpackData?.info;
-    console.log(data);
   };
 
   return (
@@ -97,10 +124,8 @@ const Inventory = () => {
             )}
 
             {item?.name?.includes("backpack") && (
-              <button className="border py-1 border-b-0" onClick={() => openBackpackHandler(item)}>
-                {openBackpacks.some(
-                  (backpack) => backpack.info?.identifier === item.info?.identifier
-                )
+              <button className="border py-1 border-b-0" onClick={() => openBackpackHandler(item, openBackpacks.some((backpack) => backpack.info?.identifier === item.info?.identifier))}>
+                {openBackpacks.some((backpack) => backpack.info?.identifier === item.info?.identifier)
                   ? "Close"
                   : "Open"}
               </button>

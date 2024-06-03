@@ -149,6 +149,8 @@ export let primaryInvDummyData = {
       quality: 100,
       info: {
         identifier: "backpack-s:123456789",
+        type: "backpack",
+        type2: "smallBackpack",
       },
     },
     {
@@ -162,6 +164,8 @@ export let primaryInvDummyData = {
       quality: 100,
       info: {
         identifier: "backpack-s:1234",
+        type: "backpack",
+        type2: "smallBackpack",
       },
     },
     {
@@ -175,6 +179,8 @@ export let primaryInvDummyData = {
       quality: 100,
       info: {
         identifier: "backpack-l:123456789",
+        type: "backpack",
+        type2: "largeBackpack",
       },
     },
     {
@@ -188,6 +194,8 @@ export let primaryInvDummyData = {
       quality: 100,
       info: {
         identifier: "backpack-l:1234",
+        type: "backpack",
+        type2: "largeBackpack",
       },
     },
   ],
@@ -195,7 +203,8 @@ export let primaryInvDummyData = {
 
 export let smallBackpackDummyData = {
   identifier: "backpack-s:123456789",
-  type: "smallBackpack",
+  type: "backpack",
+  type2: "smallBackpack",
   label: "Backpack Small",
   maxWeight: 25000.0,
   slots: 25,
@@ -228,7 +237,8 @@ export let smallBackpackDummyData = {
 
 export let largeBackpackDummyData = {
   identifier: "backpack-l:123456789",
-  type: "largeBackpack",
+  type: "backpack",
+  type2: "largeBackpack",
   label: "Backpack Large",
   maxWeight: 10000.0,
   slots: 30,

@@ -27,12 +27,6 @@ export const calculateTotalWeight = (items) => {
 export const checkItemsPresence = (items) => {
   return items?.some((item) => "name" in item);
 };
-export const findSomethingInItems = (items, something) => {
-  return items?.some((item) => item.name && item.name.includes(something));
-};
-export const findTypeInItems = (items, type) => {
-  return items?.some((item) => item.type && item.type.includes(type));
-};
 
 export const setupInventoryFn = (inventory, state, name) => {
   const weight = calculateTotalWeight(inventory?.items);
