@@ -47,11 +47,11 @@ function App() {
   }, [dropInv]);
 
   useEffect(() => {
-    dispatch(setupInventory({ type: smallBackpack?.type, item: smallBackpack }));
+    dispatch(setupInventory({ type: smallBackpack?.type2, item: smallBackpack }));
   }, [smallBackpack]);
 
   useEffect(() => {
-    dispatch(setupInventory({ type: largeBackpack?.type, item: largeBackpack }));
+    dispatch(setupInventory({ type: largeBackpack?.type2, item: largeBackpack }));
   }, [largeBackpack]);
 
   useEffect(() => {

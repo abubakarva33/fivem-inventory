@@ -32,7 +32,9 @@ const Inventory = () => {
     setOpenBackpacks((prevOpenBackpacks) => {
       const name = backpackData?.name;
       let updatedBackpacks = [...prevOpenBackpacks];
-      const existingBackpackIndex = updatedBackpacks.findIndex((backpack) => backpack.type2 === backpackData.info.type2);
+      const existingBackpackIndex = updatedBackpacks.findIndex(
+        (backpack) => backpack.type2 === backpackData.info.type2
+      );
 
       // Handle closing the backpack
       if (action) {
@@ -124,8 +126,20 @@ const Inventory = () => {
             )}
 
             {item?.name?.includes("backpack") && (
-              <button className="border py-1 border-b-0" onClick={() => openBackpackHandler(item, openBackpacks.some((backpack) => backpack.info?.identifier === item.info?.identifier))}>
-                {openBackpacks.some((backpack) => backpack.info?.identifier === item.info?.identifier)
+              <button
+                className="border py-1 border-b-0"
+                onClick={() =>
+                  openBackpackHandler(
+                    item,
+                    openBackpacks.some(
+                      (backpack) => backpack.info?.identifier === item.info?.identifier
+                    )
+                  )
+                }
+              >
+                {openBackpacks.some(
+                  (backpack) => backpack.info?.identifier === item.info?.identifier
+                )
                   ? "Close"
                   : "Open"}
               </button>

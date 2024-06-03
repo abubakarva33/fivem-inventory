@@ -15,18 +15,20 @@ export const inventorySlice = createSlice({
     changeSlot: (state, { payload }) => {
       const { source, targetInventory } = payload;
 
+      const sourceType = source.type === "backpack" ? source.type2 : source.type;
+      const targetType =
+        targetInventory.type === "backpack" ? targetInventory.type2 : targetInventory.type;
+
       const findSource = source.type
-        ? state[source.type]?.items?.find((item) => item.slot === source.item.slot)
+        ? state[sourceType]?.items?.find((item) => item.slot === source.item.slot)
         : undefined;
 
       const findTarget = targetInventory.type
-        ? state[targetInventory.type]?.items?.find(
-            (item) => item.slot === targetInventory.item.slot
-          )
+        ? state[targetType]?.items?.find((item) => item.slot === targetInventory.item.slot)
         : undefined;
 
       if (findSource && findTarget) {
-        state[source.type].items = state[source.type].items.map((item) => {
+        state[sourceType].items = state[sourceType].items.map((item) => {
           if (item.slot === source.item.slot) {
             // condition for same item [ addition of quantity] //
             if (findSource.name === findTarget.name) return { item: item.slot };
@@ -35,7 +37,7 @@ export const inventorySlice = createSlice({
           return item;
         });
 
-        state[targetInventory.type].items = state[targetInventory.type].items.map((item) => {
+        state[targetType].items = state[targetType].items.map((item) => {
           if (item.slot === targetInventory.item.slot) {
             // condition for same item [ addition of quantity] //
             if (findSource.name === findTarget.name) {
@@ -47,18 +49,18 @@ export const inventorySlice = createSlice({
         });
 
         // target
-        const targetWeight = calculateTotalWeight(state[targetInventory.type].items);
-        state[targetInventory.type] = {
-          ...state[targetInventory.type],
+        const targetWeight = calculateTotalWeight(state[targetType].items);
+        state[targetType] = {
+          ...state[targetType],
           weight: targetWeight,
-          weightPercent: (targetWeight * 100) / state[targetInventory.type].maxWeight,
+          weightPercent: (targetWeight * 100) / state[targetType].maxWeight,
         };
         // source
-        const sourceWeight = calculateTotalWeight(state[source.type].items);
-        state[source.type] = {
-          ...state[source.type],
+        const sourceWeight = calculateTotalWeight(state[sourceType].items);
+        state[sourceType] = {
+          ...state[sourceType],
           weight: sourceWeight,
-          weightPercent: (sourceWeight * 100) / state[source.type].maxWeight,
+          weightPercent: (sourceWeight * 100) / state[sourceType].maxWeight,
         };
       } else {
         console.log("not found");

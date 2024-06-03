@@ -15,7 +15,8 @@ const InventorySlotComponent = ({ item, inventory }) => {
   const { slotBg, slotBorderColor } = useSelector((state) => state.customizeSec);
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
   const [rightBtnInputValue, setRightBtnInputValue] = useState(1);
-  const { type: inventoryType, maxWeight, identifier } = inventory;
+  const { type, type2, maxWeight, identifier } = inventory;
+  const inventoryType = type === "backpack" ? type2 : type;
   const [showTooltip, setShowTooltip] = useState(false);
   const [hoverTimer, setHoverTimer] = useState(null);
 
