@@ -151,7 +151,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
         if (source.item.slot !== item.slot || source.type !== inventoryType) {
           // condition for backpack transfer in backpack inventory //
           if (inventoryType === "smallBackpack" || inventoryType === "largeBackpack") {
-            if (source.item.name === "backpack-l" || source.item.name === "backpack-s") {
+            if (source.item.type === "backpack") {
               return false;
             }
           }

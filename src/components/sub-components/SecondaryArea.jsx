@@ -76,7 +76,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
 
       <div style={{ height: "calc(100% - 135px)", overflowY: "auto" }}>
         <div className="section px-3 mt-2">
-          {checkItemsPresence(inventory?.items) &&
+          {Array.isArray(inventory?.items) &&
             inventory?.items?.map((item) => (
               <InventorySlot
                 key={`${inventory.type}-${inventory.id}-${item.slot}`}

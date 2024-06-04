@@ -43,7 +43,6 @@ const Inventory = () => {
       if (action) {
         if (existingBackpackIndex !== -1) {
           const backpackToClose = updatedBackpacks[existingBackpackIndex];
-          console.log(backpackToClose);
           fetchNui("closeBackpack", backpackToClose.info)
             .then((retData) => {})
             .catch((e) => {});
@@ -90,7 +89,7 @@ const Inventory = () => {
           setIsModalOpen={setIsModalOpen}
         />
 
-        {checkItemsPresence(state[secondary]?.items) && !isModalOpen && (
+        {Array.isArray(state[secondary]?.items) && !isModalOpen && (
           <SecondaryArea
             inventory={state[secondary]}
             secondary={secondary}
