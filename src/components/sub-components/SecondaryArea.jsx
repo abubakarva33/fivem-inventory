@@ -2,6 +2,7 @@ import { ConfigProvider, Progress, Radio } from "antd";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 import { calculateTotalWeight, checkItemsPresence } from "../../utilities/utilis";
+import { useState } from "react";
 
 const SecondaryArea = ({ secondaryBackpacks }) => {
   const {
@@ -14,21 +15,25 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
     textColor,
     btnColor,
   } = useSelector((state) => state.customizeSec);
-  // const { glovebox } = useSelector((state) => state.inventory);
 
-  const options = [
-    {
-      label: "Glove Box",
-      value: "glovebox",
-    },
-    {
-      label: "Drop",
-      value: "drop",
-    },
-  ];
-  // const onChange3 = ({ target: { value } }) => {
-  //   setSecondary(value);
-  // };
+  const [secondaryBackpack, setSecondaryBackpack] = useState(secondaryBackpacks[0]);
+  const options = secondaryBackpacks?.map((item) => {
+    const key = Object.keys(item)[0];
+    const value = item[key];
+    return { label: value.label, value: key };
+  });
+  const [optionValue, setOptionValue] = useState(options[0]?.value);
+  
+  const changeSecondaryBackpack = ({ target: { value } }) => {
+    setOptionValue(value);
+    const matchingItem = secondaryBackpacks.find((item) => item[value]);
+    if (matchingItem) {
+      return setSecondaryBackpack(matchingItem[value]);
+    }
+  };
+
+  console.log(secondaryBackpack);
+
   return (
     <div
       className="secondaryArea"
@@ -38,9 +43,10 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
         borderRadius: boxBorderRound,
       }}
     >
-      {/* <div className=" mx-3 pt-3 border-b pb-1" style={{ borderBottom: `4px solid ${slotBg}` }}>
+      <div className=" mx-3 pt-3 border-b pb-1" style={{ borderBottom: `4px solid ${slotBg}` }}>
         <Progress
-          percent={inventory?.weightPercent}
+          // percent={inventory?.weightPercent}
+          percent={70}
           showInfo={false}
           size={["100%", 35]}
           strokeColor="green" //!  change  with condition //
@@ -65,8 +71,9 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
             className="w-full my-2 mt-3"
             size="large"
             options={options}
-            onChange={onChange3}
-            value={secondary}
+            onChange={changeSecondaryBackpack}
+            value={optionValue}
+            // value={"glovebox"}
             optionType="button"
             buttonStyle="solid"
             style={{ border: "none" }}
@@ -74,7 +81,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
         </ConfigProvider>
       </div>
 
-      <div style={{ height: "calc(100% - 135px)", overflowY: "auto" }}>
+      {/* <div style={{ height: "calc(100% - 135px)", overflowY: "auto" }}>
         <div className="section px-3 mt-2">
           {Array.isArray(inventory?.items) &&
             inventory?.items?.map((item) => (
@@ -86,7 +93,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
               />
             ))}
         </div>
-      </div> */}
+      </div>  */}
     </div>
   );
 };
