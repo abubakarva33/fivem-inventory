@@ -50,9 +50,7 @@ export const secondaryTypes = {
   trunk: "trunk",
   stash: "stash",
   dumpster: "dumpster",
-
   crafting: "crafting",
   shop: "shop",
-  
   ground: "ground",
 };

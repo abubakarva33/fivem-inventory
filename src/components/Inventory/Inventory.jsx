@@ -15,7 +15,15 @@ const Inventory = () => {
   const { item, coords } = useSelector((state) => state.context);
   const [secondary, setSecondary] = useState(secondaryTypes.glovebox);
   const [openBackpacks, setOpenBackpacks] = useState([]);
+  const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const inventoryKeys = Object.keys(state);
+    const excludedTypes = ["largeBackpack", "smallBackpack", "playerinventory"];
+    //  dynamically sets secondary backpacks data //
+    setSecondaryBackpacks(inventoryKeys.filter((key) => !excludedTypes.includes(key)));
+  }, [state]);
 
   useEffect(() => {
     const keyHandler = (e) => {
