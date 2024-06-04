@@ -24,6 +24,7 @@ const BackpackSection = ({ openBackpacks }) => {
     setBackpack(newBackpack);
   }, [openBackpacks]);
 
+
   return (
     <div
       className="backpackSection"
