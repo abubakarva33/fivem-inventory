@@ -1,8 +1,9 @@
-import { ColorPicker, Slider } from "antd";
+import { Slider } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { customizeSlot } from "../../redux/customizeSlice";
-import { ChromePicker, PhotoshopPicker, SketchPicker } from "react-color";
+import { ColorPicker } from "@vtaits/react-color-picker";
+import { HexColorPicker, RgbColorPicker } from "react-colorful";
 
 const CustomizeInventory = () => {
   const dispatch = useDispatch();
@@ -16,16 +17,17 @@ const CustomizeInventory = () => {
     slotBorderRound,
     btnColor,
   } = useSelector((state) => state.customizeSec);
-  const [color, setColor] = useState({
-    boxBg,
-    boxBorderColor,
-    boxBorderRound,
-    slotBg,
-    slotBorderColor,
-    textColor,
-    slotBorderRound,
-    btnColor,
-  });
+  const [color, setColor] = useState("#fff");
+  // const [color, setColor] = useState({
+  //   boxBg,
+  //   boxBorderColor,
+  //   boxBorderRound,
+  //   slotBg,
+  //   slotBorderColor,
+  //   textColor,
+  //   slotBorderRound,
+  //   btnColor,
+  // });
 
   const colorHandler = (type, value) => {
     setColor((prevColor) => ({
@@ -35,6 +37,8 @@ const CustomizeInventory = () => {
   };
 
   const [colorDummy, setColorDummy] = useState("#fff");
+
+  console.log(colorDummy);
 
   const handleChange = (color) => {
     setColorDummy(color.hex);
@@ -63,8 +67,11 @@ const CustomizeInventory = () => {
       >
         Customizer
       </div>
-      <ChromePicker color={colorDummy} onChange={handleChange} disableAlpha={true} width={250} />
-      <div className="flex">
+
+      <div className="z-50">
+        <RgbColorPicker color={colorDummy} onChange={setColorDummy} />
+      </div>
+      {/* <div className="flex">
         <div className="w-full">
           <Slider defaultValue={30} />
           <div>
@@ -123,7 +130,7 @@ const CustomizeInventory = () => {
             <div className="border rounded bg-slate-600 p-3">button Color</div>
           </ColorPicker>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
