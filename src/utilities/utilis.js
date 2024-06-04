@@ -45,6 +45,14 @@ export const setupInventoryFn = (inventory, state, name) => {
 
 // TODO: give me all possible types here //
 export const secondaryTypes = {
+  playerinventory: "playerinventory",
   glovebox: "glovebox",
+  trunk: "trunk",
+  stash: "stash",
+  dumpster: "dumpster",
+
+  crafting: "crafting",
+  shop: "shop",
+  
   ground: "ground",
 };
