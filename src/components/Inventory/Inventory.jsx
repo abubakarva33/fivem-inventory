@@ -21,8 +21,16 @@ const Inventory = () => {
   useEffect(() => {
     const inventoryKeys = Object.keys(state);
     const excludedTypes = ["largeBackpack", "smallBackpack", "playerinventory"];
+    const filteredInventory = inventoryKeys.filter((key) => !excludedTypes.includes(key));
+    const filteredItems = filteredInventory.map((key) => {
+      if (state[key]) {
+        return { [key]: state[key] };
+      } else {
+        return { [key]: null };
+      }
+    });
     //  dynamically sets secondary backpacks data //
-    setSecondaryBackpacks(inventoryKeys.filter((key) => !excludedTypes.includes(key)));
+    setSecondaryBackpacks(filteredItems);
   }, [state]);
 
   useEffect(() => {
@@ -97,11 +105,11 @@ const Inventory = () => {
           setIsModalOpen={setIsModalOpen}
         />
 
-        {Array.isArray(state[secondary]?.items) && !isModalOpen && (
+        {secondaryBackpacks?.length && !isModalOpen && (
           <SecondaryArea
-            inventory={state[secondary]}
-            secondary={secondary}
-            setSecondary={setSecondary}
+            secondaryBackpacks={secondaryBackpacks}
+            // secondary={secondary}
+            // setSecondary={setSecondary}
           />
         )}
         {isModalOpen && <CustomizeInventory />}

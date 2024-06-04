@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 import { calculateTotalWeight, checkItemsPresence } from "../../utilities/utilis";
 
-const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
+const SecondaryArea = ({ secondaryBackpacks }) => {
   const {
     boxBg,
     boxBorderColor,
@@ -14,7 +14,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
     textColor,
     btnColor,
   } = useSelector((state) => state.customizeSec);
-  const { glovebox } = useSelector((state) => state.inventory);
+  // const { glovebox } = useSelector((state) => state.inventory);
 
   const options = [
     {
@@ -26,9 +26,9 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
       value: "drop",
     },
   ];
-  const onChange3 = ({ target: { value } }) => {
-    setSecondary(value);
-  };
+  // const onChange3 = ({ target: { value } }) => {
+  //   setSecondary(value);
+  // };
   return (
     <div
       className="secondaryArea"
@@ -38,7 +38,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
         borderRadius: boxBorderRound,
       }}
     >
-      <div className=" mx-3 pt-3 border-b pb-1" style={{ borderBottom: `4px solid ${slotBg}` }}>
+      {/* <div className=" mx-3 pt-3 border-b pb-1" style={{ borderBottom: `4px solid ${slotBg}` }}>
         <Progress
           percent={inventory?.weightPercent}
           showInfo={false}
@@ -86,7 +86,7 @@ const SecondaryArea = ({ inventory, secondary, setSecondary }) => {
               />
             ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
