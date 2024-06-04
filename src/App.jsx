@@ -28,6 +28,7 @@ function App() {
   const [secondaryInv, setSecondaryInv] = useState(
     !window.invokeNative ? secondaryInvDummyData : null
   );
+  // const [secondaryInv, setSecondaryInv] = useState(null);
   const [dropInv, setDropInv] = useState(!window.invokeNative ? dropInvDummyData : null);
   const [smallBackpack, setSmallBackpack] = useState(
     !window.invokeNative ? smallBackpackDummyData : null
@@ -39,11 +40,11 @@ function App() {
   }, [primaryInv]);
 
   useEffect(() => {
-    dispatch(setupInventory({ type: secondaryInv?.type, item: secondaryInv }));
+    if (secondaryInv) dispatch(setupInventory({ type: secondaryInv?.type, item: secondaryInv }));
   }, [secondaryInv]);
 
   useEffect(() => {
-    dispatch(setupInventory({ type: dropInv?.type, item: dropInv }));
+    if (dropInv) dispatch(setupInventory({ type: dropInv?.type, item: dropInv }));
   }, [dropInv]);
 
   useEffect(() => {

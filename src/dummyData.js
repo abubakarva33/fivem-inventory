@@ -291,6 +291,7 @@ export let largeBackpackDummyData = {
   ],
 };
 
+// export let secondaryInvDummyData = null;
 export let secondaryInvDummyData = {
   identifier: "glovebox-123456",
   type: "glovebox",

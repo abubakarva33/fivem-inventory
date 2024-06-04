@@ -4,7 +4,6 @@ import SecondaryArea from "../sub-components/SecondaryArea";
 import BackpackSection from "../sub-components/BackpackSection";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { checkItemsPresence, secondaryTypes } from "../../utilities/utilis";
 import { closeContextMenu } from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
 import CustomizeInventory from "../sub-components/CustomizeInventory";
@@ -13,7 +12,6 @@ const Inventory = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
   const { item, coords } = useSelector((state) => state.context);
-  const [secondary, setSecondary] = useState(secondaryTypes.glovebox);
   const [openBackpacks, setOpenBackpacks] = useState([]);
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
