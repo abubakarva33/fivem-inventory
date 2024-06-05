@@ -2,7 +2,7 @@ import { ConfigProvider, Progress, Radio } from "antd";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 import { calculateTotalWeight } from "../../utilities/utilis";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SecondaryArea = ({ secondaryBackpacks }) => {
   const {
@@ -16,13 +16,30 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
     btnColor,
   } = useSelector((state) => state.customizeSec);
   const state = useSelector((state) => state.inventory);
+  const [secondaryBackpack, setSecondaryBackpack] = useState(
+    secondaryBackpacks[0] ? Object.keys(secondaryBackpacks[0])[0] : ""
+  );
+  const [options, setOptions] = useState([]);
 
-  const options = secondaryBackpacks?.map((item) => {
-    const key = Object.keys(item)[0];
-    const value = item[key];
-    return { label: value.label, value: key };
-  });
-  const [secondaryBackpack, setSecondaryBackpack] = useState(options[0]?.value);
+  if (
+    secondaryBackpacks.length === 2 &&
+    secondaryBackpacks[0] &&
+    Object.keys(secondaryBackpacks[0])[0] === "drop"
+  ) {
+    [secondaryBackpacks[0], secondaryBackpacks[1]] = [secondaryBackpacks[1], secondaryBackpacks[0]];
+  }
+
+  useEffect(() => {
+    if (secondaryBackpacks[0]) {
+      const option = secondaryBackpacks?.map((item) => {
+        const key = Object.keys(item)[0];
+        const value = item[key];
+        return { label: value.label, value: key };
+      });
+      setSecondaryBackpack(option[0]?.value);
+      setOptions(option);
+    }
+  }, [secondaryBackpacks]);
 
   const changeSecondaryBackpack = ({ target: { value } }) => setSecondaryBackpack(value);
 
