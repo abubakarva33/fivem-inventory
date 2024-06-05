@@ -3,6 +3,7 @@ import { BsBoxes } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 import { calculateTotalWeight } from "../../utilities/utilis";
+import { useEffect, useState } from "react";
 
 const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
   const {
@@ -14,6 +15,25 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
     textColor,
     slotBorderRound,
   } = useSelector((state) => state.customizeSec);
+
+  const [hudData, setHudData] = useState({
+    health: 100,
+    armor: 100,
+    hunger: 100,
+    thirst: 100,
+    cash: 0,
+    bank: 0,
+  });
+
+  useEffect(() => {
+    const EventListener = function (event) {
+      if (event.data.action == "sethud") {
+        setHudData(event.data.hud)
+      }
+    };
+    window.addEventListener("message", EventListener);
+    return () => window.removeEventListener("message", EventListener);
+  }, []);
 
   return (
     <div
@@ -65,28 +85,28 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
               style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
-              <span>95%</span>
+              <span>{hudData.health}%</span>
             </div>
             <div
               className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
               style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
-              <span>95%</span>
+              <span>{hudData.armor}%</span>
             </div>
             <div
               className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
               style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
-              <span>95%</span>
+              <span>{hudData.hunger}%</span>
             </div>
             <div
               className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
               style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
-              <span>95%</span>
+              <span>{hudData.thirst}%</span>
             </div>
           </div>
 
@@ -96,14 +116,14 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
               style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
-              <span>9565465</span>
+              <span>${hudData.cash}</span>
             </div>
             <div
               className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
               style={{ backgroundColor: slotBg, borderColor: slotBg }}
             >
               <BsBoxes className="me-2" />
-              <span>95655</span>
+              <span>${hudData.bank}</span>
             </div>
           </div>
         </div>
