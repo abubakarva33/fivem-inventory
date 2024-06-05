@@ -167,7 +167,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
       },
     }),
 
-    [inventoryType, item, state[inventoryType].weight]
+    [inventoryType, item, state[inventoryType]?.weight]
   );
 
   const connectRef = (element) => drag(drop(element));

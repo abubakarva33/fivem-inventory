@@ -22,11 +22,14 @@ const Inventory = () => {
     const filteredInventory = inventoryKeys.filter((key) => !excludedTypes.includes(key));
     const filteredItems = filteredInventory.map((key) => {
       if (state[key]) {
-        return { [key]: state[key] };
+        return state[key];
       } else {
-        return { [key]: null };
+        return null;
       }
     });
+    if (filteredItems.length === 2 && filteredItems[0].type === "drop") {
+      [filteredItems[0], filteredItems[1]] = [filteredItems[1], filteredItems[0]];
+    }
     //  dynamically sets secondary backpacks data //
     setSecondaryBackpacks(filteredItems);
   }, [state]);
