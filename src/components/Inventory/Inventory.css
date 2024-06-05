@@ -134,6 +134,24 @@
   image-rendering: -webkit-optimize-contrast;
 }
 
+
+.colorPickerSection .react-colorful {
+  height: 200px;
+  width: 200px;
+}
+.colorPickerSection .react-colorful__saturation {
+  border-radius: 0;
+}
+.colorPickerSection .react-colorful__hue {
+  height: 20px;
+  border-radius: 0 ;
+}
+.colorPickerSection .react-colorful__hue-pointer {
+  width: 10px;
+  height: 10px;
+}
+
+
 /* responsive part */
 @media screen and (min-device-height: 720px) and (max-device-height: 1079px) {
   .inventory {

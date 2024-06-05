@@ -178,3 +178,22 @@ const Inventory = () => {
 };
 
 export default Inventory;
+
+// useEffect(() => {
+//   const inventoryKeys = Object.keys(state);
+//   const excludedTypes = ["largeBackpack", "smallBackpack", "playerinventory", "drop"];
+//   const filteredInventory = inventoryKeys.filter((key) => !excludedTypes.includes(key));
+
+//   if (filteredInventory.length > 0) {
+//     const latestKey = filteredInventory[filteredInventory.length - 1];
+//     const latestItem = state[latestKey]
+//       ? { [latestKey]: state[latestKey] }
+//       : { [latestKey]: null };
+
+//     // Set secondaryBackpacks with the latest item
+//     setSecondaryBackpack(latestItem);
+//   } else {
+//     // If no valid items found, set to null or an appropriate default value
+//     setSecondaryBackpack(null);
+//   }
+// }, [state]);

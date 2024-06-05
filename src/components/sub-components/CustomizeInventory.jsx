@@ -2,8 +2,7 @@ import { Slider } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { customizeSlot } from "../../redux/customizeSlice";
-import { ColorPicker } from "@vtaits/react-color-picker";
-import { HexColorPicker, RgbColorPicker } from "react-colorful";
+import { HexAlphaColorPicker, HexColorInput } from "react-colorful";
 
 const CustomizeInventory = () => {
   const dispatch = useDispatch();
@@ -17,39 +16,8 @@ const CustomizeInventory = () => {
     slotBorderRound,
     btnColor,
   } = useSelector((state) => state.customizeSec);
-  const [color, setColor] = useState("#fff");
-  // const [color, setColor] = useState({
-  //   boxBg,
-  //   boxBorderColor,
-  //   boxBorderRound,
-  //   slotBg,
-  //   slotBorderColor,
-  //   textColor,
-  //   slotBorderRound,
-  //   btnColor,
-  // });
 
-  const colorHandler = (type, value) => {
-    setColor((prevColor) => ({
-      ...prevColor,
-      [type]: value,
-    }));
-  };
-
-  const [colorDummy, setColorDummy] = useState("#fff");
-
-  console.log(colorDummy);
-
-  const handleChange = (color) => {
-    setColorDummy(color.hex);
-  };
-
-  useEffect(() => {
-    if (color?.slotBg?.metaColor) {
-      const { r, g, b } = color?.slotBg?.metaColor || null;
-      dispatch(customizeSlot(`rgba(${r?.toFixed(0)},${g?.toFixed(0)},${b?.toFixed(0)},0.50)`));
-    }
-  }, [color]);
+  const [color, setColor] = useState("#aabbcc88");
 
   return (
     <div
@@ -68,8 +36,9 @@ const CustomizeInventory = () => {
         Customizer
       </div>
 
-      <div className="z-50">
-        <RgbColorPicker color={colorDummy} onChange={setColorDummy} />
+      <div className="colorPickerSection" style={{ zIndex: 9999999, overflow: "visible" }}>
+        <HexAlphaColorPicker color={color} onChange={setColor} />
+        <HexColorInput color={color} onChange={setColor} placeholder="Type a color" alpha />
       </div>
       {/* <div className="flex">
         <div className="w-full">
@@ -136,3 +105,14 @@ const CustomizeInventory = () => {
 };
 
 export default CustomizeInventory;
+
+// const [color, setColor] = useState({
+//   boxBg,
+//   boxBorderColor,
+//   boxBorderRound,
+//   slotBg,
+//   slotBorderColor,
+//   textColor,
+//   slotBorderRound,
+//   btnColor,
+// });

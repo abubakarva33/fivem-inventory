@@ -28,6 +28,8 @@ export const checkItemsPresence = (items) => {
   return items?.some((item) => "name" in item);
 };
 
+export const includedTypes = ["largeBackpack", "smallBackpack", "playerinventory", "drop"];
+
 export const setupInventoryFn = (inventory, state, name) => {
   const weight = calculateTotalWeight(inventory?.items);
   state[name] = {

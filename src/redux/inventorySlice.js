@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { calculateTotalWeight, setupInventoryFn } from "../utilities/utilis";
+import { calculateTotalWeight, includedTypes, setupInventoryFn } from "../utilities/utilis";
 
 const initialState = {};
 
@@ -9,7 +9,24 @@ export const inventorySlice = createSlice({
   reducers: {
     setupInventory: (state, { payload }) => {
       const { item, type } = payload;
-      setupInventoryFn(item, state, type);
+      // setupInventoryFn(item, state, type);
+      const weight = calculateTotalWeight(item?.items);
+      const excludedTypes = Object.keys(state).filter((i) => !includedTypes.includes(i));
+
+      if (excludedTypes.length && !includedTypes.includes(type)) {
+        excludedTypes.map((inv) => delete state[inv]);
+      }
+      state[type] = {
+        ...item,
+        weight,
+        weightPercent: (weight * 100) / item?.maxWeight,
+        items: Array.from(Array(item?.slots), (_, index) => {
+          const inv = item?.items?.find((item) => item?.slot === index + 1) || {
+            slot: index + 1,
+          };
+          return inv;
+        }),
+      };
     },
 
     changeSlot: (state, { payload }) => {

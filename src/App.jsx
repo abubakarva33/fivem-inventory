@@ -10,6 +10,7 @@ import {
   smallBackpackDummyData,
   largeBackpackDummyData,
   dropInvDummyData,
+  shopInvDummyData,
 } from "./dummyData";
 
 import { useEffect, useState } from "react";
@@ -25,10 +26,11 @@ function App() {
   const dispatch = useDispatch();
 
   const [primaryInv, setPrimaryInv] = useState(!window.invokeNative ? primaryInvDummyData : null);
+
   const [secondaryInv, setSecondaryInv] = useState(
     !window.invokeNative ? secondaryInvDummyData : null
   );
-  // const [secondaryInv, setSecondaryInv] = useState(null);
+
   const [dropInv, setDropInv] = useState(!window.invokeNative ? dropInvDummyData : null);
   const [smallBackpack, setSmallBackpack] = useState(
     !window.invokeNative ? smallBackpackDummyData : null
@@ -36,7 +38,7 @@ function App() {
   const [largeBackpack, setLargeBackpack] = useState(largeBackpackDummyData);
 
   useEffect(() => {
-    dispatch(setupInventory({ type: primaryInv?.type, item: primaryInv }));
+    if (primaryInv) dispatch(setupInventory({ type: primaryInv?.type, item: primaryInv }));
   }, [primaryInv]);
 
   useEffect(() => {
@@ -48,11 +50,13 @@ function App() {
   }, [dropInv]);
 
   useEffect(() => {
-    dispatch(setupInventory({ type: smallBackpack?.type2, item: smallBackpack }));
+    if (smallBackpack)
+      dispatch(setupInventory({ type: smallBackpack?.type2, item: smallBackpack }));
   }, [smallBackpack]);
 
   useEffect(() => {
-    dispatch(setupInventory({ type: largeBackpack?.type2, item: largeBackpack }));
+    if (largeBackpack)
+      dispatch(setupInventory({ type: largeBackpack?.type2, item: largeBackpack }));
   }, [largeBackpack]);
 
   useEffect(() => {
@@ -95,6 +99,10 @@ function App() {
     window.addEventListener("message", EventListener);
     return () => window.removeEventListener("message", EventListener);
   }, []);
+
+  setTimeout(() => {
+    setSecondaryInv(shopInvDummyData);
+  }, 3000);
 
   return (
     <>
