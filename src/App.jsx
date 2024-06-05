@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import "./App.css";
-import { showRoot, hideRoot } from "./utilities/utilis";
+import { showRoot, hideRoot, keyMap} from "./utilities/utilis";
 import { fetchNui } from "./utilities/fetchNui";
 import Inventory from "./components/Inventory/Inventory";
 import { setupInventory } from "./redux/inventorySlice";
@@ -15,6 +15,9 @@ import {
 
 import { useEffect, useState } from "react";
 import DragPreview from "./components/sub-components/DragPreview";
+
+let closeKey = 'F2'
+let isOpen = false
 
 function App() {
   if (!window.invokeNative) {
@@ -66,11 +69,13 @@ function App() {
     const EventListener = function (event) {
       if (event.data.action == "open") {
         showRoot();
+        closeKey = event.data.closeKey
         setPrimaryInv(event.data.primaryInv);
         setSecondaryInv(event.data.secondaryInv);
         setSmallBackpack(event.data.smallBackpack);
         setLargeBackpack(event.data.largeBackpack);
         setDropInv(event.data.dropInv);
+        isOpen = true
       } else if (event.data.action == "setLocaleConfig") {
         setLocale(event.data.locale);
       } else if (event.data.action == "setPrimaryInv") {
@@ -85,8 +90,9 @@ function App() {
         setDropInv(event.data.dropInv);
       }
     };
-    document.onkeyup = function (data) {
-      if (data.which == 27) {
+    document.onkeydown = function (data) {
+      if (data.which == 27 || (isOpen && data.which == keyMap[closeKey])) {
+        isOpen = false
         hideRoot();
         fetchNui("invClosed")
           .then((retData) => {})
@@ -99,10 +105,6 @@ function App() {
     window.addEventListener("message", EventListener);
     return () => window.removeEventListener("message", EventListener);
   }, []);
-
-  setTimeout(() => {
-    setSecondaryInv(shopInvDummyData);
-  }, 3000);
 
   return (
     <>
