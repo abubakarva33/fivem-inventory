@@ -17,31 +17,21 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
   } = useSelector((state) => state.customizeSec);
   const state = useSelector((state) => state.inventory);
   const [secondaryBackpack, setSecondaryBackpack] = useState(
-    secondaryBackpacks[0] ? Object.keys(secondaryBackpacks[0])[0] : ""
+    secondaryBackpacks ? secondaryBackpacks[0] : ""
   );
   const [options, setOptions] = useState([]);
 
-  if (
-    secondaryBackpacks.length === 2 &&
-    secondaryBackpacks[0] &&
-    Object.keys(secondaryBackpacks[0])[0] === "drop"
-  ) {
-    [secondaryBackpacks[0], secondaryBackpacks[1]] = [secondaryBackpacks[1], secondaryBackpacks[0]];
-  }
-
   useEffect(() => {
-    if (secondaryBackpacks[0]) {
+    if (secondaryBackpacks) {
       const option = secondaryBackpacks?.map((item) => {
-        const key = Object.keys(item)[0];
-        const value = item[key];
-        return { label: value.label, value: key };
+        return { label: item?.label, value: item?.type };
       });
-      setSecondaryBackpack(option[0]?.value);
+      setSecondaryBackpack(state[option[0].value]);
       setOptions(option);
     }
-  }, [secondaryBackpacks]);
+  }, [secondaryBackpacks[0].type]);
 
-  const changeSecondaryBackpack = ({ target: { value } }) => setSecondaryBackpack(value);
+  const changeSecondaryBackpack = ({ target: { value } }) => setSecondaryBackpack(state[value]);
 
   return (
     <div
@@ -54,7 +44,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
     >
       <div className=" mx-3 pt-3 border-b pb-1" style={{ borderBottom: `4px solid ${slotBg}` }}>
         <Progress
-          percent={state[secondaryBackpack]?.weightPercent}
+          percent={secondaryBackpack?.weightPercent}
           showInfo={false}
           size={["100%", 35]}
           strokeColor="green" //!  change  with condition //
@@ -80,7 +70,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
             size="large"
             options={options}
             onChange={changeSecondaryBackpack}
-            value={secondaryBackpack}
+            value={secondaryBackpack?.type}
             optionType="button"
             buttonStyle="solid"
             style={{ border: "none" }}
@@ -90,13 +80,15 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
 
       <div style={{ height: "calc(100% - 135px)", overflowY: "auto" }}>
         <div className="section px-3 mt-2">
-          {Array.isArray(state[secondaryBackpack]?.items) &&
-            state[secondaryBackpack]?.items?.map((item) => (
+          {Array.isArray(state[secondaryBackpack?.type]?.items) &&
+            state[secondaryBackpack?.type]?.items?.map((item) => (
               <InventorySlot
-                key={`${state[secondaryBackpack].type}-${state[secondaryBackpack].id}-${item.slot}`}
+                key={`${state[secondaryBackpack?.type].type}-${state[secondaryBackpack?.type].id}-${
+                  item.slot
+                }`}
                 item={item}
-                inventory={state[secondaryBackpack]}
-                totalWeight={calculateTotalWeight(state[secondaryBackpack]?.items)}
+                inventory={state[secondaryBackpack?.type]}
+                totalWeight={calculateTotalWeight(state[secondaryBackpack?.type]?.items)}
               />
             ))}
         </div>

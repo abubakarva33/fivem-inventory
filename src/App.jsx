@@ -10,7 +10,6 @@ import {
   smallBackpackDummyData,
   largeBackpackDummyData,
   dropInvDummyData,
-  shopInvDummyData,
 } from "./dummyData";
 
 import { useEffect, useState } from "react";
@@ -35,14 +34,16 @@ function App() {
   const [smallBackpack, setSmallBackpack] = useState(
     !window.invokeNative ? smallBackpackDummyData : null
   );
-  const [largeBackpack, setLargeBackpack] = useState(largeBackpackDummyData);
+  const [largeBackpack, setLargeBackpack] = useState(
+    !window.invokeNative ? largeBackpackDummyData : null
+  );
 
   useEffect(() => {
     if (primaryInv) dispatch(setupInventory({ type: primaryInv?.type, item: primaryInv }));
   }, [primaryInv]);
 
   useEffect(() => {
-    if (secondaryInv) dispatch(setupInventory({ type: secondaryInv?.type, item: secondaryInv }));
+    dispatch(setupInventory({ type: secondaryInv?.type, item: secondaryInv }));
   }, [secondaryInv]);
 
   useEffect(() => {
@@ -99,10 +100,6 @@ function App() {
     window.addEventListener("message", EventListener);
     return () => window.removeEventListener("message", EventListener);
   }, []);
-
-  setTimeout(() => {
-    setSecondaryInv(shopInvDummyData);
-  }, 3000);
 
   return (
     <>
