@@ -36,8 +36,14 @@ const InventorySlotComponent = ({ item, inventory }) => {
   };
   const handleRightButtonClick = (event) => {
     event.preventDefault();
-    if (item?.name && inventoryType === "playerinventory") {
-      dispatch(openContextMenu({ item, coords: { x: event.clientX, y: event.clientY } }));
+    if (item?.name && (inventoryType === "playerinventory" || inventoryType === "shop")) {
+      dispatch(
+        openContextMenu({
+          item,
+          inventoryType: inventoryType,
+          coords: { x: event.clientX, y: event.clientY },
+        })
+      );
       dispatch(handleContextInput(0));
     } else {
       dispatch(closeContextMenu());
