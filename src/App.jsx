@@ -69,7 +69,6 @@ function App() {
       .catch((e) => {});
     const EventListener = function (event) {
       if (event.data.action == "open") {
-        showRoot();
         closeKey = event.data.closeKey
         setPrimaryInv(event.data.primaryInv);
         setSecondaryInv(event.data.secondaryInv);
@@ -77,6 +76,7 @@ function App() {
         setLargeBackpack(event.data.largeBackpack);
         setDropInv(event.data.dropInv);
         isOpen = true
+        showRoot();
       } else if (event.data.action == "setLocaleConfig") {
         setLocale(event.data.locale);
       } else if (event.data.action == "setPrimaryInv") {
