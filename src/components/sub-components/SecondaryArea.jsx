@@ -29,7 +29,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
       setSecondaryBackpack(state[option[0].value]);
       setOptions(option);
     }
-  }, [secondaryBackpacks[0].type]);
+  }, [secondaryBackpacks[0]?.type, secondaryBackpacks[1]?.type]);
 
   const changeSecondaryBackpack = ({ target: { value } }) => setSecondaryBackpack(state[value]);
 

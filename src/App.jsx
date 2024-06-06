@@ -49,7 +49,7 @@ function App() {
   }, [secondaryInv]);
 
   useEffect(() => {
-    if (dropInv) dispatch(setupInventory({ type: dropInv?.type, item: dropInv }));
+    dispatch(setupInventory({ type: dropInv?.type || "drop", item: dropInv }));
   }, [dropInv]);
 
   useEffect(() => {
