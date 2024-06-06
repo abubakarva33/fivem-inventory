@@ -341,7 +341,7 @@ export let shopInvDummyData = {
   type: "shop",
   label: "Shop",
   maxWeight: 1000000,
-  slots: 25,
+  slots: 3,
   weight: 100.0,
   items: [
     {
@@ -354,7 +354,21 @@ export let shopInvDummyData = {
       quality: 100,
       slot: 1,
       info: {
-        price: 25,
+        buyPrice: 25,
+        sellPrice: 25,
+      },
+    },
+    {
+      name: "bread",
+      label: "Bread",
+      type: "item",
+      description: "This item will reduce your hunger",
+      weight: 500,
+      amount: -1,
+      quality: 100,
+      slot: 2,
+      info: {
+        buyPrice: 20,
       },
     },
     {
@@ -365,9 +379,9 @@ export let shopInvDummyData = {
       weight: 500,
       amount: 25,
       quality: 100,
-      slot: 2,
+      slot: 3,
       info: {
-        price: 20,
+        sellPrice: 20,
       },
     },
   ],

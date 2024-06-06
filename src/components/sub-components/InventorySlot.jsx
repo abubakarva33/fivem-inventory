@@ -7,14 +7,13 @@ import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
 import { fetchNui } from "../../utilities/fetchNui";
 import { closeContextMenu, handleContextInput, openContextMenu } from "../../redux/contextSlice";
+import { IoIosInfinite } from "react-icons/io";
 
 const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
-
   const { slotBg, slotBorderColor } = useSelector((state) => state.customizeSec);
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
-  const [rightBtnInputValue, setRightBtnInputValue] = useState(1);
   const { type, type2, maxWeight, identifier } = inventory;
   const inventoryType = type === "backpack" ? type2 : type;
   const [showTooltip, setShowTooltip] = useState(false);
@@ -36,6 +35,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
   };
   const handleRightButtonClick = (event) => {
     event.preventDefault();
+    setIsRightButtonClick(!isRightButtonClick);
     if (item?.name && (inventoryType === "playerinventory" || inventoryType === "shop")) {
       dispatch(
         openContextMenu({
@@ -206,7 +206,15 @@ const InventorySlotComponent = ({ item, inventory }) => {
             style={{ opacity: isDragging ? 0.5 : 1 }}
           >
             <div className="flex items-center justify-between w-full px-2">
-              {item?.amount && <span className="">{item?.amount}x</span>}
+              {item?.amount && (
+                <span className="flex items-center justify-center">
+                  {inventoryType === "shop" && item?.amount === -1 ? (
+                    <IoIosInfinite className="mb-[-3px] text-[16px]" />
+                  ) : (
+                    item?.amount + "x"
+                  )}
+                </span>
+              )}
               {item?.weight && <span className="">{gramsToKilograms(item?.weight)}kg</span>}
             </div>
             <img
@@ -214,7 +222,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
               alt=""
               className="img-fluid slotImg mb-[12px]"
             />
-            {item?.quality && (
+            {item?.quality && inventoryType != "shop" && (
               <div className="slotQuality w-full mt-[-24px]">
                 <Progress
                   percent={item?.quality}
@@ -225,6 +233,13 @@ const InventorySlotComponent = ({ item, inventory }) => {
                 />
               </div>
             )}
+            {inventoryType === "shop" && (item?.info?.buyPrice || item?.info?.sellPrice) && (
+              <div className="flex items-center justify-between">
+                {item?.info?.sellPrice && <div> {item.info.sellPrice} </div>}
+                {item?.info?.buyPrice && <div> {item.info.buyPrice} </div>}
+              </div>
+            )}
+
             {item?.label && (
               <div
                 className="slotItemLabel border mt-[-6px]  w-full text-center"
