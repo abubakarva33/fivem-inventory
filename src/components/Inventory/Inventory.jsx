@@ -97,8 +97,9 @@ const Inventory = () => {
   };
 
   const dropHandler = (dropItem) => {
-    // your drop operations here... //
-    console.log({ dropItem });
+    fetchNui("drop", dropItem)
+        .then((retData) => {})
+        .catch((e) => {});
   };
 
   return (
