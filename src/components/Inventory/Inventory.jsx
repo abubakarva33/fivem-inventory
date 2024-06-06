@@ -97,11 +97,18 @@ const Inventory = () => {
     });
   };
 
-  const dropHandler = (dropItem) => {
-    fetchNui("drop", dropItem)
+  const dropHandler = (item) => {
+    fetchNui("drop", item)
       .then((retData) => {})
       .catch((e) => {});
     dispatch(closeContextMenu());
+  };
+
+  const buyItemHandler = (item) => {
+    console.log(item);
+  };
+  const sellItemHandler = (item) => {
+    console.log(item);
   };
 
   return (
@@ -127,28 +134,28 @@ const Inventory = () => {
           onClick={(e) => e.stopPropagation()}
           style={{ top: coords?.y, left: coords?.x }}
         >
-          <div className="flex flex-col bg-slate-800 ">
+          <div className="flex flex-col bg-slate-800 text-white">
             <div className="flex">
               <button
                 className="border py-1 border-b-0 w-1/4"
-                style={{ cursor: "pointer" }}
-                onClick={() => dispatch(handleContextInput(inputAmount + 1))}
+                onClick={() => dispatch(handleContextInput(inputAmount - 1))}
               >
-                +
+                -
               </button>
               <input
                 type="number"
-                className="w-1/2  bg-slate-800 text-center border-t outline-none"
+                className="w-1/2  bg-slate-800 text-center border-t outline-none "
                 style={{ color: "white" }}
                 defaultValue={inputAmount}
                 value={inputAmount}
                 onChange={(e) => dispatch(handleContextInput(Number(e.target.value)))}
               />
               <button
-                className="border py-1 border-b-0 w-1/4"
-                onClick={() => dispatch(handleContextInput(inputAmount - 1))}
+                className="border py-1 border-b-0 w-1/4 text-white"
+                style={{ cursor: "pointer" }}
+                onClick={() => dispatch(handleContextInput(inputAmount + 1))}
               >
-                -
+                +
               </button>
             </div>
             {!item?.name?.includes("backpack") && inventoryType === "playerinventory" && (
@@ -179,13 +186,26 @@ const Inventory = () => {
                   : "Open"}
               </button>
             )}
-            {inventoryType === "shop" && (
-              <button className="border py-1" onClick={() => dispatch(closeContextMenu())}>
+            {inventoryType === "shop" && item?.info?.buyPrice && (
+              <button
+                className="border py-1"
+                onClick={() =>
+                  buyItemHandler({ ...item, amount: inputAmount === 0 ? item.amount : inputAmount })
+                }
+              >
                 Buy
               </button>
             )}
-            {inventoryType === "shop" && (
-              <button className="border py-1" onClick={() => dispatch(closeContextMenu())}>
+            {inventoryType === "shop" && item?.info?.sellPrice && (
+              <button
+                className="border py-1"
+                onClick={() =>
+                  sellItemHandler({
+                    ...item,
+                    amount: inputAmount === 0 ? item.amount : inputAmount,
+                  })
+                }
+              >
                 Sell
               </button>
             )}
