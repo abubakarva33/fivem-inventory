@@ -200,7 +200,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
       ></div>
 
       {true && (
-        <div className="slot rounded-md" style={{ backgroundColor: slotBg }}>
+        <div className="slot rounded-md relative" style={{ backgroundColor: slotBg }}>
           <div
             className="flex items-center justify-between flex-col w-full h-full"
             style={{ opacity: isDragging ? 0.5 : 1 }}
@@ -233,10 +233,15 @@ const InventorySlotComponent = ({ item, inventory }) => {
                 />
               </div>
             )}
-            {inventoryType === "shop" && (item?.info?.buyPrice || item?.info?.sellPrice) && (
-              <div className="flex items-center justify-between">
-                {item?.info?.sellPrice && <div> {item.info.sellPrice} </div>}
-                {item?.info?.buyPrice && <div> {item.info.buyPrice} </div>}
+
+            {inventoryType === "shop" && item?.info?.sellPrice && (
+              <div className="absolute bottom-6 left-0 ms-2 text-[#faff00]">
+                ${item.info.sellPrice}
+              </div>
+            )}
+            {inventoryType === "shop" && item?.info?.buyPrice && (
+              <div className="absolute bottom-6 right-0 me-2 text-[#00ff5f]">
+                ${item.info.buyPrice}
               </div>
             )}
 
