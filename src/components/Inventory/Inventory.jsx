@@ -11,11 +11,10 @@ import CustomizeInventory from "../sub-components/CustomizeInventory";
 const Inventory = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
-  const { item, coords, inputAmount } = useSelector((state) => state.context);
+  const { item, coords, inventoryType, inputAmount } = useSelector((state) => state.context);
   const [openBackpacks, setOpenBackpacks] = useState([]);
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [rightBtnInputValue, setRightBtnInputValue] = useState(0);
 
   useEffect(() => {
     const inventoryKeys = Object.keys(state);
@@ -148,7 +147,7 @@ const Inventory = () => {
                 -
               </button>
             </div>
-            {!item?.name?.includes("backpack") && (
+            {!item?.name?.includes("backpack") && inventoryType === "playerinventory" && (
               <button className="border py-1 border-b-0">Use</button>
             )}
 
@@ -171,17 +170,26 @@ const Inventory = () => {
                   : "Open"}
               </button>
             )}
+            {inventoryType === "shop" && <button className="border py-1">Buy</button>}
+            {inventoryType === "shop" && <button className="border py-1">Sell</button>}
 
-            <button className="border py-1 border-b-0">Give</button>
-            <button
-              className="border py-1 border-b-0"
-              onClick={() =>
-                dropHandler({ ...item, amount: inputAmount === 0 ? item.amount : inputAmount })
-              }
-            >
-              Drop
-            </button>
-            <button className="border py-1">Copy Serial</button>
+            {inventoryType === "playerinventory" && (
+              <button className="border py-1 border-b-0">Give</button>
+            )}
+            {inventoryType === "playerinventory" && (
+              <button
+                className="border py-1 border-b-0"
+                onClick={() =>
+                  dropHandler({ ...item, amount: inputAmount === 0 ? item.amount : inputAmount })
+                }
+              >
+                Drop
+              </button>
+            )}
+
+            {inventoryType === "playerinventory" && (
+              <button className="border py-1">Copy Serial</button>
+            )}
           </div>
         </div>
       )}

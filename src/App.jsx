@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import "./App.css";
-import { showRoot, hideRoot, keyMap} from "./utilities/utilis";
+import { showRoot, hideRoot, keyMap } from "./utilities/utilis";
 import { fetchNui } from "./utilities/fetchNui";
 import Inventory from "./components/Inventory/Inventory";
 import { setupInventory } from "./redux/inventorySlice";
@@ -10,13 +10,14 @@ import {
   smallBackpackDummyData,
   largeBackpackDummyData,
   dropInvDummyData,
+  shopInvDummyData,
 } from "./dummyData";
 
 import { useEffect, useState } from "react";
 import DragPreview from "./components/sub-components/DragPreview";
 
-let closeKey = 'F2'
-let isOpen = false
+let closeKey = "F2";
+let isOpen = false;
 
 function App() {
   if (!window.invokeNative) {
@@ -29,9 +30,7 @@ function App() {
 
   const [primaryInv, setPrimaryInv] = useState(!window.invokeNative ? primaryInvDummyData : null);
 
-  const [secondaryInv, setSecondaryInv] = useState(
-    !window.invokeNative ? secondaryInvDummyData : null
-  );
+  const [secondaryInv, setSecondaryInv] = useState(!window.invokeNative ? shopInvDummyData : null);
 
   const [dropInv, setDropInv] = useState(!window.invokeNative ? dropInvDummyData : null);
   const [smallBackpack, setSmallBackpack] = useState(
@@ -69,13 +68,13 @@ function App() {
       .catch((e) => {});
     const EventListener = function (event) {
       if (event.data.action == "open") {
-        closeKey = event.data.closeKey
+        closeKey = event.data.closeKey;
         setPrimaryInv(event.data.primaryInv);
         setSecondaryInv(event.data.secondaryInv);
         setSmallBackpack(event.data.smallBackpack);
         setLargeBackpack(event.data.largeBackpack);
         setDropInv(event.data.dropInv);
-        isOpen = true
+        isOpen = true;
         showRoot();
       } else if (event.data.action == "setLocaleConfig") {
         setLocale(event.data.locale);
@@ -93,7 +92,7 @@ function App() {
     };
     document.onkeydown = function (data) {
       if (data.which == 27 || (isOpen && data.which == keyMap[closeKey])) {
-        isOpen = false
+        isOpen = false;
         hideRoot();
         fetchNui("invClosed")
           .then((retData) => {})
