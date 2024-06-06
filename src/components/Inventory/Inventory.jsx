@@ -106,9 +106,15 @@ const Inventory = () => {
 
   const buyItemHandler = (item) => {
     console.log(item);
+
+    // add this as last line for closing right menu //
+    dispatch(closeContextMenu());
   };
   const sellItemHandler = (item) => {
     console.log(item);
+
+    // add this as last line for closing right menu //
+    dispatch(closeContextMenu());
   };
 
   return (
