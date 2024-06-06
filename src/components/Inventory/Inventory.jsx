@@ -4,17 +4,18 @@ import SecondaryArea from "../sub-components/SecondaryArea";
 import BackpackSection from "../sub-components/BackpackSection";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { closeContextMenu } from "../../redux/contextSlice";
+import { closeContextMenu, handleContextInput } from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
 import CustomizeInventory from "../sub-components/CustomizeInventory";
 
 const Inventory = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
-  const { item, coords } = useSelector((state) => state.context);
+  const { item, coords, inputAmount } = useSelector((state) => state.context);
   const [openBackpacks, setOpenBackpacks] = useState([]);
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rightBtnInputValue, setRightBtnInputValue] = useState(0);
 
   useEffect(() => {
     const inventoryKeys = Object.keys(state);
@@ -95,6 +96,10 @@ const Inventory = () => {
     });
   };
 
+  const dropHandler = (dropItem) => {
+    console.log({ dropItem });
+  };
+
   return (
     <div className="mainSection relative">
       <div className="inventory">
@@ -107,11 +112,7 @@ const Inventory = () => {
         />
 
         {secondaryBackpacks?.length && !isModalOpen && (
-          <SecondaryArea
-            secondaryBackpacks={secondaryBackpacks}
-            // secondary={secondary}
-            // setSecondary={setSecondary}
-          />
+          <SecondaryArea secondaryBackpacks={secondaryBackpacks} />
         )}
         {isModalOpen && <CustomizeInventory />}
       </div>
@@ -127,7 +128,7 @@ const Inventory = () => {
               <button
                 className="border py-1 border-b-0 w-1/4"
                 style={{ cursor: "pointer" }}
-                // onClick={() => setRightBtnInputValue(rightBtnInputValue + 1)}
+                onClick={() => dispatch(handleContextInput(inputAmount + 1))}
               >
                 +
               </button>
@@ -135,13 +136,13 @@ const Inventory = () => {
                 type="number"
                 className="w-1/2  bg-slate-800 text-center border-t outline-none"
                 style={{ color: "white" }}
-                // defaultValue={rightBtnInputValue}
-                // value={rightBtnInputValue}
-                // onChange={(e) => setRightBtnInputValue(Number(e.target.value))}
+                defaultValue={inputAmount}
+                value={inputAmount}
+                onChange={(e) => dispatch(handleContextInput(Number(e.target.value)))}
               />
               <button
                 className="border py-1 border-b-0 w-1/4"
-                // onClick={() => setRightBtnInputValue(rightBtnInputValue - 1)}
+                onClick={() => dispatch(handleContextInput(inputAmount - 1))}
               >
                 -
               </button>
@@ -171,7 +172,9 @@ const Inventory = () => {
             )}
 
             <button className="border py-1 border-b-0">Give</button>
-            <button className="border py-1 border-b-0">Drop</button>
+            <button className="border py-1 border-b-0" onClick={() => dropHandler(item)}>
+              Drop
+            </button>
             <button className="border py-1">Copy Serial</button>
           </div>
         </div>
@@ -181,22 +184,3 @@ const Inventory = () => {
 };
 
 export default Inventory;
-
-// useEffect(() => {
-//   const inventoryKeys = Object.keys(state);
-//   const excludedTypes = ["largeBackpack", "smallBackpack", "playerinventory", "drop"];
-//   const filteredInventory = inventoryKeys.filter((key) => !excludedTypes.includes(key));
-
-//   if (filteredInventory.length > 0) {
-//     const latestKey = filteredInventory[filteredInventory.length - 1];
-//     const latestItem = state[latestKey]
-//       ? { [latestKey]: state[latestKey] }
-//       : { [latestKey]: null };
-
-//     // Set secondaryBackpacks with the latest item
-//     setSecondaryBackpack(latestItem);
-//   } else {
-//     // If no valid items found, set to null or an appropriate default value
-//     setSecondaryBackpack(null);
-//   }
-// }, [state]);

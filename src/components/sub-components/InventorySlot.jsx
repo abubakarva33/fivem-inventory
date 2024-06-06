@@ -6,7 +6,7 @@ import { gramsToKilograms } from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
 import { fetchNui } from "../../utilities/fetchNui";
-import { closeContextMenu, openContextMenu } from "../../redux/contextSlice";
+import { closeContextMenu, handleContextInput, openContextMenu } from "../../redux/contextSlice";
 
 const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
@@ -38,6 +38,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
     event.preventDefault();
     if (item?.name && inventoryType === "playerinventory") {
       dispatch(openContextMenu({ item, coords: { x: event.clientX, y: event.clientY } }));
+      dispatch(handleContextInput(0));
     } else {
       dispatch(closeContextMenu());
     }
