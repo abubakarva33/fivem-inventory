@@ -91,14 +91,17 @@ const Inventory = () => {
         .catch((e) => {});
       updatedBackpacks.push(backpackData);
 
+      dispatch(closeContextMenu());
+
       return updatedBackpacks;
     });
   };
 
   const dropHandler = (dropItem) => {
     fetchNui("drop", dropItem)
-        .then((retData) => {})
-        .catch((e) => {});
+      .then((retData) => {})
+      .catch((e) => {});
+    dispatch(closeContextMenu());
   };
 
   return (
@@ -149,7 +152,12 @@ const Inventory = () => {
               </button>
             </div>
             {!item?.name?.includes("backpack") && inventoryType === "playerinventory" && (
-              <button className="border py-1 border-b-0">Use</button>
+              <button
+                className="border py-1 border-b-0"
+                onClick={() => dispatch(closeContextMenu())}
+              >
+                Use
+              </button>
             )}
 
             {item?.name?.includes("backpack") && (
@@ -171,11 +179,24 @@ const Inventory = () => {
                   : "Open"}
               </button>
             )}
-            {inventoryType === "shop" && <button className="border py-1">Buy</button>}
-            {inventoryType === "shop" && <button className="border py-1">Sell</button>}
+            {inventoryType === "shop" && (
+              <button className="border py-1" onClick={() => dispatch(closeContextMenu())}>
+                Buy
+              </button>
+            )}
+            {inventoryType === "shop" && (
+              <button className="border py-1" onClick={() => dispatch(closeContextMenu())}>
+                Sell
+              </button>
+            )}
 
             {inventoryType === "playerinventory" && (
-              <button className="border py-1 border-b-0">Give</button>
+              <button
+                className="border py-1 border-b-0"
+                onClick={() => dispatch(closeContextMenu())}
+              >
+                Give
+              </button>
             )}
             {inventoryType === "playerinventory" && (
               <button
@@ -189,7 +210,9 @@ const Inventory = () => {
             )}
 
             {inventoryType === "playerinventory" && (
-              <button className="border py-1">Copy Serial</button>
+              <button className="border py-1" onClick={() => dispatch(closeContextMenu())}>
+                Copy Serial
+              </button>
             )}
           </div>
         </div>
