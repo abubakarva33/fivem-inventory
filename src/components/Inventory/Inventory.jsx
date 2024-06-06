@@ -97,6 +97,7 @@ const Inventory = () => {
   };
 
   const dropHandler = (dropItem) => {
+    // your drop operations here... //
     console.log({ dropItem });
   };
 
@@ -172,7 +173,12 @@ const Inventory = () => {
             )}
 
             <button className="border py-1 border-b-0">Give</button>
-            <button className="border py-1 border-b-0" onClick={() => dropHandler(item)}>
+            <button
+              className="border py-1 border-b-0"
+              onClick={() =>
+                dropHandler({ ...item, amount: inputAmount === 0 ? item.amount : inputAmount })
+              }
+            >
               Drop
             </button>
             <button className="border py-1">Copy Serial</button>
