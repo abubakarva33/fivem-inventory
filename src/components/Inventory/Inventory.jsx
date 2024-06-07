@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { closeContextMenu, handleContextInput } from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
 import CustomizeInventory from "../sub-components/CustomizeInventory";
+import { buyItemHandler, sellItemHandler } from "../../utilities/utilis";
 
 const Inventory = () => {
   const dispatch = useDispatch();
@@ -101,23 +102,6 @@ const Inventory = () => {
     fetchNui("drop", item)
       .then((retData) => {})
       .catch((e) => {});
-    dispatch(closeContextMenu());
-  };
-
-  const buyItemHandler = (item) => {
-    fetchNui("buyItem", item)
-      .then((retData) => {})
-      .catch((e) => {});
-
-    // add this as last line for closing right menu //
-    dispatch(closeContextMenu());
-  };
-  const sellItemHandler = (item) => {
-    fetchNui("sellItem", item)
-      .then((retData) => {})
-      .catch((e) => {});
-
-    // add this as last line for closing right menu //
     dispatch(closeContextMenu());
   };
 

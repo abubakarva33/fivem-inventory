@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { gramsToKilograms } from "../../utilities/utilis";
+import { buyItemHandler, gramsToKilograms, sellItemHandler } from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
 import { fetchNui } from "../../utilities/fetchNui";
@@ -97,9 +97,8 @@ const InventorySlotComponent = ({ item, inventory }) => {
         const source = { ...main, type: main.type };
 
         // initially store and set data to redux(localhost) without shop inventory//
-        if (source.type != "shop" && targetInventory.type != "shop") {
-          dispatch(changeSlot({ source, targetInventory }));
-        }
+
+        dispatch(changeSlot({ source, targetInventory }));
 
         // conditionally pass data for server //
         if (source.type === targetInventory.type) {
@@ -165,13 +164,25 @@ const InventorySlotComponent = ({ item, inventory }) => {
               return false;
             }
           }
-          // condition for shop inventory //
-          if (source.type === "shop" && inventoryType === "shop") {
+          // condition for buy products //
+          if (source.type === "shop" && source.item.info.buyPrice) {
+            const { items, ...restOfInventory } = state[source.type];
+            if (inventoryType === "shop") {
+              return false;
+            } else buyItemHandler({ ...restOfInventory, item: source.item });
             return false;
           }
 
-          // condition for weight based transfer //
+          // condition for sell products //
+          if (source.type === "playerinventory" && inventoryType === "shop") {
+            const { items, ...restOfInventory } = state[source.type];
+            if (source.item.name === item.name && item.info.sellPrice) {
+              sellItemHandler({ ...restOfInventory, item: source.item });
+            }
+            return false;
+          }
           if (source.type !== inventoryType) {
+            // condition for weight based transfer //
             return (
               source.item.weight * source.item.amount + state[inventoryType].weight <= maxWeight
             );

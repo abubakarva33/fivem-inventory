@@ -1,3 +1,7 @@
+import { useDispatch } from "react-redux";
+import { closeContextMenu } from "../redux/contextSlice";
+import { fetchNui } from "./fetchNui";
+
 export const hideRoot = () => {
   const rootElement = document.getElementById("root");
   if (rootElement) {
@@ -185,4 +189,23 @@ export const keyMap = {
   APOSTROPHE: 222,
   OEM_7: 222,
   OEM_102: 226,
+};
+
+export const buyItemHandler = (item) => {
+  console.log(item);
+  fetchNui("buyItem", item)
+    .then((retData) => {})
+    .catch((e) => {});
+
+  // add this as last line for closing right menu //
+  // dispatch(closeContextMenu());
+};
+export const sellItemHandler = (item) => {
+  console.log(item);
+  fetchNui("sellItem", item)
+    .then((retData) => {})
+    .catch((e) => {});
+
+  // add this as last line for closing right menu //
+  // dispatch(closeContextMenu());
 };
