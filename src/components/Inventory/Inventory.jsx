@@ -16,8 +16,6 @@ const Inventory = () => {
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log({ secondaryBackpacks });
-
   useEffect(() => {
     const inventoryKeys = Object.keys(state);
     const excludedTypes = ["largeBackpack", "smallBackpack", "playerinventory"];
@@ -107,13 +105,17 @@ const Inventory = () => {
   };
 
   const buyItemHandler = (item) => {
-    console.log(item);
+    fetchNui("buyItem", item)
+      .then((retData) => {})
+      .catch((e) => {});
 
     // add this as last line for closing right menu //
     dispatch(closeContextMenu());
   };
   const sellItemHandler = (item) => {
-    console.log(item);
+    fetchNui("sellItem", item)
+      .then((retData) => {})
+      .catch((e) => {});
 
     // add this as last line for closing right menu //
     dispatch(closeContextMenu());
@@ -198,7 +200,7 @@ const Inventory = () => {
               <button
                 className="border py-1"
                 onClick={() =>
-                  buyItemHandler({ ...item, amount: inputAmount === 0 ? item.amount : inputAmount })
+                  buyItemHandler({ ...item, amount: inputAmount === 0 ? 1 : inputAmount })
                 }
               >
                 Buy
@@ -210,7 +212,7 @@ const Inventory = () => {
                 onClick={() =>
                   sellItemHandler({
                     ...item,
-                    amount: inputAmount === 0 ? item.amount : inputAmount,
+                    amount: inputAmount === 0 ? 1 : inputAmount,
                   })
                 }
               >
