@@ -192,13 +192,16 @@ export const keyMap = {
 };
 
 export const buyItemHandlerWithDnd = (item) => {
-  console.log(item);
+  fetchNui("buyItemDrag", item)
+    .then((retData) => {})
+    .catch((e) => {});
 };
 export const sellItemHandlerWithDnd = (item) => {
-  console.log(item);
+  fetchNui("sellItemDrag", item)
+    .then((retData) => {})
+    .catch((e) => {});
 };
 export const buyItemHandlerWithClick = (item) => {
-  console.log(item);
   fetchNui("buyItem", item)
     .then((retData) => {})
     .catch((e) => {});
@@ -207,7 +210,6 @@ export const buyItemHandlerWithClick = (item) => {
   // dispatch(closeContextMenu());
 };
 export const sellItemHandlerWithClick = (item) => {
-  console.log(item);
   fetchNui("sellItem", item)
     .then((retData) => {})
     .catch((e) => {});
