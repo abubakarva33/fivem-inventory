@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   coords: null,
-  item: null,
-  inventoryType: null,
+  inventory: null,
   inputAmount: 0,
 };
 
@@ -13,16 +12,14 @@ export const contextMenuSlice = createSlice({
   reducers: {
     openContextMenu(state, action) {
       state.coords = action.payload.coords;
-      state.item = action.payload.item;
-      state.inventoryType = action.payload.inventoryType;
+      state.inventory = action.payload.inventory;
     },
     handleContextInput(state, { payload }) {
       state.inputAmount = payload;
     },
     closeContextMenu(state) {
       state.coords = null;
-      state.item = null;
-      state.inventoryType = null;
+      state.inventory = null;
     },
   },
 });

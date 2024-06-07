@@ -35,12 +35,12 @@ const InventorySlotComponent = ({ item, inventory }) => {
   };
   const handleRightButtonClick = (event) => {
     event.preventDefault();
+    const { items, ...restOfInventory } = inventory;
     setIsRightButtonClick(!isRightButtonClick);
     if (item?.name && (inventoryType === "playerinventory" || inventoryType === "shop")) {
       dispatch(
         openContextMenu({
-          item,
-          inventoryType: inventoryType,
+          inventory: { ...restOfInventory, item },
           coords: { x: event.clientX, y: event.clientY },
         })
       );
@@ -51,6 +51,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
   };
 
   const UpdateDataToServer = (data) => {
+    console.log({ data });
     if (data.identifier) {
       fetchNui("changeSlot", data)
         .then((retData) => {})
@@ -96,8 +97,10 @@ const InventorySlotComponent = ({ item, inventory }) => {
         };
         const source = { ...main, type: main.type };
 
-        // initially store and set data to redux(localhost)//
-        dispatch(changeSlot({ source, targetInventory }));
+        // initially store and set data to redux(localhost) without shop inventory//
+        if (source.type != "shop" && targetInventory.type != "shop") {
+          dispatch(changeSlot({ source, targetInventory }));
+        }
         // conditionally pass data for server //
         if (source.type === targetInventory.type) {
           // for passing data to server same inventory //
@@ -167,8 +170,11 @@ const InventorySlotComponent = ({ item, inventory }) => {
             return (
               source.item.weight * source.item.amount + state[inventoryType].weight <= maxWeight
             );
-          } else {
-            return state[inventoryType].weight <= maxWeight;
+          } else state[inventoryType].weight <= maxWeight;
+
+          // condition for shop inventory //
+          if (source.type === "shop") {
+            return false;
           }
         }
       },

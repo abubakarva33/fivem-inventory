@@ -11,7 +11,7 @@ import CustomizeInventory from "../sub-components/CustomizeInventory";
 const Inventory = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
-  const { item, coords, inventoryType, inputAmount } = useSelector((state) => state.context);
+  const { inventory, coords, inputAmount } = useSelector((state) => state.context);
   const [openBackpacks, setOpenBackpacks] = useState([]);
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -138,7 +138,7 @@ const Inventory = () => {
         {isModalOpen && <CustomizeInventory />}
       </div>
 
-      {item?.name && (
+      {inventory?.item?.name && (
         <div
           className="absolute w-[150px] no-close z-[500]"
           onClick={(e) => e.stopPropagation()}
@@ -168,51 +168,61 @@ const Inventory = () => {
                 +
               </button>
             </div>
-            {!item?.name?.includes("backpack") && inventoryType === "playerinventory" && (
-              <button
-                className="border py-1 border-b-0"
-                onClick={() => dispatch(closeContextMenu())}
-              >
-                Use
-              </button>
-            )}
+            {!inventory?.item?.name?.includes("backpack") &&
+              inventory?.type === "playerinventory" && (
+                <button
+                  className="border py-1 border-b-0"
+                  onClick={() => dispatch(closeContextMenu())}
+                >
+                  Use
+                </button>
+              )}
 
-            {item?.name?.includes("backpack") && (
+            {inventory?.item?.name?.includes("backpack") && (
               <button
                 className="border py-1 border-b-0"
                 onClick={() =>
                   openBackpackHandler(
-                    item,
+                    inventory?.item,
                     openBackpacks.some(
-                      (backpack) => backpack.info?.identifier === item.info?.identifier
+                      (backpack) => backpack.info?.identifier === inventory?.item.info?.identifier
                     )
                   )
                 }
               >
                 {openBackpacks.some(
-                  (backpack) => backpack.info?.identifier === item.info?.identifier
+                  (backpack) => backpack.info?.identifier === inventory?.item.info?.identifier
                 )
                   ? "Close"
                   : "Open"}
               </button>
             )}
-            {inventoryType === "shop" && item?.info?.buyPrice && (
+            {inventory?.type === "shop" && inventory?.item?.info?.buyPrice && (
               <button
                 className="border py-1"
                 onClick={() =>
-                  buyItemHandler({ ...item, amount: inputAmount === 0 ? 1 : inputAmount })
+                  buyItemHandler({
+                    ...inventory,
+                    item: {
+                      ...inventory?.item,
+                      amount: inputAmount === 0 ? 1 : inputAmount,
+                    },
+                  })
                 }
               >
                 Buy
               </button>
             )}
-            {inventoryType === "shop" && item?.info?.sellPrice && (
+            {inventory?.type === "shop" && inventory?.item?.info?.sellPrice && (
               <button
                 className="border py-1"
                 onClick={() =>
                   sellItemHandler({
-                    ...item,
-                    amount: inputAmount === 0 ? 1 : inputAmount,
+                    ...inventory,
+                    item: {
+                      ...inventory?.item,
+                      amount: inputAmount === 0 ? 1 : inputAmount,
+                    },
                   })
                 }
               >
@@ -220,7 +230,7 @@ const Inventory = () => {
               </button>
             )}
 
-            {inventoryType === "playerinventory" && (
+            {inventory?.type === "playerinventory" && (
               <button
                 className="border py-1 border-b-0"
                 onClick={() => dispatch(closeContextMenu())}
@@ -228,18 +238,21 @@ const Inventory = () => {
                 Give
               </button>
             )}
-            {inventoryType === "playerinventory" && (
+            {inventory?.type === "playerinventory" && (
               <button
                 className="border py-1 border-b-0"
                 onClick={() =>
-                  dropHandler({ ...item, amount: inputAmount === 0 ? item.amount : inputAmount })
+                  dropHandler({
+                    ...inventory?.item,
+                    amount: inputAmount === 0 ? inventory?.item.amount : inputAmount,
+                  })
                 }
               >
                 Drop
               </button>
             )}
 
-            {inventoryType === "playerinventory" && (
+            {inventory?.type === "playerinventory" && (
               <button className="border py-1" onClick={() => dispatch(closeContextMenu())}>
                 Copy Serial
               </button>
