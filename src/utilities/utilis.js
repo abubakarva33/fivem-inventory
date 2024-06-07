@@ -217,3 +217,9 @@ export const sellItemHandlerWithClick = (item) => {
   // add this as last line for closing right menu //
   // dispatch(closeContextMenu());
 };
+
+export const findAmounts = (data) =>
+  data?.map((item) => ({
+    slot: item?.slot,
+    amount: item?.amount,
+  }));

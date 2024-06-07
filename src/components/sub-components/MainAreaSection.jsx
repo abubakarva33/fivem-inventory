@@ -16,8 +16,6 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
     slotBorderRound,
   } = useSelector((state) => state.customizeSec);
 
-
-
   const [hudData, setHudData] = useState({
     health: 100,
     armor: 100,

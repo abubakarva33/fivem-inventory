@@ -24,7 +24,7 @@ const Inventory = () => {
   const [playerInvAmounts, setPlayerInvAmounts] = useState(
     findAmounts(state.playerinventory?.items)
   );
-  console.log(playerInvAmounts);
+  // console.log(playerInvAmounts);
 
   useEffect(() => {
     const inventoryKeys = Object.keys(state);

@@ -188,7 +188,9 @@ const InventorySlotComponent = ({ item, inventory }) => {
             if (inventoryType === "shop") {
               return false;
             }
-            buyItemHandlerWithDnd(buyData);
+            if (!item?.name || source.item.name === item.name) {
+              buyItemHandlerWithDnd(buyData);
+            }
             return false;
           }
 
