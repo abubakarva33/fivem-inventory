@@ -7,7 +7,12 @@ import { useEffect, useState } from "react";
 import { closeContextMenu, handleContextInput } from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
 import CustomizeInventory from "../sub-components/CustomizeInventory";
-import { buyItemHandlerWithClick, sellItemHandlerWithDnd } from "../../utilities/utilis";
+import {
+  buyItemHandlerWithClick,
+  findAmounts,
+  sellItemHandlerWithClick,
+  sellItemHandlerWithDnd,
+} from "../../utilities/utilis";
 
 const Inventory = () => {
   const dispatch = useDispatch();
@@ -16,8 +21,10 @@ const Inventory = () => {
   const [openBackpacks, setOpenBackpacks] = useState([]);
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const slotWithAmount = inventory?.items?.map((x) => ({ slot: x?.slot, amount: x?.amount }));
+  const [playerInvAmounts, setPlayerInvAmounts] = useState(
+    findAmounts(state.playerinventory?.items)
+  );
+  console.log(playerInvAmounts);
 
   useEffect(() => {
     const inventoryKeys = Object.keys(state);
@@ -203,7 +210,7 @@ const Inventory = () => {
               <button
                 className="border py-1"
                 onClick={() =>
-                  sellItemHandlerWithDnd({
+                  sellItemHandlerWithClick({
                     ...inventory,
                     item: {
                       ...inventory?.item,

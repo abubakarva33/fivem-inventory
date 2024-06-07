@@ -16,6 +16,8 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
     slotBorderRound,
   } = useSelector((state) => state.customizeSec);
 
+
+
   const [hudData, setHudData] = useState({
     health: 100,
     armor: 100,
@@ -28,7 +30,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
   useEffect(() => {
     const EventListener = function (event) {
       if (event.data.action == "sethud") {
-        setHudData(event.data.hud)
+        setHudData(event.data.hud);
       }
     };
     window.addEventListener("message", EventListener);
