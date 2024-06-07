@@ -51,7 +51,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
   };
 
   const UpdateDataToServer = (data) => {
-    console.log({ data });
     if (data.identifier) {
       fetchNui("changeSlot", data)
         .then((retData) => {})
@@ -98,11 +97,10 @@ const InventorySlotComponent = ({ item, inventory }) => {
         const source = { ...main, type: main.type };
 
         // initially store and set data to redux(localhost) without shop inventory//
-        // if (source.type != "shop" && targetInventory.type != "shop") {
-        //   dispatch(changeSlot({ source, targetInventory }));
-        // }
-        console.log({ source, targetInventory });
-        dispatch(changeSlot({ source, targetInventory }));
+        if (source.type != "shop" && targetInventory.type != "shop") {
+          dispatch(changeSlot({ source, targetInventory }));
+        }
+
         // conditionally pass data for server //
         if (source.type === targetInventory.type) {
           // for passing data to server same inventory //
@@ -168,7 +166,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
             }
           }
           // condition for shop inventory //
-          if (source.type === "shop") {
+          if (source.type === "shop" && inventoryType === "shop") {
             return false;
           }
 
