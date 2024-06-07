@@ -98,9 +98,11 @@ const InventorySlotComponent = ({ item, inventory }) => {
         const source = { ...main, type: main.type };
 
         // initially store and set data to redux(localhost) without shop inventory//
-        if (source.type != "shop" && targetInventory.type != "shop") {
-          dispatch(changeSlot({ source, targetInventory }));
-        }
+        // if (source.type != "shop" && targetInventory.type != "shop") {
+        //   dispatch(changeSlot({ source, targetInventory }));
+        // }
+        console.log({ source, targetInventory });
+        dispatch(changeSlot({ source, targetInventory }));
         // conditionally pass data for server //
         if (source.type === targetInventory.type) {
           // for passing data to server same inventory //
@@ -165,16 +167,18 @@ const InventorySlotComponent = ({ item, inventory }) => {
               return false;
             }
           }
+          // condition for shop inventory //
+          if (source.type === "shop") {
+            return false;
+          }
+
           // condition for weight based transfer //
           if (source.type !== inventoryType) {
             return (
               source.item.weight * source.item.amount + state[inventoryType].weight <= maxWeight
             );
-          } else state[inventoryType].weight <= maxWeight;
-
-          // condition for shop inventory //
-          if (source.type === "shop") {
-            return false;
+          } else {
+            return state[inventoryType].weight <= maxWeight;
           }
         }
       },
