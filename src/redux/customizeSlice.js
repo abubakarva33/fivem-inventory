@@ -18,12 +18,23 @@ export const customizeSlice = createSlice({
   initialState,
   reducers: {
     customizeInventory: (state, { payload }) => {
-      // Use Object.assign to update the state with the properties from the payload
       Object.assign(state, payload);
+    },
+    restoreToDefault: (state) => {
+      state.boxBg = "#00000040";
+      state.boxBorderColor = "#000000";
+      state.boxBorderRound = 10;
+      state.slotBg = "#00000080";
+      state.slotBorderColor = "#000000";
+      state.slotBorderRound = 10;
+      state.textColor = "#cccccc";
+      state.btnColor = "#000000b3";
+      state.hudBg = "#00000080";
+      state.hudBorderColor = "#00000080";
     },
   },
 });
 
-export const { customizeInventory } = customizeSlice.actions;
+export const { customizeInventory , restoreToDefault} = customizeSlice.actions;
 const customizeSliceReducer = customizeSlice.reducer;
 export default customizeSliceReducer;

@@ -16,7 +16,7 @@ import { IoIosInfinite } from "react-icons/io";
 const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
-  const { slotBg, slotBorderColor } = useSelector((state) => state.customizeSec);
+  const { slotBg, slotBorderColor, slotBorderRound } = useSelector((state) => state.customizeSec);
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
   const { type, type2, maxWeight, identifier } = inventory;
   const inventoryType = type === "backpack" ? type2 : type;
@@ -238,7 +238,8 @@ const InventorySlotComponent = ({ item, inventory }) => {
       style={{
         userSelect: "none",
         opacity: isDragging ? 0.4 : 1.0,
-        border: `1px dashed ${isOver ? " rgba(255,255,255,0.4)" : "transparent"}`,
+        border: `$1px dashed ${isOver ? { slotBorderColor } : "transparent"}`,
+        borderRadius: slotBorderRound,
       }}
       onContextMenu={handleRightButtonClick}
       onMouseEnter={handleMouseEnter}
@@ -252,7 +253,10 @@ const InventorySlotComponent = ({ item, inventory }) => {
       ></div>
 
       {true && (
-        <div className="slot rounded-md relative" style={{ backgroundColor: slotBg }}>
+        <div
+          className="slot relative"
+          style={{ backgroundColor: slotBg, borderRadius: slotBorderRound }}
+        >
           <div
             className="flex items-center justify-between flex-col w-full h-full"
             style={{ opacity: isDragging ? 0.5 : 1 }}

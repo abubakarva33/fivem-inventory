@@ -1,22 +1,27 @@
 import "./CustomizeInventory.css";
 import { useDispatch, useSelector } from "react-redux";
-import { customizeInventory } from "../../redux/customizeSlice";
+import { customizeInventory, restoreToDefault } from "../../redux/customizeSlice";
 import { HexAlphaColorPicker, HexColorInput } from "react-colorful";
 import ColorPickerSection from "./ColorPickerSection";
+import { ConfigProvider, Slider } from "antd";
 
 const CustomizeInventory = () => {
+  const dispatch = useDispatch();
   const {
     boxBg,
     boxBorderColor,
     boxBorderRound,
+    slotBorderRound,
     slotBg,
     slotBorderColor,
     textColor,
-    slotBorderRound,
     btnColor,
     hudBg,
     hudBorderColor,
   } = useSelector((state) => state.customizeSec);
+  const handleBorderRadiusChange = (property) => (newColor) => {
+    dispatch(customizeInventory({ [property]: newColor }));
+  };
 
   return (
     <div
@@ -35,26 +40,91 @@ const CustomizeInventory = () => {
         Customizer
       </div>
 
-      <div
-        className="grid grid-cols-2 gap-5 "
-        style={{ height: "calc(100% - 72px)", overflowY: "auto" }}
-      >
-        <ColorPickerSection type={"slotBg"} color={slotBg} title={"SLOT BACKGROUND"} />
-        <ColorPickerSection type={"boxBg"} color={boxBg} title={"INVENTORY BACKGROUND"} />
-        <ColorPickerSection type={"textColor"} color={textColor} title={"TEXT COLOR"} />
-        <ColorPickerSection type={"btnColor"} color={btnColor} title={"BUTTON COLOR"} />
-        <ColorPickerSection type={"hudBg"} color={hudBg} title={"HUD BACKGROUND"} />
-        <ColorPickerSection type={"hudBorderColor"} color={hudBorderColor} title={"HUD BORDER"} />
-        <ColorPickerSection
-          type={"slotBorderColor"}
-          color={slotBorderColor}
-          title={"SLOT BORDER"}
-        />
-        <ColorPickerSection
-          type={"boxBorderColor"}
-          color={boxBorderColor}
-          title={"INVENTORY BORDER"}
-        />
+      <div style={{ height: "calc(100% - 72px)", overflowY: "auto", width: "100%" }}>
+        <div className="grid grid-cols-2 gap-5 ">
+          <ColorPickerSection type={"slotBg"} color={slotBg} title={"SLOT BACKGROUND"} />
+          <ColorPickerSection type={"boxBg"} color={boxBg} title={"INVENTORY BACKGROUND"} />
+          <ColorPickerSection type={"textColor"} color={textColor} title={"TEXT COLOR"} />
+          <ColorPickerSection type={"btnColor"} color={btnColor} title={"BUTTON COLOR"} />
+          <ColorPickerSection type={"hudBg"} color={hudBg} title={"HUD BACKGROUND"} />
+          <ColorPickerSection type={"hudBorderColor"} color={hudBorderColor} title={"HUD BORDER"} />
+          <ColorPickerSection
+            type={"slotBorderColor"}
+            color={slotBorderColor}
+            title={"SLOT BORDER"}
+          />
+          <ColorPickerSection
+            type={"boxBorderColor"}
+            color={boxBorderColor}
+            title={"INVENTORY BORDER"}
+          />
+
+          <div className="colorPickerSection">
+            <div
+              className="text-center text-[16px] py-1 mb-3"
+              style={{ backgroundColor: btnColor, color: textColor }}
+            >
+              SLOT RADIUS
+            </div>
+            <ConfigProvider
+              theme={{
+                components: {
+                  Slider: {
+                    railSize: 20,
+                    handleSize: 15,
+                    railBg: btnColor,
+                    railHoverBg: slotBg,
+                  },
+                },
+              }}
+            >
+              <Slider
+                defaultValue={slotBorderRound}
+                className="w-full"
+                max={50}
+                onChange={handleBorderRadiusChange("slotBorderRound")}
+              />
+            </ConfigProvider>
+          </div>
+          <div className="colorPickerSection">
+            <div
+              className="text-center text-[16px] py-1 mb-3"
+              style={{ backgroundColor: btnColor, color: textColor }}
+            >
+              INVENTORY RADIUS
+            </div>
+
+            <ConfigProvider
+              theme={{
+                components: {
+                  Slider: {
+                    railSize: 20,
+                    handleSize: 15,
+                    railBg: btnColor,
+                    railHoverBg: slotBg,
+                  },
+                },
+              }}
+            >
+              <Slider
+                defaultValue={boxBorderRound}
+                max={50}
+                className="w-full"
+                onChange={handleBorderRadiusChange("boxBorderRound")}
+              />
+            </ConfigProvider>
+          </div>
+        </div>
+        <button
+          className="py-2 flex items-center w-full justify-center h-10 mt-3 rounded-xl mb-1 text-[18px]"
+          style={{
+            backgroundColor: btnColor,
+            border: `2px solid ${slotBorderColor}`,
+          }}
+          onClick={() => dispatch(restoreToDefault())}
+        >
+          Restore Default
+        </button>
       </div>
     </div>
   );

@@ -4,16 +4,7 @@ import { customizeInventory } from "../../redux/customizeSlice";
 
 const ColorPickerSection = ({ children, type, color, title }) => {
   const dispatch = useDispatch();
-  const {
-    boxBg,
-    boxBorderColor,
-    boxBorderRound,
-    slotBg,
-    slotBorderColor,
-    textColor,
-    slotBorderRound,
-    btnColor,
-  } = useSelector((state) => state.customizeSec);
+  const { slotBg, textColor, btnColor } = useSelector((state) => state.customizeSec);
   const handleColorChange = (property) => (newColor) => {
     dispatch(customizeInventory({ [property]: newColor }));
   };

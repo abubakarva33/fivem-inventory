@@ -13,7 +13,8 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
     slotBg,
     slotBorderColor,
     textColor,
-    slotBorderRound,
+    hudBg,
+    hudBorderColor,
   } = useSelector((state) => state.customizeSec);
 
   const [hudData, setHudData] = useState({
@@ -52,13 +53,13 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
           <div className="flex items-center	w-[36%]">
             <div
               className="border rounded-full p-2 text-xl me-2"
-              style={{ backgroundColor: slotBg, borderColor: slotBg }}
+              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
             >
               <BsBoxes />
             </div>
             <p
               className="border px-5 py-1  text-lg rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBg }}
+              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
             >
               Menan AK47
             </p>
@@ -68,12 +69,12 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
             showInfo={false}
             size={["100%", 35]}
             strokeColor="green" //!  change  with condition //
-            trailColor={boxBg}
-            style={{ border: `2px solid ${slotBorderColor}`, borderRadius: 50 }}
+            trailColor={hudBg}
+            style={{ border: `2px solid ${hudBorderColor}`, borderRadius: 50 }}
           />
           <div
             className="border rounded-full  p-2 text-xl"
-            style={{ backgroundColor: slotBg, borderColor: slotBg }}
+            style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
           >
             <BsBoxes onClick={() => setIsModalOpen(!isModalOpen)} />
           </div>
@@ -82,28 +83,28 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
           <div className="flex items-center">
             <div
               className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBg }}
+              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
             >
               <BsBoxes className="me-2" />
               <span>{hudData.health}%</span>
             </div>
             <div
               className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBg }}
+              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
             >
               <BsBoxes className="me-2" />
               <span>{hudData.armor}%</span>
             </div>
             <div
               className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBg }}
+              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
             >
               <BsBoxes className="me-2" />
               <span>{hudData.hunger}%</span>
             </div>
             <div
               className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBg }}
+              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
             >
               <BsBoxes className="me-2" />
               <span>{hudData.thirst}%</span>
@@ -113,14 +114,14 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
           <div className="flex items-center">
             <div
               className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBg }}
+              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
             >
               <BsBoxes className="me-2" />
               <span>${hudData.cash}</span>
             </div>
             <div
               className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: slotBg, borderColor: slotBg }}
+              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
             >
               <BsBoxes className="me-2" />
               <span>${hudData.bank}</span>
