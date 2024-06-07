@@ -1,0 +1,22 @@
+.colorPickerSection .react-colorful {
+  height: 202px;
+  width: 100%;
+}
+.colorPickerSection .react-colorful__saturation {
+  border-radius: 0;
+}
+.colorPickerSection .react-colorful__hue {
+  height: 20px;
+  border-radius: 0;
+}
+.colorPickerSection .react-colorful__hue-pointer {
+  width: 15px;
+  height: 15px;
+}
+.colorPickerSection .react-colorful__pointer {
+  height: 15px;
+  width: 15px;
+}
+.colorPickerSection .react-colorful__last-control {
+  border-radius: 0;
+}

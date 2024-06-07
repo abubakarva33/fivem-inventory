@@ -9,6 +9,8 @@ const initialState = {
   slotBorderRound: 10,
   textColor: "#cccccc",
   btnColor: "#000000b3",
+  hudBg: "#00000080",
+  hudBorderColor: "#00000080",
 };
 
 export const customizeSlice = createSlice({

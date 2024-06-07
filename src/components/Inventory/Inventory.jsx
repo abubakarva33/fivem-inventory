@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { closeContextMenu, handleContextInput } from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
-import CustomizeInventory from "../sub-components/CustomizeInventory";
+import CustomizeInventory from "../CustomizeInventory/CustomizeInventory";
 import {
   buyItemHandlerWithClick,
   findAmounts,
