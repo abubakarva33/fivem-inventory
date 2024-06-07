@@ -165,11 +165,15 @@ const InventorySlotComponent = ({ item, inventory }) => {
             }
           }
           // condition for buy products //
+          if (source.type === "shop" && !source.item.info.buyPrice) {
+            return false;
+          }
           if (source.type === "shop" && source.item.info.buyPrice) {
             const { items, ...restOfInventory } = state[source.type];
             if (inventoryType === "shop") {
               return false;
-            } else buyItemHandler({ ...restOfInventory, item: source.item });
+            }
+            buyItemHandler({ ...restOfInventory, item: source.item });
             return false;
           }
 

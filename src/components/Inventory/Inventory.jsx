@@ -17,6 +17,8 @@ const Inventory = () => {
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const slotWithAmount = inventory?.items?.map((x) => ({ slot: x?.slot, amount: x?.amount }));
+
   useEffect(() => {
     const inventoryKeys = Object.keys(state);
     const excludedTypes = ["largeBackpack", "smallBackpack", "playerinventory"];

@@ -377,7 +377,7 @@ export let shopInvDummyData = {
       type: "item",
       description: "This item will reduce your hunger",
       weight: 500,
-      amount: 25,
+      amount: 2,
       quality: 100,
       slot: 3,
       info: {
