@@ -1,31 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  boxBg: "rgb(0 0 0 / 25%)",
-  boxBorderColor: "rgb(0, 0, 0)",
+  boxBg: "#00000040",
+  boxBorderColor: "#000000",
   boxBorderRound: 10,
-  slotBg: "rgb(0 0 0 / 50%)",
-  slotBorderColor: "rgb(0, 0, 0)",
+  slotBg: "#00000080",
+  slotBorderColor: "#000000",
   slotBorderRound: 10,
-  textColor: "rgb(204, 204, 204)",
-  btnColor: "rgb(0 0 0 / 70%)",
+  textColor: "#cccccc",
+  btnColor: "#000000b3",
 };
 
 export const customizeSlice = createSlice({
   name: "customizeSec",
   initialState,
   reducers: {
-    customizeSlot: (state, { payload }) => {
-      state.slotBg = payload;
-      state.slotBorderColor = payload;
-    },
-    customizeSlotDummy: (state, { payload }) => {
-      state.slotBg = payload;
-      state.slotBorderColor = payload;
+    customizeInventory: (state, { payload }) => {
+      // Use Object.assign to update the state with the properties from the payload
+      Object.assign(state, payload);
     },
   },
 });
 
-export const { customizeSlot, customizeSlotDummy } = customizeSlice.actions;
+export const { customizeInventory } = customizeSlice.actions;
 const customizeSliceReducer = customizeSlice.reducer;
 export default customizeSliceReducer;
