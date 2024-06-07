@@ -430,47 +430,6 @@ export let craftingInvDummyData = {
   ],
 };
 
-let changeSlotDummy = {
-  identifier: "player1",
-  fromSlot: 1,
-  fromSlotData: {},
-  toSlot: 1,
-  toSlotData: {
-    name: "bread",
-    label: "Bread",
-    type: "item",
-    description: "This item will reduce your hunger",
-    weight: 500,
-    amount: 3,
-    quality: 100,
-    slot: 2,
-    info: {},
-  },
-};
-
-let transferDummy = {
-  fromInv: {
-    identifier: "player1",
-    slot: 5,
-    slotData: null,
-  },
-  toInv: {
-    identifier: "player1",
-    slot: 2,
-    slotData: {
-      name: "bread",
-      label: "Bread",
-      type: "item",
-      description: "This item will reduce your hunger",
-      weight: 500,
-      amount: 3,
-      quality: 100,
-      slot: 2,
-      info: {},
-    },
-  },
-};
-
 //show this variables into description box (if the item have) when an item hovered.
 let infoToDescription = {
   ammo: true,

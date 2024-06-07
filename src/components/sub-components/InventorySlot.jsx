@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { buyItemHandler, gramsToKilograms, sellItemHandler } from "../../utilities/utilis";
+import {
+  buyItemHandlerWithDnd,
+  gramsToKilograms,
+  sellItemHandlerWithDnd,
+} from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
 import { fetchNui } from "../../utilities/fetchNui";
@@ -169,24 +173,47 @@ const InventorySlotComponent = ({ item, inventory }) => {
             return false;
           }
           if (source.type === "shop" && source.item.info.buyPrice) {
-            const { items, ...restOfInventory } = state[source.type];
+            const buyData = {
+              fromInv: {
+                identifier: source.identifier,
+                slot: source.item.slot,
+                slotData: source.item,
+              },
+              toInv: {
+                identifier: inventory.identifier,
+                slot: item.slot,
+                slotData: item,
+              },
+            };
             if (inventoryType === "shop") {
               return false;
             }
-            buyItemHandler({ ...restOfInventory, item: source.item });
+            buyItemHandlerWithDnd(buyData);
             return false;
           }
 
           // condition for sell products //
           if (source.type === "playerinventory" && inventoryType === "shop") {
-            const { items, ...restOfInventory } = state[source.type];
+            const sellData = {
+              fromInv: {
+                identifier: source.identifier,
+                slot: source.item.slot,
+                slotData: source.item,
+              },
+              toInv: {
+                identifier: inventory.identifier,
+                slot: item.slot,
+                slotData: item,
+              },
+            };
             if (source.item.name === item.name && item.info.sellPrice) {
-              sellItemHandler({ ...restOfInventory, item: source.item });
+              sellItemHandlerWithDnd(sellData);
             }
             return false;
           }
+
+          // condition for weight based transfer //
           if (source.type !== inventoryType) {
-            // condition for weight based transfer //
             return (
               source.item.weight * source.item.amount + state[inventoryType].weight <= maxWeight
             );

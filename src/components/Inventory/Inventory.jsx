@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { closeContextMenu, handleContextInput } from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
 import CustomizeInventory from "../sub-components/CustomizeInventory";
-import { buyItemHandler, sellItemHandler } from "../../utilities/utilis";
+import { buyItemHandlerWithClick, sellItemHandlerWithDnd } from "../../utilities/utilis";
 
 const Inventory = () => {
   const dispatch = useDispatch();
@@ -187,7 +187,7 @@ const Inventory = () => {
               <button
                 className="border py-1"
                 onClick={() =>
-                  buyItemHandler({
+                  buyItemHandlerWithClick({
                     ...inventory,
                     item: {
                       ...inventory?.item,
@@ -203,7 +203,7 @@ const Inventory = () => {
               <button
                 className="border py-1"
                 onClick={() =>
-                  sellItemHandler({
+                  sellItemHandlerWithDnd({
                     ...inventory,
                     item: {
                       ...inventory?.item,

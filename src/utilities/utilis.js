@@ -191,7 +191,13 @@ export const keyMap = {
   OEM_102: 226,
 };
 
-export const buyItemHandler = (item) => {
+export const buyItemHandlerWithDnd = (item) => {
+  console.log(item);
+};
+export const sellItemHandlerWithDnd = (item) => {
+  console.log(item);
+};
+export const buyItemHandlerWithClick = (item) => {
   console.log(item);
   fetchNui("buyItem", item)
     .then((retData) => {})
@@ -200,7 +206,7 @@ export const buyItemHandler = (item) => {
   // add this as last line for closing right menu //
   // dispatch(closeContextMenu());
 };
-export const sellItemHandler = (item) => {
+export const sellItemHandlerWithClick = (item) => {
   console.log(item);
   fetchNui("sellItem", item)
     .then((retData) => {})
