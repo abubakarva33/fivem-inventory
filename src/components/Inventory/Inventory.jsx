@@ -108,7 +108,6 @@ const Inventory = () => {
       .catch((e) => {});
     dispatch(closeContextMenu());
   };
-  console.log(inventory?.item?.name);
   return (
     <div className="mainSection relative">
       <div className="inventory">
@@ -126,6 +125,8 @@ const Inventory = () => {
         {isModalOpen && <CustomizeInventory />}
       </div>
 
+
+{/* // right click menu // */}
       {inventory?.item?.name && (
         <div
           className="absolute w-[150px] no-close z-[500]"

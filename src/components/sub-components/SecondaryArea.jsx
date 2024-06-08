@@ -79,7 +79,11 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
       </div>
 
       <div style={{ height: "calc(100% - 135px)", overflowY: "auto" }}>
-        <div className="section px-3 mt-2">
+        <div
+          className={`grid ${
+            secondaryBackpack?.type === "crafting" ? "grid-cols-2" : "grid-cols-4"
+          } gap-[5px] px-3 mt-2`}
+        >
           {Array.isArray(state[secondaryBackpack?.type]?.items) &&
             state[secondaryBackpack?.type]?.items?.map((item) => (
               <InventorySlot
