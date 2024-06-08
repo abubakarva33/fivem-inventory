@@ -2,20 +2,11 @@ import { Progress } from "antd";
 import { BsBoxes } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
-import { calculateTotalWeight } from "../../utilities/utilis";
 import { useEffect, useState } from "react";
 
 const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
-  const {
-    boxBg,
-    boxBorderColor,
-    boxBorderRound,
-    slotBg,
-    slotBorderColor,
-    textColor,
-    hudBg,
-    hudBorderColor,
-  } = useSelector((state) => state.customizeSec);
+  const { boxBg, boxBorderColor, boxBorderRound, slotBg, textColor, hudBg, hudBorderColor } =
+    useSelector((state) => state.customizeSec);
 
   const [hudData, setHudData] = useState({
     health: 100,
@@ -138,7 +129,6 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
                 key={`${inventory.type}-${inventory.id}-${item.slot}`}
                 item={item}
                 inventory={inventory}
-                totalWeight={calculateTotalWeight(inventory?.items)}
               />
             ))}
         </div>

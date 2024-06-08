@@ -3,13 +3,13 @@ import { useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  UpdateDataToServer,
   buyItemHandlerWithDnd,
   gramsToKilograms,
   sellItemHandlerWithDnd,
 } from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
-import { fetchNui } from "../../utilities/fetchNui";
 import { closeContextMenu, handleContextInput, openContextMenu } from "../../redux/contextSlice";
 import { IoIosInfinite } from "react-icons/io";
 
@@ -29,7 +29,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
     }, 1000); // 1 second delay
     setHoverTimer(timer);
   };
-
   const handleMouseLeave = () => {
     setShowTooltip(false);
     if (hoverTimer) {
@@ -56,18 +55,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
       dispatch(handleContextInput(0));
     } else {
       dispatch(closeContextMenu());
-    }
-  };
-
-  const UpdateDataToServer = (data) => {
-    if (data.identifier) {
-      fetchNui("changeSlot", data)
-        .then((retData) => {})
-        .catch((e) => {});
-    } else {
-      fetchNui("transfer", data)
-        .then((retData) => {})
-        .catch((e) => {});
     }
   };
 
@@ -288,7 +275,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
               alt=""
               className="img-fluid slotImg mb-[12px]"
             />
-            {item?.quality && inventoryType != "shop" && (
+            {item?.quality && inventoryType != "shop" && inventoryType != "crafting" && (
               <div className="slotQuality w-full mt-[-24px]">
                 <Progress
                   percent={item?.quality}
@@ -322,7 +309,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
           </div>
         </div>
       )}
-
+      {/* tooltip section */}
       {showTooltip && item?.name && !isRightButtonClick && (
         <div className="flex flex-col absolute top-8 left-8 z-[500] bg-slate-800 border w-[200px] p-2">
           <h5> {item?.label}</h5>

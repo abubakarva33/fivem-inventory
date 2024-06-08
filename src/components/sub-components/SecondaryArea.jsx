@@ -1,8 +1,8 @@
 import { ConfigProvider, Progress, Radio } from "antd";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
-import { calculateTotalWeight } from "../../utilities/utilis";
 import { useEffect, useState } from "react";
+import CraftInventorySlot from "./CraftInventorySlot";
 
 const SecondaryArea = ({ secondaryBackpacks }) => {
   const {
@@ -86,14 +86,19 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
         >
           {Array.isArray(state[secondaryBackpack?.type]?.items) &&
             state[secondaryBackpack?.type]?.items?.map((item) => (
-              <InventorySlot
-                key={`${state[secondaryBackpack?.type].type}-${state[secondaryBackpack?.type].id}-${
-                  item.slot
-                }`}
-                item={item}
-                inventory={state[secondaryBackpack?.type]}
-                totalWeight={calculateTotalWeight(state[secondaryBackpack?.type]?.items)}
-              />
+              <>
+                {secondaryBackpack?.type != "crafting" ? (
+                  <InventorySlot
+                    key={`${state[secondaryBackpack?.type].type}-${
+                      state[secondaryBackpack?.type].id
+                    }-${item.slot}`}
+                    item={item}
+                    inventory={state[secondaryBackpack?.type]}
+                  />
+                ) : (
+                  <CraftInventorySlot item={item} />
+                )}
+              </>
             ))}
         </div>
       </div>
