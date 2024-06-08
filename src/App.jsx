@@ -30,7 +30,9 @@ function App() {
 
   const [primaryInv, setPrimaryInv] = useState(!window.invokeNative ? primaryInvDummyData : null);
 
-  const [secondaryInv, setSecondaryInv] = useState(!window.invokeNative ? shopInvDummyData : null);
+  const [secondaryInv, setSecondaryInv] = useState(
+    !window.invokeNative ? craftingInvDummyData : null
+  );
 
   const [dropInv, setDropInv] = useState(!window.invokeNative ? dropInvDummyData : null);
   const [smallBackpack, setSmallBackpack] = useState(

@@ -260,7 +260,9 @@ const Inventory = () => {
                     ...inventory,
                     item: {
                       ...inventory?.item,
-                      amount: (inputAmount === 0 ? 1 : inputAmount) * inventory?.item?.amount,
+                      amount:
+                        (!inputAmount?.selectedAmount ? 1 : inputAmount?.selectedAmount) *
+                        inventory?.item?.amount,
                     },
                   })
                 }
