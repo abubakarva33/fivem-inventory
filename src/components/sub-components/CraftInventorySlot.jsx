@@ -50,14 +50,13 @@ const CraftInventorySlot = ({ item, inventory }) => {
 
   return (
     <div
+      className="slot relative"
+      style={{ backgroundColor: slotBg, borderRadius: slotBorderRound }}
       onContextMenu={handleRightButtonClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div
-        className="slot relative"
-        style={{ backgroundColor: slotBg, borderRadius: slotBorderRound }}
-      >
+      <div className="grid grid-cols-2 gap-1">
         <div className="flex items-center justify-between flex-col w-full h-full">
           <div className="flex items-center justify-between w-full px-2">
             {item?.amount && (
@@ -81,6 +80,13 @@ const CraftInventorySlot = ({ item, inventory }) => {
               <span>{item?.label}</span>
             </div>
           )}
+        </div>
+        <div className="flex flex-col items-center">
+          <span>items</span>
+          <span>items</span>
+          <span>items</span>
+          <span>items</span>
+          <span>items</span>
         </div>
       </div>
       {/* tooltip section */}
