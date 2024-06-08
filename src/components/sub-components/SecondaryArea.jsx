@@ -96,7 +96,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
                     inventory={state[secondaryBackpack?.type]}
                   />
                 ) : (
-                  <CraftInventorySlot item={item} />
+                  <CraftInventorySlot item={item} inventory={state[secondaryBackpack?.type]} />
                 )}
               </>
             ))}
