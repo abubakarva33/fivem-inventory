@@ -2,7 +2,7 @@ import { IoIosInfinite } from "react-icons/io";
 import { gramsToKilograms } from "../../utilities/utilis";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { closeContextMenu, handleContextInput, openContextMenu } from "../../redux/contextSlice";
+import { closeContextMenu, openContextMenu } from "../../redux/contextSlice";
 
 const CraftInventorySlot = ({ item, inventory }) => {
   const { type, type2 } = inventory;
@@ -42,7 +42,6 @@ const CraftInventorySlot = ({ item, inventory }) => {
           coords: { x: event.clientX, y: event.clientY },
         })
       );
-      dispatch(handleContextInput(0));
     } else {
       dispatch(closeContextMenu());
     }
@@ -50,45 +49,64 @@ const CraftInventorySlot = ({ item, inventory }) => {
 
   return (
     <div
-      className="slot relative"
-      style={{ backgroundColor: slotBg, borderRadius: slotBorderRound }}
+      className="slot relative p-2"
+      style={{
+        backgroundColor: slotBg,
+        border: `1px solid ${slotBorderColor}`,
+        borderRadius: slotBorderRound,
+      }}
       onContextMenu={handleRightButtonClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="grid grid-cols-2 gap-1">
-        <div className="flex items-center justify-between flex-col w-full h-full">
-          <div className="flex items-center justify-between w-full px-2">
-            {item?.amount && (
-              <span className="flex items-center justify-center">
-                {item?.amount === -1 ? (
-                  <IoIosInfinite className="mb-[-3px] text-[16px]" />
-                ) : (
-                  item?.amount + "x"
-                )}
-              </span>
-            )}
-            {item?.weight && <span className="">{gramsToKilograms(item?.weight)}kg</span>}
-          </div>
-          <img src={`./images/${item?.name}.png`} alt="" className="img-fluid slotImg mb-[12px]" />
+      {item?.name && (
+        <div className="grid grid-cols-2 gap-1 w-full h-full">
+          <div
+            className="flex items-center justify-between flex-col"
+            style={{ border: `1px solid ${slotBorderColor}`, borderRadius: 10 }}
+          >
+            <div className="flex items-center justify-between w-full px-2">
+              {item?.amount && (
+                <span className="flex items-center justify-center">
+                  {item?.amount === -1 ? (
+                    <IoIosInfinite className="mb-[-3px] text-[16px]" />
+                  ) : (
+                    item?.amount + "x"
+                  )}
+                </span>
+              )}
+              {item?.weight && <span className="">{gramsToKilograms(item?.weight)}kg</span>}
+            </div>
+            <img
+              src={`./images/${item?.name}.png`}
+              alt=""
+              className="img-fluid slotImg mb-[12px]"
+            />
 
-          {item?.label && (
-            <div
-              className="slotItemLabel border mt-[-6px]  w-full text-center"
-              style={{ borderColor: slotBorderColor }}
-            >
-              <span>{item?.label}</span>
+            {item?.label && (
+              <div
+                className="slotItemLabel border-t mt-[-6px]  w-full text-center"
+                style={{ borderColor: slotBorderColor }}
+              >
+                <span>{item?.label}</span>
+              </div>
+            )}
+          </div>
+
+          {item?.info?.required && (
+            <div className="flex flex-col justify-center">
+              {Object.entries(item?.info.required).map(([key, value]) => (
+                <div className="flex text-[14px]" key={key}>
+                  <img src={`/images/${key}.png`} alt="" style={{ height: 22, width: 30 }} />
+                  <span className="mx-2">{key}:</span>
+                  <span>{value}</span>
+                </div>
+              ))}
             </div>
           )}
         </div>
-        <div className="flex flex-col items-center">
-          <span>items</span>
-          <span>items</span>
-          <span>items</span>
-          <span>items</span>
-          <span>items</span>
-        </div>
-      </div>
+      )}
+
       {/* tooltip section */}
       {showTooltip && item?.name && !isRightButtonClick && (
         <div className="flex flex-col absolute top-8 left-8 z-[500] bg-slate-800 border w-[200px] p-2">

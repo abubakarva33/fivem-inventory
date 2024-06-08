@@ -80,10 +80,13 @@
   border-bottom-right-radius: 7px;
 }
 .mainAreaSlot .slot {
-  height: 130px;
+  height: 131px;
 }
 .mainAreaSlot .slot img {
   height: 78px;
+}
+.secondarySlotArea .slot {
+  height: 131px;
 }
 
 .mainAreaTop {
@@ -133,7 +136,6 @@
   background-size: 7vh;
   image-rendering: -webkit-optimize-contrast;
 }
-
 
 /* responsive part */
 @media screen and (min-device-height: 720px) and (max-device-height: 1079px) {
