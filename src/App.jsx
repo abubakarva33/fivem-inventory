@@ -6,11 +6,9 @@ import Inventory from "./components/Inventory/Inventory";
 import { setupInventory } from "./redux/inventorySlice";
 import {
   primaryInvDummyData,
-  secondaryInvDummyData,
   smallBackpackDummyData,
   largeBackpackDummyData,
   dropInvDummyData,
-  shopInvDummyData,
   craftingInvDummyData,
 } from "./dummyData";
 
@@ -80,6 +78,7 @@ function App() {
         isOpen = true;
         showRoot();
       } else if (event.data.action == "setLocaleConfig") {
+        // eslint-disable-next-line no-undef
         setLocale(event.data.locale);
       } else if (event.data.action == "setPrimaryInv") {
         setPrimaryInv(event.data.primaryInv);
