@@ -4,11 +4,7 @@ import SecondaryArea from "../sub-components/SecondaryArea";
 import BackpackSection from "../sub-components/BackpackSection";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import {
-  closeContextMenu,
-  handleContextInput,
-  handleSelectedItems,
-} from "../../redux/contextSlice";
+import { closeContextMenu, handleSelectedItems } from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
 import CustomizeInventory from "../CustomizeInventory/CustomizeInventory";
 import {
@@ -33,7 +29,6 @@ const Inventory = () => {
         x?.name === inventory?.item?.name &&
         x.slot === inventory?.item?.slot
     );
-    // console.log({ number });
     setInputAmount(number);
   }, [selectedItems, inventory]);
 
@@ -152,7 +147,6 @@ const Inventory = () => {
             <div className="flex">
               <button
                 className="border py-1 border-b-0 w-1/4"
-                // onClick={() => dispatch(handleContextInput(inputAmount - 1))}
                 disabled={(inputAmount?.selectedAmount || 0) <= 0}
                 onClick={() =>
                   dispatch(handleSelectedItems((inputAmount?.selectedAmount || 0) - 1))
@@ -170,7 +164,6 @@ const Inventory = () => {
               <button
                 className="border py-1 border-b-0 w-1/4 text-white"
                 style={{ cursor: "pointer" }}
-                // onClick={() => dispatch(handleContextInput(inputAmount + 1))}
                 disabled={
                   inventory?.item?.amount > 0 &&
                   inventory?.item?.amount <= inputAmount?.selectedAmount
