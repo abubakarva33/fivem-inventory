@@ -4,7 +4,11 @@ import SecondaryArea from "../sub-components/SecondaryArea";
 import BackpackSection from "../sub-components/BackpackSection";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { closeContextMenu, handleContextInput } from "../../redux/contextSlice";
+import {
+  closeContextMenu,
+  handleContextInput,
+  handleSelectedItems,
+} from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
 import CustomizeInventory from "../CustomizeInventory/CustomizeInventory";
 import {
@@ -16,10 +20,22 @@ import {
 const Inventory = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
-  const { inventory, coords, inputAmount } = useSelector((state) => state.context);
+  const { inventory, coords, selectedItems } = useSelector((state) => state.context);
   const [openBackpacks, setOpenBackpacks] = useState([]);
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [inputAmount, setInputAmount] = useState({});
+
+  useEffect(() => {
+    const number = selectedItems.find(
+      (x) =>
+        x?.identifier === inventory?.identifier &&
+        x?.name === inventory?.item?.name &&
+        x.slot === inventory?.item?.slot
+    );
+    console.log({ number });
+    setInputAmount(number);
+  }, [selectedItems, inventory]);
 
   useEffect(() => {
     const inventoryKeys = Object.keys(state);
@@ -125,8 +141,7 @@ const Inventory = () => {
         {isModalOpen && <CustomizeInventory />}
       </div>
 
-
-{/* // right click menu // */}
+      {/* // right click menu // */}
       {inventory?.item?.name && (
         <div
           className="absolute w-[150px] no-close z-[500]"
@@ -137,7 +152,11 @@ const Inventory = () => {
             <div className="flex">
               <button
                 className="border py-1 border-b-0 w-1/4"
-                onClick={() => dispatch(handleContextInput(inputAmount - 1))}
+                // onClick={() => dispatch(handleContextInput(inputAmount - 1))}
+                disabled={(inputAmount?.selectedAmount || 0) <= 0}
+                onClick={() =>
+                  dispatch(handleSelectedItems((inputAmount?.selectedAmount || 0) - 1))
+                }
               >
                 -
               </button>
@@ -145,14 +164,20 @@ const Inventory = () => {
                 type="number"
                 className="w-1/2  bg-slate-800 text-center border-t outline-none "
                 style={{ color: "white" }}
-                defaultValue={inputAmount}
-                value={inputAmount}
-                onChange={(e) => dispatch(handleContextInput(Number(e.target.value)))}
+                value={inputAmount?.selectedAmount || 0}
+                onChange={(e) => dispatch(handleSelectedItems(Number(e.target.value)))}
               />
               <button
                 className="border py-1 border-b-0 w-1/4 text-white"
                 style={{ cursor: "pointer" }}
-                onClick={() => dispatch(handleContextInput(inputAmount + 1))}
+                // onClick={() => dispatch(handleContextInput(inputAmount + 1))}
+                disabled={
+                  inventory?.item?.amount > 0 &&
+                  inventory?.item?.amount <= inputAmount?.selectedAmount
+                }
+                onClick={() =>
+                  dispatch(handleSelectedItems((inputAmount?.selectedAmount || 0) + 1))
+                }
               >
                 +
               </button>
