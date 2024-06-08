@@ -82,7 +82,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
           image: item?.name && `url(./images/${item?.name + ".png" || "none"})`,
         };
       },
-      canDrag: Boolean(item.name),
+      canDrag: Boolean(item.name) && inventoryType != "crafting",
     };
   }, [inventoryType, item]);
 
@@ -211,6 +211,11 @@ const InventorySlotComponent = ({ item, inventory }) => {
             if (source.item.name === item.name && item.info.sellPrice) {
               sellItemHandlerWithDnd(sellData);
             }
+            return false;
+          }
+
+          // condition for crafting inventory //
+          if (inventoryType === "crafting") {
             return false;
           }
 
