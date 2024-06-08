@@ -41,7 +41,12 @@ const InventorySlotComponent = ({ item, inventory }) => {
     event.preventDefault();
     const { items, ...restOfInventory } = inventory;
     setIsRightButtonClick(!isRightButtonClick);
-    if (item?.name && (inventoryType === "playerinventory" || inventoryType === "shop")) {
+    if (
+      item?.name &&
+      (inventoryType === "playerinventory" ||
+        inventoryType === "shop" ||
+        inventoryType === "crafting")
+    ) {
       dispatch(
         openContextMenu({
           inventory: { ...restOfInventory, item },

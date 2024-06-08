@@ -8,10 +8,9 @@ import { closeContextMenu, handleContextInput } from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
 import CustomizeInventory from "../CustomizeInventory/CustomizeInventory";
 import {
+  CraftItemHandler,
   buyItemHandlerWithClick,
-  findAmounts,
   sellItemHandlerWithClick,
-  sellItemHandlerWithDnd,
 } from "../../utilities/utilis";
 
 const Inventory = () => {
@@ -21,10 +20,6 @@ const Inventory = () => {
   const [openBackpacks, setOpenBackpacks] = useState([]);
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [playerInvAmounts, setPlayerInvAmounts] = useState(
-    findAmounts(state.playerinventory?.items)
-  );
-  // console.log(playerInvAmounts);
 
   useEffect(() => {
     const inventoryKeys = Object.keys(state);
@@ -113,7 +108,7 @@ const Inventory = () => {
       .catch((e) => {});
     dispatch(closeContextMenu());
   };
-
+  console.log(inventory?.item?.name);
   return (
     <div className="mainSection relative">
       <div className="inventory">
@@ -229,6 +224,22 @@ const Inventory = () => {
                 onClick={() => dispatch(closeContextMenu())}
               >
                 Give
+              </button>
+            )}
+            {inventory?.type === "crafting" && (
+              <button
+                className="border py-1 "
+                onClick={() =>
+                  CraftItemHandler({
+                    ...inventory,
+                    item: {
+                      ...inventory?.item,
+                      amount: (inputAmount === 0 ? 1 : inputAmount) * inventory?.item?.amount,
+                    },
+                  })
+                }
+              >
+                Craft
               </button>
             )}
             {inventory?.type === "playerinventory" && (
