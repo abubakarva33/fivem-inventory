@@ -33,7 +33,7 @@ const Inventory = () => {
         x?.name === inventory?.item?.name &&
         x.slot === inventory?.item?.slot
     );
-    console.log({ number });
+    // console.log({ number });
     setInputAmount(number);
   }, [selectedItems, inventory]);
 
@@ -219,7 +219,7 @@ const Inventory = () => {
                     ...inventory,
                     item: {
                       ...inventory?.item,
-                      amount: inputAmount === 0 ? 1 : inputAmount,
+                      amount: !inputAmount?.selectedAmount ? 1 : inputAmount?.selectedAmount,
                     },
                   })
                 }
@@ -235,7 +235,7 @@ const Inventory = () => {
                     ...inventory,
                     item: {
                       ...inventory?.item,
-                      amount: inputAmount === 0 ? 1 : inputAmount,
+                      amount: !inputAmount?.selectedAmount ? 1 : inputAmount?.selectedAmount,
                     },
                   })
                 }

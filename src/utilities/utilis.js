@@ -191,6 +191,7 @@ export const keyMap = {
   OEM_102: 226,
 };
 export const UpdateDataToServer = (data) => {
+  console.log(data);
   if (data.identifier) {
     fetchNui("changeSlot", data)
       .then((retData) => {})
@@ -202,11 +203,13 @@ export const UpdateDataToServer = (data) => {
   }
 };
 export const buyItemHandlerWithDnd = (item) => {
+  console.log(item);
   fetchNui("buyItemDrag", item)
     .then((retData) => {})
     .catch((e) => {});
 };
 export const sellItemHandlerWithDnd = (item) => {
+  console.log(item);
   fetchNui("sellItemDrag", item)
     .then((retData) => {})
     .catch((e) => {});
