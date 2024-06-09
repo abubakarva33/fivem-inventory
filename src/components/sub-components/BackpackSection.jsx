@@ -17,14 +17,17 @@ const BackpackSection = ({ openBackpacks }) => {
   const [backpack, setBackpack] = useState("largeBackpack");
   const state = useSelector((state) => state.inventory);
 
-  const largeBackpack = openBackpacks?.find((item) => item.info && item.info.type2 === "largeBackpack");
-  const smallBackpack = openBackpacks?.find((item) => item.info && item.info.type2 === "smallBackpack");
+  const largeBackpack = openBackpacks?.find(
+    (item) => item.info && item.info.type2 === "largeBackpack"
+  );
+  const smallBackpack = openBackpacks?.find(
+    (item) => item.info && item.info.type2 === "smallBackpack"
+  );
 
   useEffect(() => {
     const newBackpack = largeBackpack ? "largeBackpack" : smallBackpack ? "smallBackpack" : null;
     setBackpack(newBackpack);
   }, [openBackpacks]);
-
 
   return (
     <div
@@ -40,12 +43,21 @@ const BackpackSection = ({ openBackpacks }) => {
         style={{ borderBottom: `5px solid ${slotBg}` }}
       >
         {largeBackpack && (
-          <div className=" rounded-lg" onClick={() => setBackpack("largeBackpack")}>
+          <div
+            className=" rounded-lg"
+            // style={{ backgroundColor: backpack === "largeBackpack" ? btnColor : "" }}
+            onClick={() => setBackpack("largeBackpack")}
+          >
             <div
               className="flex p-2 items-center rounded-lg w-full"
-              style={{ backgroundColor: slotBg, color: textColor }}
+              style={{
+                backgroundColor: backpack === "largeBackpack" ? btnColor : slotBg,
+                color: textColor,
+              }}
             >
-              <div className="activeBackpack" style={{ backgroundColor: btnColor }}></div>
+              <div className="activeBackpack" style={{ backgroundColor: btnColor }}>
+                <img src="/images/backpack-l.png" alt="" className="h-[90px]" />
+              </div>
               <div className="w-full ms-2">
                 <div className="flex flex-col	 mb-2">
                   <h3 className="text-[20px]  mb-[-4px]">{state["largeBackpack"]?.label}</h3>
@@ -70,9 +82,14 @@ const BackpackSection = ({ openBackpacks }) => {
           <div className=" rounded-lg " onClick={() => setBackpack("smallBackpack")}>
             <div
               className="flex p-2 items-center rounded-lg w-full"
-              style={{ backgroundColor: slotBg, color: textColor }}
+              style={{
+                backgroundColor: backpack === "smallBackpack" ? btnColor : slotBg,
+                color: textColor,
+              }}
             >
-              <div className="activeBackpack" style={{ backgroundColor: btnColor }}></div>
+              <div className="activeBackpack" style={{ backgroundColor: btnColor }}>
+                <img src="/images/backpack-s.png" alt="" className="h-[90px]" />
+              </div>
               <div className="w-full ms-2">
                 <div className="flex flex-col mb-2 ">
                   <h3 className="text-[20px]  mb-[-4px]">{state["smallBackpack"]?.label}</h3>
@@ -80,7 +97,7 @@ const BackpackSection = ({ openBackpacks }) => {
                     percent={Number(state["smallBackpack"]?.weightPercent)}
                     showInfo={false}
                     size={["100%", 8]}
-                    strokeColor="green" //!  change  with condition //
+                    strokeColor="green"
                     trailColor={boxBg}
                   />
                   <span className="text-[14px]">ID: {state["smallBackpack"]?.identifier}</span>
