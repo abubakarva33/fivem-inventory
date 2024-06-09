@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,11 +17,25 @@ const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
   const { slotBg, slotBorderColor, slotBorderRound } = useSelector((state) => state.customizeSec);
+  const { selectedItems } = useSelector((state) => state.context);
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
   const { type, type2, maxWeight, identifier } = inventory;
   const inventoryType = type === "backpack" ? type2 : type;
   const [showTooltip, setShowTooltip] = useState(false);
   const [hoverTimer, setHoverTimer] = useState(null);
+  // const [inputAmount, setInputAmount] = useState({});
+
+  // useEffect(() => {
+  //   const number = selectedItems.find(
+  //     (x) =>
+  //       x?.identifier === invFromContext?.identifier &&
+  //       x?.name === invFromContext?.item?.name &&
+  //       x.slot === invFromContext?.item?.slot
+  //   );
+  //   setInputAmount(number);
+  // }, [selectedItems, inventory]);
+
+  // console.log(inputAmount?.selectedAmount);
 
   const handleMouseEnter = () => {
     const timer = setTimeout(() => {
@@ -186,6 +200,19 @@ const InventorySlotComponent = ({ item, inventory }) => {
             return false;
           }
 
+          // condition for amount based dnd //
+          const inputAmount = selectedItems.find(
+            (x) =>
+              x?.identifier === source?.identifier &&
+              x?.name === source?.item?.name &&
+              x.slot === source?.item?.slot
+          );
+
+          if (inputAmount?.selectedAmount) {
+            console.log(inputAmount?.selectedAmount);
+            return false;
+          }
+
           // condition for sell products //
           if (source.type === "playerinventory" && inventoryType === "shop") {
             const sellData = {
@@ -223,7 +250,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
       },
     }),
 
-    [inventoryType, item, state[inventoryType]?.weight]
+    [inventoryType, item, state[inventoryType]?.weight, selectedItems]
   );
 
   const connectRef = (element) => drag(drop(element));

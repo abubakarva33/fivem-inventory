@@ -191,7 +191,7 @@ export const keyMap = {
   OEM_102: 226,
 };
 export const UpdateDataToServer = (data) => {
-  console.log(data);
+  // console.log(data);
   if (data.identifier) {
     fetchNui("changeSlot", data)
       .then((retData) => {})

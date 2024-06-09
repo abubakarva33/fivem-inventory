@@ -44,7 +44,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
     >
       <div className=" mx-3 pt-3 border-b pb-1" style={{ borderBottom: `4px solid ${slotBg}` }}>
         <Progress
-          percent={secondaryBackpack?.weightPercent}
+          percent={state[secondaryBackpack.type]?.weightPercent}
           showInfo={false}
           size={["100%", 35]}
           strokeColor="green" //!  change  with condition //
