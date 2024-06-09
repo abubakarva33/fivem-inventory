@@ -231,7 +231,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
                       ...item,
                       amount,
                     }
-                  : { ...source.item, amount: inputAmount?.selectedAmount },
+                  : { ...source.item,slot: item.slot, amount: inputAmount?.selectedAmount },
             },
           };
 
