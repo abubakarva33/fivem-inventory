@@ -275,10 +275,10 @@ const InventorySlotComponent = ({ item, inventory }) => {
               alt=""
               className="img-fluid slotImg mb-[12px]"
             />
-            {item?.quality && inventoryType != "shop" && inventoryType != "crafting" && (
+            {item?.info && item?.info.quality && inventoryType != "shop" && inventoryType != "crafting" && (
               <div className="slotQuality w-full mt-[-24px]">
                 <Progress
-                  percent={item?.quality}
+                  percent={item?.info.quality}
                   showInfo={false}
                   size={["100%", 4]}
                   strokeColor={"green"}

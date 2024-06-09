@@ -72,9 +72,10 @@ export let primaryInvDummyData = {
       description: "This item will reduce your thirst",
       weight: 800,
       amount: 1,
-      quality: 100,
       slot: 1,
-      info: {},
+      info: {
+        quality: 100,
+      },
     },
     {
       name: "bread",
@@ -85,7 +86,9 @@ export let primaryInvDummyData = {
       amount: 5,
       slot: 2,
       quality: 100,
-      info: {},
+      info: {
+        quality: 100,
+      },
     },
     {
       name: "bread",
@@ -96,7 +99,9 @@ export let primaryInvDummyData = {
       amount: 5,
       slot: 4,
       quality: 100,
-      info: {},
+      info: {
+        quality: 100,
+      },
     },
     {
       name: "weapon_pistol",
@@ -106,11 +111,11 @@ export let primaryInvDummyData = {
       weight: 2500,
       amount: 1,
       slot: 5,
-      quality: 90.0,
       info: {
         ammo: 12,
         tint: 0,
         serial: 12345678,
+        quality: 100,
         owner: "Player 1",
         components: {
           at_grip: {
@@ -146,11 +151,11 @@ export let primaryInvDummyData = {
       weight: 250,
       amount: 1,
       slot: 6,
-      quality: 100,
       info: {
         identifier: "backpack-s:123456789",
         type: "backpack",
         type2: "smallBackpack",
+        quality: 100,
       },
     },
     {
@@ -161,11 +166,11 @@ export let primaryInvDummyData = {
       weight: 250,
       amount: 1,
       slot: 10,
-      quality: 100,
       info: {
         identifier: "backpack-s:1234",
         type: "backpack",
         type2: "smallBackpack",
+        quality: 100,
       },
     },
     {
@@ -176,11 +181,11 @@ export let primaryInvDummyData = {
       weight: 250,
       amount: 1,
       slot: 7,
-      quality: 100,
       info: {
         identifier: "backpack-l:123456789",
         type: "backpack",
         type2: "largeBackpack",
+        quality: 100,
       },
     },
     {
@@ -191,11 +196,11 @@ export let primaryInvDummyData = {
       weight: 250,
       amount: 1,
       slot: 11,
-      quality: 100,
       info: {
         identifier: "backpack-l:1234",
         type: "backpack",
         type2: "largeBackpack",
+        quality: 100,
       },
     },
   ],
@@ -406,8 +411,14 @@ export let craftingInvDummyData = {
       slot: 1,
       info: {
         required: {
-          bread: 1,
-          water: 1,
+          bread: {
+            amount: 1,
+            label: 'Bread',
+          },
+          water: {
+            amount: 1,
+            label: 'Water',
+          },
         },
       },
     },
@@ -422,8 +433,14 @@ export let craftingInvDummyData = {
       slot: 2,
       info: {
         required: {
-          bread: 1,
-          water: 1,
+          bread: {
+            amount: 1,
+            label: 'Bread',
+          },
+          water: {
+            amount: 1,
+            label: 'Water',
+          },
         },
       },
     },

@@ -26,8 +26,6 @@ export const contextMenuSlice = createSlice({
       const selected = state.selectedItems.find((x) =>(x.identifier === state.inventory?.identifier && x.name === state.inventory?.item?.name && x.slot === state.inventory?.item?.slot) 
       );
 
-      console.log({selected:{...selected}})
-
       if (selected) {
         selected.selectedAmount = payload
 
