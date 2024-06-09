@@ -16,8 +16,9 @@ const BackpackSection = ({ openBackpacks }) => {
   } = useSelector((state) => state.customizeSec);
   const [backpack, setBackpack] = useState("largeBackpack");
   const state = useSelector((state) => state.inventory);
-  const largeBackpack = openBackpacks?.find((item) => item.name === "backpack-l");
-  const smallBackpack = openBackpacks?.find((item) => item.name === "backpack-s");
+
+  const largeBackpack = openBackpacks?.find((item) => item.info && item.info.type2 === "largeBackpack");
+  const smallBackpack = openBackpacks?.find((item) => item.info && item.info.type2 === "smallBackpack");
 
   useEffect(() => {
     const newBackpack = largeBackpack ? "largeBackpack" : smallBackpack ? "smallBackpack" : null;
