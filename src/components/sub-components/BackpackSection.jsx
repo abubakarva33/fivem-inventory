@@ -56,7 +56,7 @@ const BackpackSection = ({ openBackpacks }) => {
               }}
             >
               <div className="activeBackpack" style={{ backgroundColor: btnColor }}>
-                <img src="/images/backpack-l.png" alt="" className="h-[90px]" />
+                <img src="./images/backpack-l.png" alt="" className="h-[90px]" />
               </div>
               <div className="w-full ms-2">
                 <div className="flex flex-col	 mb-2">
@@ -88,7 +88,7 @@ const BackpackSection = ({ openBackpacks }) => {
               }}
             >
               <div className="activeBackpack" style={{ backgroundColor: btnColor }}>
-                <img src="/images/backpack-s.png" alt="" className="h-[90px]" />
+                <img src="./images/backpack-s.png" alt="" className="h-[90px]" />
               </div>
               <div className="w-full ms-2">
                 <div className="flex flex-col mb-2 ">
