@@ -41,7 +41,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
         style={{ borderBottom: `4px solid ${slotBg}`, color: textColor }}
       >
         <div className="mb-3 pt-2">
-          <div className="flex items-center	w-[36%]">
+          <div className="flex items-center	w-[50%]">
             <div
               className="border rounded-full p-2 text-xl me-2"
               style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
@@ -52,7 +52,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
               className="border px-5 py-1  text-lg rounded-[20px]"
               style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
             >
-              Menan AK47
+              {inventory?.label}
             </p>
           </div>
           <Progress

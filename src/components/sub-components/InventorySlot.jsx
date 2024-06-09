@@ -326,7 +326,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
               item?.info.quality &&
               inventoryType != "shop" &&
               inventoryType != "crafting" && (
-                <div className="slotQuality w-full mt-[-24px]">
+                <div className="slotQuality w-full mt-[-15px]">
                   <Progress
                     percent={item?.info.quality}
                     showInfo={false}
