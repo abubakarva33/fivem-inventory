@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   UpdateDataToServer,
   buyItemHandlerWithDnd,
+  calculateRGB,
   gramsToKilograms,
   sellItemHandlerWithDnd,
 } from "../../utilities/utilis";
@@ -16,7 +17,7 @@ import { IoIosInfinite } from "react-icons/io";
 const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
-  const { slotBg, slotBorderColor, slotBorderRound, textColor } = useSelector(
+  const { slotBg, slotBorderColor, slotBorderRound, textColor, hudBg } = useSelector(
     (state) => state.customizeSec
   );
   const { selectedItems } = useSelector((state) => state.context);
@@ -331,8 +332,8 @@ const InventorySlotComponent = ({ item, inventory }) => {
                     percent={item?.info.quality}
                     showInfo={false}
                     size={["100%", 4]}
-                    strokeColor={"green"}
-                    trailColor="#555"
+                    strokeColor={calculateRGB(Number(item?.info.quality))}
+                    trailColor={hudBg}
                   />
                 </div>
               )}

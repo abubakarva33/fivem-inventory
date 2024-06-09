@@ -3,6 +3,7 @@ import { BsBoxes } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 import { useEffect, useState } from "react";
+import { calculateRGBRev } from "../../utilities/utilis";
 
 const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
   const { boxBg, boxBorderColor, boxBorderRound, slotBg, textColor, hudBg, hudBorderColor } =
@@ -59,7 +60,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
             percent={Number(inventory?.weightPercent)}
             showInfo={false}
             size={["100%", 35]}
-            strokeColor="green" //!  change  with condition //
+            strokeColor={calculateRGBRev(Number(inventory?.weightPercent))}
             trailColor={hudBg}
             style={{ border: `2px solid ${hudBorderColor}`, borderRadius: 50 }}
           />
