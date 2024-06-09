@@ -11,7 +11,9 @@ const CraftInventorySlot = ({ item, inventory }) => {
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
   const [hoverTimer, setHoverTimer] = useState(null);
-  const { slotBg, slotBorderColor, slotBorderRound } = useSelector((state) => state.customizeSec);
+  const { slotBg, slotBorderColor, slotBorderRound, textColor } = useSelector(
+    (state) => state.customizeSec
+  );
 
   const handleMouseEnter = () => {
     const timer = setTimeout(() => {
@@ -63,7 +65,7 @@ const CraftInventorySlot = ({ item, inventory }) => {
         <div className="grid grid-cols-2 gap-1 w-full h-full">
           <div
             className="flex items-center justify-between flex-col"
-            style={{ border: `1px solid ${slotBorderColor}`, borderRadius: 10 }}
+            style={{ border: `1px solid ${slotBorderColor}`, borderRadius: 10, color: textColor }}
           >
             <div className="flex items-center justify-between w-full px-2">
               {item?.amount && (
@@ -94,7 +96,7 @@ const CraftInventorySlot = ({ item, inventory }) => {
           </div>
 
           {item?.info?.required && (
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center" style={{ color: textColor }}>
               {Object.entries(item?.info.required).map(([key, value]) => (
                 <div className="flex text-[14px]" key={key}>
                   <img src={`./images/${key}.png`} alt="" style={{ height: 22, width: 30 }} />

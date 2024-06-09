@@ -56,8 +56,8 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
             components: {
               Radio: {
                 buttonBg: slotBg,
-                buttonColor: "white",
-                buttonSolidCheckedColor: "white",
+                buttonColor: textColor,
+                buttonSolidCheckedColor: textColor,
                 buttonSolidCheckedBg: btnColor,
                 buttonSolidCheckedActiveBg: btnColor,
                 buttonSolidCheckedHoverBg: btnColor,

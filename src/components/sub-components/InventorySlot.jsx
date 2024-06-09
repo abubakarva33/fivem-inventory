@@ -16,7 +16,9 @@ import { IoIosInfinite } from "react-icons/io";
 const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
-  const { slotBg, slotBorderColor, slotBorderRound } = useSelector((state) => state.customizeSec);
+  const { slotBg, slotBorderColor, slotBorderRound, textColor } = useSelector(
+    (state) => state.customizeSec
+  );
   const { selectedItems } = useSelector((state) => state.context);
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
   const { type, type2, maxWeight, identifier } = inventory;
@@ -217,7 +219,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
                       ...item,
                       amount,
                     }
-                  : { ...source.item,slot: item.slot, amount: inputAmount?.selectedAmount },
+                  : { ...source.item, slot: item.slot, amount: inputAmount?.selectedAmount },
             },
           };
 
@@ -292,7 +294,12 @@ const InventorySlotComponent = ({ item, inventory }) => {
       {true && (
         <div
           className="slot relative"
-          style={{ backgroundColor: slotBg, borderRadius: slotBorderRound }}
+          style={{
+            backgroundColor: slotBg,
+            borderRadius: slotBorderRound,
+            border: `1px solid ${slotBorderColor}`,
+            color: textColor,
+          }}
         >
           <div
             className="flex items-center justify-between flex-col w-full h-full"
@@ -343,7 +350,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
 
             {item?.label && (
               <div
-                className="slotItemLabel border mt-[-6px]  w-full text-center"
+                className="slotItemLabel border-t mt-[-6px]  w-full text-center"
                 style={{ borderColor: slotBorderColor }}
               >
                 <span>{item?.label}</span>
