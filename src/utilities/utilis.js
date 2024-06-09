@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-import { closeContextMenu } from "../redux/contextSlice";
 import { fetchNui } from "./fetchNui";
 
 export const hideRoot = () => {
@@ -191,7 +189,7 @@ export const keyMap = {
   OEM_102: 226,
 };
 export const UpdateDataToServer = (data) => {
-  // console.log(data);
+  console.log(data);
   if (data.identifier) {
     fetchNui("changeSlot", data)
       .then((retData) => {})

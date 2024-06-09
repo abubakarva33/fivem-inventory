@@ -23,6 +23,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
   const inventoryType = type === "backpack" ? type2 : type;
   const [showTooltip, setShowTooltip] = useState(false);
   const [hoverTimer, setHoverTimer] = useState(null);
+
   // const [inputAmount, setInputAmount] = useState({});
 
   // useEffect(() => {
@@ -208,8 +209,34 @@ const InventorySlotComponent = ({ item, inventory }) => {
               x.slot === source?.item?.slot
           );
 
+          const amount =
+            source?.item?.name === item?.name
+              ? Number(item.amount) + inputAmount?.selectedAmount
+              : inputAmount?.selectedAmount;
+          const dynamicAmountData = {
+            fromInv: {
+              identifier: source.identifier,
+              slot: source.item.slot,
+              slotData: {
+                ...source.item,
+                amount: source?.item?.amount - inputAmount?.selectedAmount,
+              },
+            },
+            toInv: {
+              identifier: inventory.identifier,
+              slot: item.slot,
+              slotData:
+                source?.item?.name === item?.name
+                  ? {
+                      ...item,
+                      amount,
+                    }
+                  : { ...source.item, amount: inputAmount?.selectedAmount },
+            },
+          };
+
           if (inputAmount?.selectedAmount) {
-            console.log(inputAmount?.selectedAmount);
+            UpdateDataToServer(dynamicAmountData);
             return false;
           }
 
@@ -302,17 +329,20 @@ const InventorySlotComponent = ({ item, inventory }) => {
               alt=""
               className="img-fluid slotImg mb-[12px]"
             />
-            {item?.info && item?.info.quality && inventoryType != "shop" && inventoryType != "crafting" && (
-              <div className="slotQuality w-full mt-[-24px]">
-                <Progress
-                  percent={item?.info.quality}
-                  showInfo={false}
-                  size={["100%", 4]}
-                  strokeColor={"green"}
-                  trailColor="#555"
-                />
-              </div>
-            )}
+            {item?.info &&
+              item?.info.quality &&
+              inventoryType != "shop" &&
+              inventoryType != "crafting" && (
+                <div className="slotQuality w-full mt-[-24px]">
+                  <Progress
+                    percent={item?.info.quality}
+                    showInfo={false}
+                    size={["100%", 4]}
+                    strokeColor={"green"}
+                    trailColor="#555"
+                  />
+                </div>
+              )}
 
             {inventoryType === "shop" && item?.info?.sellPrice && (
               <div className="absolute bottom-6 left-0 ms-2 text-[#faff00]">
