@@ -24,20 +24,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [hoverTimer, setHoverTimer] = useState(null);
 
-  // const [inputAmount, setInputAmount] = useState({});
-
-  // useEffect(() => {
-  //   const number = selectedItems.find(
-  //     (x) =>
-  //       x?.identifier === invFromContext?.identifier &&
-  //       x?.name === invFromContext?.item?.name &&
-  //       x.slot === invFromContext?.item?.slot
-  //   );
-  //   setInputAmount(number);
-  // }, [selectedItems, inventory]);
-
-  // console.log(inputAmount?.selectedAmount);
-
   const handleMouseEnter = () => {
     const timer = setTimeout(() => {
       setShowTooltip(true);

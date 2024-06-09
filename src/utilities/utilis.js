@@ -189,7 +189,6 @@ export const keyMap = {
   OEM_102: 226,
 };
 export const UpdateDataToServer = (data) => {
-  console.log(data);
   if (data.identifier) {
     fetchNui("changeSlot", data)
       .then((retData) => {})
@@ -233,4 +232,71 @@ export const CraftItemHandler = (item) => {
 
   // add this as last line for closing right menu //
   // dispatch(closeContextMenu());
+};
+
+export const isObjMatched = (obj1, obj2) => {
+  const type1 = typeof obj1;
+  const type2 = typeof obj2;
+
+  if (type1 !== type2) return false;
+  if (type1 !== "object" && type2 !== "object") return obj1 === obj2;
+
+  if (Array.isArray(obj1) !== Array.isArray(obj2)) return false;
+
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  if (keys1.length !== keys2.length) return false;
+
+  for (let key of keys1) {
+    const value1 = obj1[key];
+    const value2 = obj2[key];
+    if (!isObjMatched(value1, value2)) return false;
+  }
+
+  return true;
+};
+
+export const calculateRGB = (value) => {
+  // Define the start and end RGB values
+  const startRGB = { r: 175, g: 0, b: 0 }; // RGB for value 0
+  const endRGB = { r: 46, g: 189, b: 0 }; // RGB for value 100
+
+  // Ensure value is within the range [0, 100]
+  value = Math.max(0, Math.min(100, value));
+
+  // Calculate the difference in RGB values
+  const diffR = endRGB.r - startRGB.r;
+  const diffG = endRGB.g - startRGB.g;
+  const diffB = endRGB.b - startRGB.b;
+
+  // Calculate the RGB based on the value
+  const r = startRGB.r + diffR * (value / 100);
+  const g = startRGB.g + diffG * (value / 100);
+  const b = startRGB.b + diffB * (value / 100);
+
+  // Return the calculated RGB values
+  return "rgb(" + Math.round(r) + "," + Math.round(g) + "," + Math.round(b) + ")";
+};
+
+export const calculateRGBRev = (value) => {
+  // Define the start and end RGB values
+  const startRGB = { r: 46, g: 189, b: 0 }; // RGB for value 100
+  const endRGB = { r: 175, g: 0, b: 0 }; // RGB for value 0
+
+  // Ensure value is within the range [0, 100]
+  value = Math.max(0, Math.min(100, value));
+
+  // Calculate the difference in RGB values
+  const diffR = endRGB.r - startRGB.r;
+  const diffG = endRGB.g - startRGB.g;
+  const diffB = endRGB.b - startRGB.b;
+
+  // Calculate the RGB based on the value
+  const r = startRGB.r + diffR * (value / 100);
+  const g = startRGB.g + diffG * (value / 100);
+  const b = startRGB.b + diffB * (value / 100);
+
+  // Return the calculated RGB values
+  return "rgb(" + Math.round(r) + "," + Math.round(g) + "," + Math.round(b) + ")";
 };
