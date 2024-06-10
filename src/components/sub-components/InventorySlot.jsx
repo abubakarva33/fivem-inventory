@@ -123,7 +123,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
                   : source.item.amount,
             },
           };
-
           UpdateDataToServer(changeSlotData);
         } else {
           // for passing data to server dif inventory //
@@ -152,7 +151,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
               },
             },
           };
-
           UpdateDataToServer(transferSlotData);
         }
       },
@@ -164,6 +162,14 @@ const InventorySlotComponent = ({ item, inventory }) => {
               return false;
             }
           }
+          // condition for amount based dnd //
+          const inputAmount = selectedItems.find(
+            (x) =>
+              x?.identifier === source?.identifier &&
+              x?.name === source?.item?.name &&
+              x.slot === source?.item?.slot
+          );
+
           // condition for buy products //
           if (source.type === "shop" && !source.item.info.buyPrice) {
             return false;
@@ -173,7 +179,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
               fromInv: {
                 identifier: source.identifier,
                 slot: source.item.slot,
-                slotData: source.item,
+                slotData: {...source.item, amount: inputAmount?.selectedAmount || 1},
               },
               toInv: {
                 identifier: inventory.identifier,
@@ -189,14 +195,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
             }
             return false;
           }
-
-          // condition for amount based dnd //
-          const inputAmount = selectedItems.find(
-            (x) =>
-              x?.identifier === source?.identifier &&
-              x?.name === source?.item?.name &&
-              x.slot === source?.item?.slot
-          );
 
           const amount =
             source?.item?.name === item?.name
@@ -224,18 +222,13 @@ const InventorySlotComponent = ({ item, inventory }) => {
             },
           };
 
-          if (inputAmount?.selectedAmount) {
-            UpdateDataToServer(dynamicAmountData);
-            return false;
-          }
-
           // condition for sell products //
           if (source.type === "playerinventory" && inventoryType === "shop") {
             const sellData = {
               fromInv: {
                 identifier: source.identifier,
                 slot: source.item.slot,
-                slotData: source.item,
+                slotData: {...source.item, amount: inputAmount?.selectedAmount || source.item.amount},
               },
               toInv: {
                 identifier: inventory.identifier,
@@ -246,6 +239,11 @@ const InventorySlotComponent = ({ item, inventory }) => {
             if (source.item.name === item.name && item.info.sellPrice) {
               sellItemHandlerWithDnd(sellData);
             }
+            return false;
+          }
+
+          if (inputAmount?.selectedAmount) {
+            UpdateDataToServer(dynamicAmountData);
             return false;
           }
 
