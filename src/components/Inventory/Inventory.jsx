@@ -119,6 +119,13 @@ const Inventory = () => {
       .catch((e) => {});
     dispatch(closeContextMenu());
   };
+  const useHandler = (item) => {
+    fetchNui("use", item)
+      .then((retData) => {})
+      .catch((e) => {});
+    dispatch(closeContextMenu());
+  };
+
   return (
     <div className="mainSection relative">
       <div className="inventory">
@@ -179,7 +186,9 @@ const Inventory = () => {
               inventory?.type === "playerinventory" && (
                 <button
                   className="border py-1 border-b-0"
-                  onClick={() => dispatch(closeContextMenu())}
+                  onClick={() =>
+                    useHandler(inventory?.item)
+                  }
                 >
                   Use
                 </button>
