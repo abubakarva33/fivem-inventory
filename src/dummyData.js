@@ -61,7 +61,7 @@ export let primaryInvDummyData = {
   identifier: "player1",
   type: "playerinventory",
   label: "Player Inventory",
-  maxWeight: 10000.0,
+  maxWeight: 15000.0,
   slots: 50,
   weight: 10000.0,
   items: [
@@ -201,6 +201,33 @@ export let primaryInvDummyData = {
         type: "backpack",
         type2: "largeBackpack",
         quality: 100,
+      },
+    },
+    {
+      name: "bread",
+      label: "Bread",
+      type: "item",
+      description: "This item will reduce your hunger",
+      weight: 500,
+      amount: 5,
+      slot: 12,
+      quality: 100,
+      info: {
+        quality: 80,
+      },
+    },
+    {
+      name: "bread",
+      label: "Bread",
+      type: "item",
+      description: "This item will reduce your hunger",
+      weight: 500,
+      amount: 3,
+      slot: 13,
+      quality: 100,
+      info: {
+        quality: 100,
+        dummy: 20,
       },
     },
   ],
@@ -413,11 +440,11 @@ export let craftingInvDummyData = {
         required: {
           bread: {
             amount: 1,
-            label: 'Bread',
+            label: "Bread",
           },
           water: {
             amount: 1,
-            label: 'Water',
+            label: "Water",
           },
         },
       },
@@ -435,11 +462,11 @@ export let craftingInvDummyData = {
         required: {
           bread: {
             amount: 1,
-            label: 'Bread',
+            label: "Bread",
           },
           water: {
             amount: 1,
-            label: 'Water',
+            label: "Water",
           },
         },
       },
