@@ -21,6 +21,7 @@ const Inventory = () => {
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputAmount, setInputAmount] = useState({});
+  const maxAmount = inventory?.item?.amount || 0;
 
   useEffect(() => {
     const number = selectedItems.find(
@@ -113,6 +114,13 @@ const Inventory = () => {
     });
   };
 
+  const handleAmountChange = (e) => {
+    const value = Number(e.target.value);
+    if (value >= 0 && value <= maxAmount) {
+      dispatch(handleSelectedItems(value));
+    }
+  };
+
   const dropHandler = (item) => {
     if (item.amount) {
       console.log("dh");
@@ -170,7 +178,10 @@ const Inventory = () => {
                 className="w-1/2  bg-slate-800 text-center border-t outline-none "
                 style={{ color: "white" }}
                 value={inputAmount?.selectedAmount || 0}
-                onChange={(e) => dispatch(handleSelectedItems(Number(e.target.value)))}
+                // onChange={(e) => dispatch(handleSelectedItems(Number(e.target.value)))}
+                min={0}
+                max={maxAmount}
+                onChange={handleAmountChange}
               />
               <button
                 className="border py-1 border-b-0 w-1/4 text-white"

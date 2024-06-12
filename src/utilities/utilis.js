@@ -189,12 +189,19 @@ export const keyMap = {
   OEM_102: 226,
 };
 export const UpdateDataToServer = (data) => {
-  if (data.identifier) {
-    fetchNui("changeSlot", data)
+  let serverData = data;
+  if (data?.fromInv?.slotData?.amount === 0) {
+    serverData = {
+      ...data,
+      fromInv: { identifier: data.fromInv.identifier, slot: data.fromInv.slot, slotData: {} },
+    };
+  }
+  if (serverData.identifier) {
+    fetchNui("changeSlot", serverData)
       .then((retData) => {})
       .catch((e) => {});
   } else {
-    fetchNui("transfer", data)
+    fetchNui("transfer", serverData)
       .then((retData) => {})
       .catch((e) => {});
   }
