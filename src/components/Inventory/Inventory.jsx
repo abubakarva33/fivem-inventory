@@ -114,6 +114,10 @@ const Inventory = () => {
   };
 
   const dropHandler = (item) => {
+    if (item.amount) {
+      console.log("dh");
+    }
+    console.log(item);
     fetchNui("drop", item)
       .then((retData) => {})
       .catch((e) => {});
@@ -186,9 +190,7 @@ const Inventory = () => {
               inventory?.type === "playerinventory" && (
                 <button
                   className="border py-1 border-b-0"
-                  onClick={() =>
-                    useHandler(inventory?.item)
-                  }
+                  onClick={() => useHandler(inventory?.item)}
                 >
                   Use
                 </button>
@@ -278,7 +280,12 @@ const Inventory = () => {
                 onClick={() =>
                   dropHandler({
                     ...inventory?.item,
-                    amount: inputAmount === 0 ? inventory?.item.amount : inputAmount,
+                    amount:
+                      inputAmount?.selectedAmount === undefined
+                        ? inventory?.item.amount
+                        : inputAmount?.selectedAmount === 0
+                        ? inventory?.item.amount
+                        : inputAmount?.selectedAmount,
                   })
                 }
               >
