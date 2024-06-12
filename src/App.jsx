@@ -78,6 +78,12 @@ function App() {
         setDropInv(event.data.dropInv);
         isOpen = true;
         showRoot();
+      } else if (event.data.action == "close") {
+        isOpen = false;
+        hideRoot();
+        fetchNui("invClosed")
+          .then((retData) => {})
+          .catch((e) => {});
       } else if (event.data.action == "setLocaleConfig") {
         // eslint-disable-next-line no-undef
         setLocale(event.data.locale);

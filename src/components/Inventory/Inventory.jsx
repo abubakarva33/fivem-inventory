@@ -122,10 +122,6 @@ const Inventory = () => {
   };
 
   const dropHandler = (item) => {
-    if (item.amount) {
-      console.log("dh");
-    }
-    console.log(item);
     fetchNui("drop", item)
       .then((retData) => {})
       .catch((e) => {});
