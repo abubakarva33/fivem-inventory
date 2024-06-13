@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -104,13 +104,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
         // conditionally pass data for server //
         if (source.type === targetInventory.type) {
           // for passing data to server same inventory //
-          // const fromSlotDataDifItem =
-          //   targetInventory?.item?.name && targetInventory?.item?.name !== source?.item?.name
-          //     ? {
-          //         ...targetInventory.item,
-          //         slot: source.item.slot,
-          //       }
-          //     : {};
 
           const fromSlotData =
             targetInventory?.item?.name &&
