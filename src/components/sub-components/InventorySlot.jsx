@@ -140,17 +140,34 @@ const InventorySlotComponent = ({ item, inventory }) => {
           UpdateDataToServer(changeSlotData);
         } else {
           // for passing data to server dif inventory //
+
+          const slotData =
+            targetInventory?.item?.name &&
+            targetInventory?.item?.name === source?.item?.name &&
+            isObjMatched(source?.item?.info, targetInventory?.item?.info)
+              ? {}
+              : targetInventory?.item?.name !== source?.item?.name
+              ? {
+                  ...targetInventory.item,
+                  slot: source.item.slot,
+                }
+              : {
+                  ...targetInventory.item,
+                  slot: source.item.slot,
+                };
+
           const transferSlotData = {
             fromInv: {
               identifier: source.identifier,
               slot: source.item.slot,
-              slotData:
-                targetInventory?.item?.name && targetInventory?.item?.name !== source?.item?.name
-                  ? {
-                      ...targetInventory.item,
-                      slot: source.item.slot,
-                    }
-                  : {},
+              slotData,
+              // slotData:
+              //   targetInventory?.item?.name && targetInventory?.item?.name !== source?.item?.name
+              //     ? {
+              //         ...targetInventory.item,
+              //         slot: source.item.slot,
+              //       }
+              //     : {},
             },
             toInv: {
               identifier: targetInventory.identifier,
@@ -159,7 +176,8 @@ const InventorySlotComponent = ({ item, inventory }) => {
                 ...source.item,
                 slot: targetInventory.item.slot,
                 amount:
-                  targetInventory?.item?.name === source?.item?.name
+                  targetInventory?.item?.name === source?.item?.name &&
+                  isObjMatched(source?.item?.info, targetInventory?.item?.info)
                     ? Number(targetInventory.item.amount) + Number(source.item.amount)
                     : source.item.amount,
               },

@@ -365,6 +365,19 @@ export let dropInvDummyData = {
       slot: 1,
       info: {},
     },
+    {
+      name: "bread",
+      label: "Bread",
+      type: "item",
+      description: "This item will reduce your hunger",
+      weight: 500,
+      amount: 5,
+      slot: 4,
+      quality: 100,
+      info: {
+        quality: 100,
+      },
+    },
   ],
 };
 
