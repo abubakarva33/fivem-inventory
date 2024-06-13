@@ -7,6 +7,7 @@ import {
   buyItemHandlerWithDnd,
   calculateRGB,
   gramsToKilograms,
+  isObjMatched,
   sellItemHandlerWithDnd,
 } from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
@@ -103,22 +104,37 @@ const InventorySlotComponent = ({ item, inventory }) => {
         // conditionally pass data for server //
         if (source.type === targetInventory.type) {
           // for passing data to server same inventory //
+          // const fromSlotDataDifItem =
+          //   targetInventory?.item?.name && targetInventory?.item?.name !== source?.item?.name
+          //     ? {
+          //         ...targetInventory.item,
+          //         slot: source.item.slot,
+          //       }
+          //     : {};
+
+          const fromSlotData =
+            targetInventory?.item?.name &&
+            targetInventory?.item?.name === source?.item?.name &&
+            isObjMatched(source?.item?.info, targetInventory?.item?.info)
+              ? {}
+              : targetInventory?.item?.name !== source?.item?.name
+              ? {
+                  ...targetInventory.item,
+                  slot: source.item.slot,
+                }
+              : targetInventory.item;
           const changeSlotData = {
             identifier: source.identifier,
             fromSlot: source.item.slot,
-            fromSlotData:
-              targetInventory?.item?.name && targetInventory?.item?.name !== source?.item?.name
-                ? {
-                    ...targetInventory.item,
-                    slot: source.item.slot,
-                  }
-                : {},
+            fromSlotData,
+
             toSlot: targetInventory.item.slot,
             toSlotData: {
               ...source.item,
               slot: targetInventory.item.slot,
               amount:
-                targetInventory?.item?.name === source?.item?.name
+                targetInventory?.item?.name === source?.item?.name &&
+                isObjMatched(source?.item?.info, targetInventory?.item?.info)
                   ? Number(targetInventory.item.amount) + Number(source.item.amount)
                   : source.item.amount,
             },
@@ -179,7 +195,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
               fromInv: {
                 identifier: source.identifier,
                 slot: source.item.slot,
-                slotData: {...source.item, amount: inputAmount?.selectedAmount || 1},
+                slotData: { ...source.item, amount: inputAmount?.selectedAmount || 1 },
               },
               toInv: {
                 identifier: inventory.identifier,
@@ -228,7 +244,10 @@ const InventorySlotComponent = ({ item, inventory }) => {
               fromInv: {
                 identifier: source.identifier,
                 slot: source.item.slot,
-                slotData: {...source.item, amount: inputAmount?.selectedAmount || source.item.amount},
+                slotData: {
+                  ...source.item,
+                  amount: inputAmount?.selectedAmount || source.item.amount,
+                },
               },
               toInv: {
                 identifier: inventory.identifier,
