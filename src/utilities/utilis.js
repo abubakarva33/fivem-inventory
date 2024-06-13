@@ -196,6 +196,7 @@ export const UpdateDataToServer = (data) => {
       fromInv: { identifier: data.fromInv.identifier, slot: data.fromInv.slot, slotData: {} },
     };
   }
+  console.log(serverData);
   if (serverData.identifier) {
     fetchNui("changeSlot", serverData)
       .then((retData) => {})

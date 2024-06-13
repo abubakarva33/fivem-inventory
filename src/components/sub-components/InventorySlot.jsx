@@ -117,7 +117,10 @@ const InventorySlotComponent = ({ item, inventory }) => {
                   ...targetInventory.item,
                   slot: source.item.slot,
                 }
-              : targetInventory.item;
+              : {
+                  ...targetInventory.item,
+                  slot: source.item.slot,
+                };
           const changeSlotData = {
             identifier: source.identifier,
             fromSlot: source.item.slot,
