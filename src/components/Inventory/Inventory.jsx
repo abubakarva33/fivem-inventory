@@ -137,7 +137,7 @@ const Inventory = () => {
   return (
     <div className="mainSection relative">
       <div className="inventory">
-        {openBackpacks?.length && <BackpackSection openBackpacks={openBackpacks} />}
+        {openBackpacks?.length != 0 && <BackpackSection openBackpacks={openBackpacks} />}
 
         <MainAreaSection
           inventory={state.playerinventory}
