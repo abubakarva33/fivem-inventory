@@ -15,6 +15,7 @@ import { Progress } from "antd";
 import { closeContextMenu, handleContextInput, openContextMenu } from "../../redux/contextSlice";
 import { IoIosInfinite } from "react-icons/io";
 import { FaExpand } from "react-icons/fa";
+import WeaponExpandSection from "./WeaponExpandSection";
 
 const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
@@ -98,11 +99,8 @@ const InventorySlotComponent = ({ item, inventory }) => {
           item,
         };
         const source = { ...main, type: main.type };
-
         // initially store and set data to redux(localhost) without shop inventory//
-
         dispatch(changeSlot({ source, targetInventory }));
-
         // conditionally pass data for server //
         if (source.type === targetInventory.type) {
           // for passing data to server same inventory //
@@ -161,13 +159,6 @@ const InventorySlotComponent = ({ item, inventory }) => {
               identifier: source.identifier,
               slot: source.item.slot,
               slotData,
-              // slotData:
-              //   targetInventory?.item?.name && targetInventory?.item?.name !== source?.item?.name
-              //     ? {
-              //         ...targetInventory.item,
-              //         slot: source.item.slot,
-              //       }
-              //     : {},
             },
             toInv: {
               identifier: targetInventory.identifier,
@@ -372,23 +363,10 @@ const InventorySlotComponent = ({ item, inventory }) => {
                 </div>
               )}
 
-            {item?.type === "weapon" && weaponExpand && (
-              <div
-                className=" absolute top-[-2px] left-[-1px]
-                 bg-slate-600 z-50"
-                style={{
-                  height: 266,
-                  width: 266,
-                  borderRadius: slotBorderRound,
-                  border: `1px solid ${slotBorderColor}`,
-                }}
-              >
-                {" "}
-              </div>
-            )}
+            {item?.type === "weapon" && weaponExpand && <WeaponExpandSection />}
 
             {item?.type === "weapon" && (
-              <div className=" absolute bottom-7 right-2 z-50">
+              <div className={`absolute bottom-7 right-2 ${!weaponExpand ? "z-50" : ""}`}>
                 <FaExpand className="text-[20px] " onClick={() => setWeaponExpand(!weaponExpand)} />
               </div>
             )}
@@ -416,7 +394,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
         </div>
       )}
       {/* tooltip section */}
-      {showTooltip && item?.name && !isRightButtonClick && (
+      {showTooltip && item?.name && !isRightButtonClick && !weaponExpand && (
         <div className="flex flex-col absolute top-8 left-8 z-[500] bg-slate-800 border w-[200px] p-2">
           <h5> {item?.label}</h5>
           <div className="flex flex-col">
