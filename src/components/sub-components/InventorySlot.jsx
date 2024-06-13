@@ -14,6 +14,7 @@ import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
 import { closeContextMenu, handleContextInput, openContextMenu } from "../../redux/contextSlice";
 import { IoIosInfinite } from "react-icons/io";
+import { FaExpand } from "react-icons/fa";
 
 const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const InventorySlotComponent = ({ item, inventory }) => {
   const inventoryType = type === "backpack" ? type2 : type;
   const [showTooltip, setShowTooltip] = useState(false);
   const [hoverTimer, setHoverTimer] = useState(null);
+  const [weaponExpand, setWeaponExpand] = useState(false);
 
   const handleMouseEnter = () => {
     const timer = setTimeout(() => {
@@ -333,7 +335,8 @@ const InventorySlotComponent = ({ item, inventory }) => {
               alt=""
               className="img-fluid slotImg mb-[12px]"
             />
-            {item?.info &&
+            {item?.type != "weapon" &&
+              item?.info &&
               item?.info.quality &&
               inventoryType != "shop" &&
               inventoryType != "crafting" && (
@@ -347,6 +350,27 @@ const InventorySlotComponent = ({ item, inventory }) => {
                   />
                 </div>
               )}
+
+            {item?.type === "weapon" && weaponExpand && (
+              <div
+                className=" absolute top-[-2px] left-[-1px]
+                 bg-slate-600 z-50"
+                style={{
+                  height: 266,
+                  width: 266,
+                  borderRadius: slotBorderRound,
+                  border: `1px solid ${slotBorderColor}`,
+                }}
+              >
+                {" "}
+              </div>
+            )}
+
+            {item?.type === "weapon" && (
+              <div className=" absolute bottom-7 right-2 z-50">
+                <FaExpand className="text-[20px] " onClick={() => setWeaponExpand(!weaponExpand)} />
+              </div>
+            )}
 
             {inventoryType === "shop" && item?.info?.sellPrice && (
               <div className="absolute bottom-6 left-0 ms-2 text-[#faff00]">
