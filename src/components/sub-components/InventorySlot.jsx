@@ -363,7 +363,13 @@ const InventorySlotComponent = ({ item, inventory }) => {
                 </div>
               )}
 
-            {item?.type === "weapon" && weaponExpand && <WeaponExpandSection />}
+            {item?.type === "weapon" && weaponExpand && (
+              <WeaponExpandSection
+                item={item}
+                weaponExpand={weaponExpand}
+                setWeaponExpand={setWeaponExpand}
+              />
+            )}
 
             {item?.type === "weapon" && (
               <div className={`absolute bottom-7 right-2 ${!weaponExpand ? "z-50" : ""}`}>
