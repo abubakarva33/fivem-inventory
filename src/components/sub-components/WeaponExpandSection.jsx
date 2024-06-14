@@ -1,7 +1,7 @@
 import { FaExpand } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-const WeaponExpandSection = ({ item, weaponExpand, setWeaponExpand }) => {
+const WeaponExpandSection = ({ item, weaponExpand, setWeaponExpand, refs, drag, drop }) => {
   const { slotBorderColor, slotBorderRound, slotBg, textColor } = useSelector(
     (state) => state.customizeSec
   );
@@ -28,6 +28,12 @@ const WeaponExpandSection = ({ item, weaponExpand, setWeaponExpand }) => {
             height: 180,
           }}
         >
+          <div
+            ref={refs}
+            onDrag={drag}
+            onDrop={drop}
+            className="absolute top-0 left-0 right-0 bottom-0 z-40"
+          ></div>
           <div className="flex items-center justify-between flex-col w-full h-full">
             <img
               src={`./images/${item?.name}.png`}
@@ -36,7 +42,7 @@ const WeaponExpandSection = ({ item, weaponExpand, setWeaponExpand }) => {
             />
 
             {item?.type === "weapon" && (
-              <div className={`absolute bottom-7 right-2 ${!weaponExpand ? "z-50" : ""}`}>
+              <div className={`absolute bottom-7 right-2 z-50 `}>
                 <FaExpand className="text-[20px] " onClick={() => setWeaponExpand(!weaponExpand)} />
               </div>
             )}

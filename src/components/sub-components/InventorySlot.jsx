@@ -368,6 +368,9 @@ const InventorySlotComponent = ({ item, inventory }) => {
                 item={item}
                 weaponExpand={weaponExpand}
                 setWeaponExpand={setWeaponExpand}
+                refs={refs}
+                drag={drag}
+                drop={drop}
               />
             )}
 
