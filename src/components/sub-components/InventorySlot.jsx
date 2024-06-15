@@ -425,9 +425,16 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
           <div className="flex flex-col">
             <span> Amount: {item?.amount} </span>
             <span> Weight: {item?.weight} </span>
-            <span> Quality: {item?.quality}</span>
-            <span> Serial: {item?.serial || "Change it later"}</span>
-            <span> Owner: {item?.owner || "Change it later"}</span>
+            {item?.quality ? (
+              <span> Quality: {item?.quality}</span>
+            ) : (
+              item?.info?.quality && <span> Quality: {item.info.quality}</span>
+            )}
+
+            {item?.info?.ammo && <span> Ammo: {item.info.ammo}</span>}
+            {item?.info?.tint && item?.info?.tint > 0 ? <span> Tint: {item.info.tint}</span> : null}
+            {item?.info?.serial && <span> Serial: {item.info.serial}</span>}
+            {item?.info?.owner && <span> Owner: {item.info.owner}</span>}
           </div>
           <p>{item?.description}</p>
         </div>
