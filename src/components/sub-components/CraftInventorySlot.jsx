@@ -9,25 +9,11 @@ const CraftInventorySlot = ({ item, inventory }) => {
   const inventoryType = type === "backpack" ? type2 : type;
   const dispatch = useDispatch();
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
-  const [showTooltip, setShowTooltip] = useState(false);
   const [hoverTimer, setHoverTimer] = useState(null);
   const { slotBg, slotBorderColor, slotBorderRound, textColor } = useSelector(
     (state) => state.customizeSec
   );
 
-  const handleMouseEnter = () => {
-    const timer = setTimeout(() => {
-      setShowTooltip(true);
-    }, 1000); // 1 second delay
-    setHoverTimer(timer);
-  };
-  const handleMouseLeave = () => {
-    setShowTooltip(false);
-    if (hoverTimer) {
-      clearTimeout(hoverTimer);
-      setHoverTimer(null);
-    }
-  };
   const handleRightButtonClick = (event) => {
     event.preventDefault();
     const { items, ...restOfInventory } = inventory;
@@ -58,8 +44,6 @@ const CraftInventorySlot = ({ item, inventory }) => {
         borderRadius: slotBorderRound,
       }}
       onContextMenu={handleRightButtonClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       {item?.name && (
         <div className="grid grid-cols-2 gap-1 w-full h-full">
@@ -106,21 +90,6 @@ const CraftInventorySlot = ({ item, inventory }) => {
               ))}
             </div>
           )}
-        </div>
-      )}
-
-      {/* tooltip section */}
-      {showTooltip && item?.name && !isRightButtonClick && (
-        <div className="flex flex-col absolute top-8 left-8 z-[500] bg-slate-800 border w-[200px] p-2">
-          <h5> {item?.label}</h5>
-          <div className="flex flex-col">
-            <span> Amount: {item?.amount} </span>
-            <span> Weight: {item?.weight} </span>
-            <span> Quality: {item?.quality}</span>
-            <span> Serial: {item?.serial || "Change it later"}</span>
-            <span> Owner: {item?.owner || "Change it later"}</span>
-          </div>
-          <p>{item?.description}</p>
         </div>
       )}
     </div>

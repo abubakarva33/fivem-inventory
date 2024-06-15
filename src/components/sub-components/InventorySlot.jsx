@@ -390,7 +390,7 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
             />
             {item?.type != "weapon" &&
               item?.info &&
-              item?.info.quality != 0 &&
+              item?.info.quality &&
               inventoryType != "shop" &&
               inventoryType != "crafting" && (
                 <div className="slotQuality w-full mt-[-15px]">
@@ -463,8 +463,10 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
           <div className="flex flex-col">
             <span> Amount: {item?.amount} </span>
             <span> Weight: {item?.weight} </span>
-            {item?.info?.quality && item?.info?.quality != 0 && (
-              <span> Quality: {item?.info?.quality}</span>
+            {item?.quality ? (
+              <span> Quality: {item?.quality}</span>
+            ) : (
+              item?.info?.quality && <span> Quality: {item.info.quality}</span>
             )}
 
             {item?.info?.ammo && <span> Ammo: {item.info.ammo}</span>}
