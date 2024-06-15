@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,23 +27,57 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
   const { type, type2, maxWeight, identifier } = inventory;
   const inventoryType = type === "backpack" ? type2 : type;
+  const [weaponExpand, setWeaponExpand] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [hoverTimer, setHoverTimer] = useState(null);
-  const [weaponExpand, setWeaponExpand] = useState(false);
+
+  const tooltipRef = useRef(null);
+  const mainDivRef = useRef(null);
 
   const handleMouseEnter = () => {
-    const timer = setTimeout(() => {
-      setShowTooltip(true);
-    }, 1000); // 1 second delay
-    setHoverTimer(timer);
+    if (!hoverTimer) {
+      const timer = setTimeout(() => {
+        setShowTooltip(true);
+      }, 1000); // 1 second delay
+      setHoverTimer(timer);
+    }
   };
+
   const handleMouseLeave = () => {
-    setShowTooltip(false);
     if (hoverTimer) {
       clearTimeout(hoverTimer);
       setHoverTimer(null);
     }
+    setShowTooltip(false);
   };
+
+  useEffect(() => {
+    const handleDocumentMouseMove = (event) => {
+      if (tooltipRef.current && mainDivRef.current) {
+        const tooltipRect = tooltipRef.current.getBoundingClientRect();
+        const mainDivRect = mainDivRef.current.getBoundingClientRect();
+        const isInsideTooltip =
+          event.clientX >= tooltipRect.left &&
+          event.clientX <= tooltipRect.right &&
+          event.clientY >= tooltipRect.top &&
+          event.clientY <= tooltipRect.bottom;
+        const isInsideMainDiv =
+          event.clientX >= mainDivRect.left &&
+          event.clientX <= mainDivRect.right &&
+          event.clientY >= mainDivRect.top &&
+          event.clientY <= mainDivRect.bottom;
+        if (!isInsideTooltip && !isInsideMainDiv) {
+          setShowTooltip(false);
+        }
+      }
+    };
+
+    document.addEventListener("mousemove", handleDocumentMouseMove);
+    return () => {
+      document.removeEventListener("mousemove", handleDocumentMouseMove);
+    };
+  }, []);
+
   const handleRightButtonClick = (event) => {
     event.preventDefault();
     const { items, ...restOfInventory } = inventory;
@@ -305,6 +339,7 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
         border: `$1px dashed ${isOver ? { slotBorderColor } : "transparent"}`,
         borderRadius: slotBorderRound,
       }}
+      ref={mainDivRef}
       onContextMenu={handleRightButtonClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -344,7 +379,7 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
                   )}
                 </span>
               )}
-              {item?.weight && item?.type != "account" && (
+              {item?.weight && item?.weight != 0 && item?.type != "account" && (
                 <span className="">{gramsToKilograms(item?.weight)}kg</span>
               )}
             </div>
@@ -355,7 +390,7 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
             />
             {item?.type != "weapon" &&
               item?.info &&
-              item?.info.quality &&
+              item?.info.quality != 0 &&
               inventoryType != "shop" &&
               inventoryType != "crafting" && (
                 <div className="slotQuality w-full mt-[-15px]">
@@ -411,6 +446,7 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
       {/* tooltip section */}
       {showTooltip && item?.name && !isRightButtonClick && !weaponExpand && (
         <div
+          ref={tooltipRef}
           className={`flex flex-col absolute top-24 ${
             inventoryType != "playerinventory" && (ind + 1) % 4 === 0
               ? "right-24"
@@ -427,10 +463,8 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
           <div className="flex flex-col">
             <span> Amount: {item?.amount} </span>
             <span> Weight: {item?.weight} </span>
-            {item?.quality ? (
-              <span> Quality: {item?.quality}</span>
-            ) : (
-              item?.info?.quality && <span> Quality: {item.info.quality}</span>
+            {item?.info?.quality && item?.info?.quality != 0 && (
+              <span> Quality: {item?.info?.quality}</span>
             )}
 
             {item?.info?.ammo && <span> Ammo: {item.info.ammo}</span>}

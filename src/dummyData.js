@@ -93,14 +93,14 @@ export let primaryInvDummyData = {
     {
       name: "bread",
       label: "Bread",
-      type: "item",
+      type: "account",
       description: "This item will reduce your hunger",
       weight: 500,
       amount: 5,
       slot: 4,
-      quality: 100,
+      quality: 50,
       info: {
-        quality: 100,
+        quality: 50,
       },
     },
     {
