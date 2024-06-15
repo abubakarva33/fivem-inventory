@@ -379,8 +379,10 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
                   )}
                 </span>
               )}
-              {item?.weight && item?.weight != 0 && item?.type != "account" && (
-                <span className="">{gramsToKilograms(item?.weight)}kg</span>
+              {item?.weight != 0 && item?.weight && item?.type != "account" && (
+                <span className={item?.weight === 0 ? "hidden" : ""}>
+                  {gramsToKilograms(item?.weight)}kg
+                </span>
               )}
             </div>
             <img
@@ -389,16 +391,16 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
               className="img-fluid slotImg mb-[12px]"
             />
             {item?.type != "weapon" &&
-              item?.info &&
-              item?.info.quality &&
+              item?.info?.quality != 0 &&
+              item?.info?.quality &&
               inventoryType != "shop" &&
               inventoryType != "crafting" && (
                 <div className="slotQuality w-full mt-[-15px]">
                   <Progress
-                    percent={item?.info.quality}
+                    percent={item?.info?.quality}
                     showInfo={false}
                     size={["100%", 4]}
-                    strokeColor={calculateRGB(Number(item?.info.quality))}
+                    strokeColor={calculateRGB(Number(item?.info?.quality))}
                     trailColor={hudBg}
                   />
                 </div>
