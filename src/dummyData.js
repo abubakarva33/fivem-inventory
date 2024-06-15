@@ -91,6 +91,17 @@ export let primaryInvDummyData = {
       },
     },
     {
+      name: "cash",
+      label: "Cash",
+      type: "account",
+      description: "Wallet money",
+      weight: 0,
+      amount: 5,
+      slot: 3,
+      quality: 100,
+      info: {},
+    },
+    {
       name: "bread",
       label: "Bread",
       type: "item",
