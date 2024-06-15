@@ -16,6 +16,7 @@ import { closeContextMenu, handleContextInput, openContextMenu } from "../../red
 import { IoIosInfinite } from "react-icons/io";
 import { FaExpand } from "react-icons/fa";
 import WeaponExpandSection from "./WeaponExpandSection";
+import { FaMoneyCheckDollar } from "react-icons/fa6";
 
 const InventorySlotComponent = ({ item, inventory }) => {
   const dispatch = useDispatch();
@@ -335,12 +336,18 @@ const InventorySlotComponent = ({ item, inventory }) => {
                 <span className="flex items-center justify-center">
                   {inventoryType === "shop" && item?.amount === -1 ? (
                     <IoIosInfinite className="mb-[-3px] text-[16px]" />
+                  ) : item?.type === "account" ? (
+                    <>
+                      <FaMoneyCheckDollar className="me-1" /> {item?.amount}
+                    </>
                   ) : (
                     item?.amount + "x"
                   )}
                 </span>
               )}
-              {item?.weight && <span className="">{gramsToKilograms(item?.weight)}kg</span>}
+              {item?.weight && item?.type != "account" && (
+                <span className="">{gramsToKilograms(item?.weight)}kg</span>
+              )}
             </div>
             <img
               src={`./images/${item?.name}.png`}
