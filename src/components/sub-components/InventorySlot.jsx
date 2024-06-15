@@ -414,7 +414,9 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
           className={`flex flex-col absolute top-24 ${
             inventoryType != "playerinventory" && (ind + 1) % 4 === 0
               ? "right-24"
-              : inventoryType === "playerinventory" && (ind + 1) % 5 === 0
+              : inventoryType != "playerinventory" && (ind - 2) % 4 === 0
+              ? "left-5"
+              : inventoryType === "playerinventory" && (ind - 4) % 6 === 0
               ? "left-14"
               : inventoryType === "playerinventory" && (ind + 1) % 6 === 0
               ? "right-24"
