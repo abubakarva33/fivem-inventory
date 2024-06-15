@@ -113,10 +113,11 @@ const BackpackSection = ({ openBackpacks }) => {
       <div style={{ height: "calc(100% - 125px)", overflowY: "auto" }}>
         <div className="section">
           {Array.isArray(state[backpack]?.items) &&
-            state[backpack]?.items?.map((item) => (
+            state[backpack]?.items?.map((item, ind) => (
               <InventorySlot
                 key={`${state[backpack].type}-${state[backpack].id}-${item.slot}`}
                 item={item}
+                ind={ind}
                 inventory={state[backpack]}
               />
             ))}

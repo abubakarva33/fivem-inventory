@@ -125,11 +125,12 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
       <div style={{ height: "calc(100% - 145px)", overflowY: "auto" }}>
         <div className="mainAreaSlot section">
           {Array.isArray(inventory?.items) &&
-            inventory?.items?.map((item) => (
+            inventory?.items?.map((item, ind) => (
               <InventorySlot
                 key={`${inventory.type}-${inventory.id}-${item.slot}`}
                 item={item}
                 inventory={inventory}
+                ind={ind}
               />
             ))}
         </div>

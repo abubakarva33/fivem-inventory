@@ -17,8 +17,7 @@ import { IoIosInfinite } from "react-icons/io";
 import { FaExpand } from "react-icons/fa";
 import WeaponExpandSection from "./WeaponExpandSection";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
-
-const InventorySlotComponent = ({ item, inventory }) => {
+const InventorySlotComponent = ({ item, inventory, ind }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
   const { slotBg, slotBorderColor, slotBorderRound, textColor, hudBg } = useSelector(
@@ -411,7 +410,17 @@ const InventorySlotComponent = ({ item, inventory }) => {
       )}
       {/* tooltip section */}
       {showTooltip && item?.name && !isRightButtonClick && !weaponExpand && (
-        <div className="flex flex-col absolute top-8 left-8 z-[500] bg-slate-800 border w-[200px] p-2">
+        <div
+          className={`flex flex-col absolute top-24 ${
+            inventoryType != "playerinventory" && (ind + 1) % 4 === 0
+              ? "right-24"
+              : inventoryType === "playerinventory" && (ind + 1) % 5 === 0
+              ? "left-14"
+              : inventoryType === "playerinventory" && (ind + 1) % 6 === 0
+              ? "right-24"
+              : "left-24"
+          } z-[500] bg-slate-800 border w-[200px] p-2`}
+        >
           <h5> {item?.label}</h5>
           <div className="flex flex-col">
             <span> Amount: {item?.amount} </span>

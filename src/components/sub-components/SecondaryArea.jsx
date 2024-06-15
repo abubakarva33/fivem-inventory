@@ -86,7 +86,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
           } gap-[5px] px-3 mt-2`}
         >
           {Array.isArray(state[secondaryBackpack?.type]?.items) &&
-            state[secondaryBackpack?.type]?.items?.map((item) => (
+            state[secondaryBackpack?.type]?.items?.map((item, ind) => (
               <>
                 {secondaryBackpack?.type != "crafting" ? (
                   <InventorySlot
@@ -94,6 +94,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
                       state[secondaryBackpack?.type].id
                     }-${item.slot}`}
                     item={item}
+                    ind={ind}
                     inventory={state[secondaryBackpack?.type]}
                   />
                 ) : (

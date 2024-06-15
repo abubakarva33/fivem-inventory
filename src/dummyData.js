@@ -299,6 +299,12 @@ export let largeBackpackDummyData = {
       info: {},
     },
     {
+      slot: 3,
+    },
+    {
+      slot: 4,
+    },
+    {
       name: "bread",
       label: "Bread",
       type: "item",
