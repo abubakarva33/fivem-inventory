@@ -1,15 +1,16 @@
 import { IoIosInfinite } from "react-icons/io";
 import { gramsToKilograms } from "../../utilities/utilis";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { closeContextMenu, openContextMenu } from "../../redux/contextSlice";
+import { Spin } from "antd";
 
 const CraftInventorySlot = ({ item, inventory }) => {
   const { type, type2 } = inventory;
   const inventoryType = type === "backpack" ? type2 : type;
   const dispatch = useDispatch();
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
-  const [hoverTimer, setHoverTimer] = useState(null);
+  const [boxSize, setBoxSize] = useState(110);
   const { slotBg, slotBorderColor, slotBorderRound, textColor } = useSelector(
     (state) => state.customizeSec
   );
@@ -35,6 +36,20 @@ const CraftInventorySlot = ({ item, inventory }) => {
     }
   };
 
+  const timer = 20000 / 20;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (boxSize > 0) {
+        setBoxSize((prevSize) => prevSize - 5);
+      } else {
+        clearInterval(interval);
+      }
+    }, timer);
+
+    return () => clearInterval(interval);
+  }, [boxSize]);
+
   return (
     <div
       className="slot relative p-2"
@@ -48,9 +63,18 @@ const CraftInventorySlot = ({ item, inventory }) => {
       {item?.name && (
         <div className="grid grid-cols-2 gap-1 w-full h-full">
           <div
-            className="flex items-center justify-between flex-col"
+            className="relative flex items-center justify-center h-full flex-col"
             style={{ border: `1px solid ${slotBorderColor}`, borderRadius: 10, color: textColor }}
           >
+            <div
+              className="absolute flex items-center justify-center bg-neutral-900 transition-all duration-500"
+              style={{
+                width: `${boxSize}px`,
+                height: `${boxSize}px`,
+              }}
+            >
+              <Spin spinning={true}> </Spin>
+            </div>
             <div className="flex items-center justify-between w-full px-2">
               {item?.amount && (
                 <span className="flex items-center justify-center">
