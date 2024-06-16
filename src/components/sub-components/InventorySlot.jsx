@@ -390,8 +390,7 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
               alt=""
               className="img-fluid slotImg mb-[12px]"
             />
-            {item?.type != "weapon" &&
-              item?.info?.quality != 0 &&
+            {item?.info?.quality != 0 &&
               item?.info?.quality &&
               inventoryType != "shop" &&
               inventoryType != "crafting" && (
@@ -465,16 +464,14 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
           <div className="flex flex-col">
             <span> Amount: {item?.amount} </span>
             <span> Weight: {item?.weight} </span>
-            {item?.quality ? (
-              <span> Quality: {item?.quality}</span>
-            ) : (
-              item?.info?.quality && <span> Quality: {item.info.quality}</span>
-            )}
-
-            {item?.info?.ammo && <span> Ammo: {item.info.ammo}</span>}
-            {item?.info?.tint && item?.info?.tint > 0 ? <span> Tint: {item.info.tint}</span> : null}
-            {item?.info?.serial && <span> Serial: {item.info.serial}</span>}
-            {item?.info?.owner && <span> Owner: {item.info.owner}</span>}
+            {Object.keys(item?.info || {}).map((key, index) => {
+              const value = item.info[key];
+              if (typeof value === 'object' && !Array.isArray(value)) return null;
+              if (Array.isArray(value)) return null;
+              return (
+                <span key={index}>{key.charAt(0).toUpperCase() + key.slice(1)}: {value}</span>
+              );
+            })}
           </div>
           <p>{item?.description}</p>
         </div>
