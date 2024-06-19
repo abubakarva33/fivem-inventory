@@ -10,7 +10,7 @@ import {
   isObjMatched,
   sellItemHandlerWithDnd,
 } from "../../utilities/utilis";
-import { changeSlot } from "../../redux/inventorySlice";
+import { changeSlot, setupInventory } from "../../redux/inventorySlice";
 import { Progress } from "antd";
 import { closeContextMenu, handleContextInput, openContextMenu } from "../../redux/contextSlice";
 import { IoIosInfinite } from "react-icons/io";
@@ -33,6 +33,15 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
 
   const tooltipRef = useRef(null);
   const mainDivRef = useRef(null);
+
+  const [weaponItems, setWeaponItems] = useState(null);
+  console.log(weaponItems);
+
+  useEffect(() => {
+    if (weaponItems) {
+      dispatch(setupInventory({ type: weaponItems?.type, item: weaponItems }));
+    }
+  }, [weaponItems]);
 
   const handleMouseEnter = () => {
     if (!hoverTimer) {
@@ -133,6 +142,7 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
           item,
         };
         const source = { ...main, type: main.type };
+
         // initially store and set data to redux(localhost) without shop inventory//
         dispatch(changeSlot({ source, targetInventory }));
         // conditionally pass data for server //
@@ -218,6 +228,14 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
             if (source.item.type === "backpack") {
               return false;
             }
+          }
+          // condition for weapon expand slots //
+          if (
+            (source?.type === "weapon" && inventoryType === "playerinventory") ||
+            (source?.type === "playerinventory" && inventoryType === "weapon") ||
+            (source?.type === "weapon" && inventoryType === "weapon")
+          ) {
+            return true;
           }
           // condition for amount based dnd //
           const inputAmount = selectedItems.find(
@@ -351,7 +369,7 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
         className="absolute top-0 left-0 right-0 bottom-0 z-40"
       ></div>
 
-      {true && (
+      {true && inventoryType != "weapon" && (
         <div
           className="slot relative"
           style={{
@@ -417,8 +435,14 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
             )}
 
             {item?.type === "weapon" && (
-              <div className={`absolute bottom-7 right-2 ${!weaponExpand ? "z-50" : ""}`}>
-                <FaExpand className="text-[20px] " onClick={() => setWeaponExpand(!weaponExpand)} />
+              <div className={`absolute bottom-7 right-2 ${!weaponExpand ? "z-40" : ""}`}>
+                <FaExpand
+                  className="text-[20px] "
+                  onClick={() => {
+                    setWeaponExpand(!weaponExpand);
+                    setWeaponItems(item);
+                  }}
+                />
               </div>
             )}
 
@@ -444,6 +468,20 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
           </div>
         </div>
       )}
+      {true && inventoryType === "weapon" && (
+        <div
+          className="flex items-center justify-center "
+          style={{
+            height: 58,
+            width: 58,
+            backgroundColor: slotBg,
+            borderRadius: slotBorderRound,
+            border: `1px solid ${slotBorderColor}`,
+          }}
+        >
+          <img src={`./images/${item?.name}.png`} alt="" className="" />
+        </div>
+      )}
       {/* tooltip section */}
       {showTooltip && item?.name && !isRightButtonClick && !weaponExpand && (
         <div
@@ -466,10 +504,12 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
             <span> Weight: {item?.weight} </span>
             {Object.keys(item?.info || {}).map((key, index) => {
               const value = item.info[key];
-              if (typeof value === 'object' && !Array.isArray(value)) return null;
+              if (typeof value === "object" && !Array.isArray(value)) return null;
               if (Array.isArray(value)) return null;
               return (
-                <span key={index}>{key.charAt(0).toUpperCase() + key.slice(1)}: {value}</span>
+                <span key={index}>
+                  {key.charAt(0).toUpperCase() + key.slice(1)}: {value}
+                </span>
               );
             })}
           </div>
