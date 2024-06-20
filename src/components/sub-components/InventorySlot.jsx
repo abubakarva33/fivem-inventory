@@ -4,11 +4,13 @@ import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   UpdateDataToServer,
+  addWeaponComponentToServer,
   buyItemHandlerWithDnd,
   calculateRGB,
   gramsToKilograms,
   isIncludedType,
   isObjMatched,
+  removeWeaponComponentToServer,
   sellItemHandlerWithDnd,
 } from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
@@ -178,6 +180,33 @@ const InventorySlotComponent = ({
             },
           };
           UpdateDataToServer(changeSlotData);
+        } else if (isIncludedType(source?.item?.type)) {
+          if (source?.type === "weapon") {
+            let removeComponent = {
+              weapon: {
+                name: source?.item?.name,
+                slot: source?.item?.slot,
+              },
+              component: {
+                name: source?.item?.name,
+                slot: targetInventory?.item?.slot,
+                info: source?.item?.info,
+              },
+            };
+            removeWeaponComponentToServer(removeComponent);
+          } else {
+            let addComponent = {
+              weapon: {
+                name: source?.item?.name,
+                slot: source?.item?.slot,
+              },
+              component: {
+                ...source?.item,
+                slot: targetInventory?.item?.slot,
+              },
+            };
+            addWeaponComponentToServer(addComponent);
+          }
         } else {
           // for passing data to server dif inventory //
 

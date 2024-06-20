@@ -321,3 +321,10 @@ export const includedItems = [
 export const isIncludedType = (source) => {
   return includedItems.includes(source);
 };
+
+export const addWeaponComponentToServer = (data) => {
+  console.log(data);
+};
+export const removeWeaponComponentToServer = (data) => {
+  console.log(data);
+};
