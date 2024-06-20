@@ -233,6 +233,7 @@ const InventorySlotComponent = ({
             (source?.type === "playerinventory" && inventoryType === "weapon") ||
             (source?.type === "weapon" && inventoryType === "weapon")
           ) {
+            if (source.item.type !== "weaponItem") return false;
             return true;
           }
           // condition for amount based dnd //

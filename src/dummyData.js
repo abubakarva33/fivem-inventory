@@ -116,7 +116,7 @@ export let primaryInvDummyData = {
         {
           name: "at_grip",
           label: "Heavy Grip",
-          type: "item",
+          type: "weaponItem",
           description: "Heavy weapon grip",
           quality: 100,
           weight: 250,
@@ -127,7 +127,7 @@ export let primaryInvDummyData = {
         {
           name: "at_suppressor_heavy",
           label: "Suppressor Heavy",
-          type: "item",
+          type: "weaponItem",
           description: "Heavy weapon suppressor",
           quality: 100,
           weight: 250,
@@ -182,7 +182,7 @@ export let primaryInvDummyData = {
         {
           name: "at_grip",
           label: "Heavy Grip",
-          type: "item",
+          type: "weaponItem",
           description: "Heavy weapon grip",
           quality: 100,
           weight: 250,
@@ -596,7 +596,7 @@ export const weapon_wanted_By_Me = {
     {
       name: "at_grip",
       label: "Heavy Grip",
-      type: "item",
+      type: "weaponItem", // need a specific type to ensure this item belongs to weapon //
       description: "Heavy weapon grip",
       quality: 100,
       weight: 250,
@@ -607,7 +607,7 @@ export const weapon_wanted_By_Me = {
     {
       name: "at_suppressor_heavy",
       label: "Suppressor Heavy",
-      type: "item",
+      type: "weaponItem", // need a specific type to ensure this item belongs to weapon //
       description: "Heavy weapon suppressor",
       quality: 100,
       weight: 250,
