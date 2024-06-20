@@ -116,7 +116,7 @@ export let primaryInvDummyData = {
         {
           name: "at_grip",
           label: "Heavy Grip",
-          type: "weaponItem",
+          type: "muzzle",
           description: "Heavy weapon grip",
           quality: 100,
           weight: 250,
@@ -596,7 +596,7 @@ export const weapon_wanted_By_Me = {
     {
       name: "at_grip",
       label: "Heavy Grip",
-      type: "weaponItem", // need a specific type to ensure this item belongs to weapon //
+      type: "muzzle", // need a specific type to ensure this item belongs to weapon //
       description: "Heavy weapon grip",
       quality: 100,
       weight: 250,

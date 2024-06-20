@@ -7,6 +7,7 @@ import {
   buyItemHandlerWithDnd,
   calculateRGB,
   gramsToKilograms,
+  isIncludedType,
   isObjMatched,
   sellItemHandlerWithDnd,
 } from "../../utilities/utilis";
@@ -233,7 +234,7 @@ const InventorySlotComponent = ({
             (source?.type === "playerinventory" && inventoryType === "weapon") ||
             (source?.type === "weapon" && inventoryType === "weapon")
           ) {
-            if (source.item.type !== "weaponItem") return false;
+            if (!isIncludedType(source?.item?.type)) return false;
             return true;
           }
           // condition for amount based dnd //
@@ -269,7 +270,6 @@ const InventorySlotComponent = ({
             }
             return false;
           }
-
           const amount =
             source?.item?.name === item?.name
               ? Number(item.amount) + inputAmount?.selectedAmount

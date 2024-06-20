@@ -307,3 +307,17 @@ export const calculateRGBRev = (value) => {
   // Return the calculated RGB values
   return "rgb(" + Math.round(r) + "," + Math.round(g) + "," + Math.round(b) + ")";
 };
+
+export const includedItems = [
+  "flashlight",
+  "muzzle",
+  "grip",
+  "barrel",
+  "magazine",
+  "sight",
+  "skin",
+];
+
+export const isIncludedType = (source) => {
+  return includedItems.includes(source);
+};
