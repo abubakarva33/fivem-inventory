@@ -16,7 +16,14 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
 
   useEffect(() => {
     if (weaponItems) {
-      dispatch(setupInventory({ type: weaponItems?.type, item: weaponItems }));
+      const modifiedWeaponItem = {
+        ...weaponItems,
+        slots: 7,
+        items: Object.keys(weaponItems?.info?.components).map(
+          (key) => weaponItems?.info?.components[key]
+        ),
+      };
+      dispatch(setupInventory({ type: weaponItems?.type, item: modifiedWeaponItem }));
     }
   }, [weaponItems]);
 

@@ -38,7 +38,6 @@ const InventorySlotComponent = ({
   const inventoryType = type === "backpack" ? type2 : type;
   const [showTooltip, setShowTooltip] = useState(false);
   const [hoverTimer, setHoverTimer] = useState(null);
-
   const tooltipRef = useRef(null);
   const mainDivRef = useRef(null);
 
