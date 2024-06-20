@@ -17,7 +17,15 @@ import { IoIosInfinite } from "react-icons/io";
 import { FaExpand } from "react-icons/fa";
 import WeaponExpandSection from "./WeaponExpandSection";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
-const InventorySlotComponent = ({ item, inventory, ind }) => {
+const InventorySlotComponent = ({
+  item,
+  inventory,
+  ind,
+  weaponExpand,
+  setWeaponExpand,
+  weaponItems,
+  setWeaponItems,
+}) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
   const { slotBg, slotBorderColor, slotBorderRound, textColor, hudBg } = useSelector(
@@ -27,21 +35,13 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
   const { type, type2, maxWeight, identifier } = inventory;
   const inventoryType = type === "backpack" ? type2 : type;
-  const [weaponExpand, setWeaponExpand] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [hoverTimer, setHoverTimer] = useState(null);
 
   const tooltipRef = useRef(null);
   const mainDivRef = useRef(null);
 
-  const [weaponItems, setWeaponItems] = useState(null);
-  console.log(weaponItems);
 
-  useEffect(() => {
-    if (weaponItems) {
-      dispatch(setupInventory({ type: weaponItems?.type, item: weaponItems }));
-    }
-  }, [weaponItems]);
 
   const handleMouseEnter = () => {
     if (!hoverTimer) {
@@ -423,7 +423,7 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
                 </div>
               )}
 
-            {item?.type === "weapon" && weaponExpand && (
+            {item?.type === "weapon" && weaponExpand && ind === weaponItems?.ind ? (
               <WeaponExpandSection
                 item={item}
                 weaponExpand={weaponExpand}
@@ -432,15 +432,26 @@ const InventorySlotComponent = ({ item, inventory, ind }) => {
                 drag={drag}
                 drop={drop}
               />
+            ) : (
+              ""
             )}
 
             {item?.type === "weapon" && (
-              <div className={`absolute bottom-7 right-2 ${!weaponExpand ? "z-40" : ""}`}>
+              <div className={`absolute bottom-7 right-2 z-40`}>
                 <FaExpand
                   className="text-[20px] "
+                  style={{ cursor: "pointer" }}
                   onClick={() => {
-                    setWeaponExpand(!weaponExpand);
-                    setWeaponItems(item);
+                    if(weaponExpand && ind === weaponItems?.ind){
+                      setWeaponExpand(false);
+                      setWeaponItems(null);
+                      
+                    }else{
+                      setWeaponExpand(true);
+                      setWeaponItems({ ...item, ind });
+
+                    }
+                    // setWeaponExpand(!weaponExpand);
                   }}
                 />
               </div>

@@ -35,7 +35,7 @@ const Inventory = () => {
 
   useEffect(() => {
     const inventoryKeys = Object.keys(state);
-    const excludedTypes = ["largeBackpack", "smallBackpack", "playerinventory"];
+    const excludedTypes = ["largeBackpack", "smallBackpack", "playerinventory", "weapon"];
     const filteredInventory = inventoryKeys.filter((key) => !excludedTypes.includes(key));
     const filteredItems = filteredInventory.map((key) => {
       if (state[key]) {

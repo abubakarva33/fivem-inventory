@@ -10,8 +10,7 @@ const WeaponExpandSection = ({ item, weaponExpand, setWeaponExpand, refs, drag, 
 
   return (
     <div
-      className=" absolute top-[-2px] left-[-2px]
-                 bg-slate-600 z-50 p-2"
+      className=" absolute top-[-2px] left-[-2px] bg-slate-600 z-50 p-2"
       style={{
         height: 268,
         width: 268,

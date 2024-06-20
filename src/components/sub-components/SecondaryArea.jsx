@@ -22,6 +22,8 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
   );
   const [options, setOptions] = useState([]);
 
+
+
   useEffect(() => {
     if (secondaryBackpacks) {
       const option = secondaryBackpacks?.map((item) => {
@@ -33,6 +35,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
   }, [secondaryBackpacks[0]?.type, secondaryBackpacks[1]?.type]);
 
   const changeSecondaryBackpack = ({ target: { value } }) => setSecondaryBackpack(state[value]);
+
 
   return (
     <div

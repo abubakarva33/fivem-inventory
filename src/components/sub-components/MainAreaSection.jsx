@@ -1,13 +1,25 @@
 import { Progress } from "antd";
 import { BsBoxes } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 import { useEffect, useState } from "react";
 import { calculateRGBRev } from "../../utilities/utilis";
+import {  setupInventory } from "../../redux/inventorySlice";
 
 const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
   const { boxBg, boxBorderColor, boxBorderRound, slotBg, textColor, hudBg, hudBorderColor } =
     useSelector((state) => state.customizeSec);
+    const dispatch = useDispatch()
+    
+    const [weaponExpand, setWeaponExpand] = useState(false);
+    const [weaponItems, setWeaponItems] = useState(null);
+
+    useEffect(() => {
+      console.log({weaponItems})
+      if (weaponItems) {
+        dispatch(setupInventory({ type: weaponItems?.type, item: weaponItems }));
+      }
+    }, [weaponItems]);
 
   const [hudData, setHudData] = useState({
     health: 100,
@@ -131,6 +143,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
                 item={item}
                 inventory={inventory}
                 ind={ind}
+                {...{weaponExpand, setWeaponExpand,weaponItems, setWeaponItems}}
               />
             ))}
         </div>

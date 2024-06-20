@@ -47,7 +47,7 @@ const DragPreview = () => {
     <>
       {isDragging && currentOffset && data.item && (
         <div
-          className="item-drag-preview"
+          className="item-drag-preview z-[999]"
           ref={element}
           style={{
             transform: `translate(${currentOffset.x}px, ${currentOffset.y}px)`,
