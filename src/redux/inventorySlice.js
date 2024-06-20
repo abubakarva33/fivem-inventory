@@ -1,10 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  calculateTotalWeight,
-  includedTypes,
-  isObjMatched,
-  setupInventoryFn,
-} from "../utilities/utilis";
+import { calculateTotalWeight, includedTypes, isObjMatched } from "../utilities/utilis";
 
 const initialState = {};
 
@@ -75,7 +70,6 @@ export const inventorySlice = createSlice({
               findSource.name === findTarget.name &&
               isObjMatched(findSource?.info, findTarget?.info)
             ) {
-              console.log(isObjMatched(findSource?.info, findTarget?.info));
               return { ...findSource, amount: item.amount + findSource.amount, slot: item.slot };
             }
             return { ...findSource, slot: item.slot };

@@ -3,7 +3,6 @@ import { gramsToKilograms } from "../../utilities/utilis";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { closeContextMenu, openContextMenu } from "../../redux/contextSlice";
-import { Spin } from "antd";
 
 const CraftInventorySlot = ({ item, inventory }) => {
   const { type, type2 } = inventory;
@@ -66,7 +65,7 @@ const CraftInventorySlot = ({ item, inventory }) => {
             className="relative flex items-center justify-center h-full flex-col"
             style={{ border: `1px solid ${slotBorderColor}`, borderRadius: 10, color: textColor }}
           >
-            <div
+            {/* <div
               className="absolute flex items-center justify-center bg-neutral-900 transition-all duration-500"
               style={{
                 width: `${boxSize}px`,
@@ -74,7 +73,7 @@ const CraftInventorySlot = ({ item, inventory }) => {
               }}
             >
               <Spin spinning={true}> </Spin>
-            </div>
+            </div> */}
             <div className="flex items-center justify-between w-full px-2">
               {item?.amount && (
                 <span className="flex items-center justify-center">

@@ -10,7 +10,7 @@ import {
   isObjMatched,
   sellItemHandlerWithDnd,
 } from "../../utilities/utilis";
-import { changeSlot, setupInventory } from "../../redux/inventorySlice";
+import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
 import { closeContextMenu, handleContextInput, openContextMenu } from "../../redux/contextSlice";
 import { IoIosInfinite } from "react-icons/io";
@@ -40,8 +40,6 @@ const InventorySlotComponent = ({
 
   const tooltipRef = useRef(null);
   const mainDivRef = useRef(null);
-
-
 
   const handleMouseEnter = () => {
     if (!hoverTimer) {
@@ -442,14 +440,12 @@ const InventorySlotComponent = ({
                   className="text-[20px] "
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    if(weaponExpand && ind === weaponItems?.ind){
+                    if (weaponExpand && ind === weaponItems?.ind) {
                       setWeaponExpand(false);
                       setWeaponItems(null);
-                      
-                    }else{
+                    } else {
                       setWeaponExpand(true);
                       setWeaponItems({ ...item, ind });
-
                     }
                     // setWeaponExpand(!weaponExpand);
                   }}

@@ -4,22 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 import { useEffect, useState } from "react";
 import { calculateRGBRev } from "../../utilities/utilis";
-import {  setupInventory } from "../../redux/inventorySlice";
+import { setupInventory } from "../../redux/inventorySlice";
 
 const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
   const { boxBg, boxBorderColor, boxBorderRound, slotBg, textColor, hudBg, hudBorderColor } =
     useSelector((state) => state.customizeSec);
-    const dispatch = useDispatch()
-    
-    const [weaponExpand, setWeaponExpand] = useState(false);
-    const [weaponItems, setWeaponItems] = useState(null);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-      console.log({weaponItems})
-      if (weaponItems) {
-        dispatch(setupInventory({ type: weaponItems?.type, item: weaponItems }));
-      }
-    }, [weaponItems]);
+  const [weaponExpand, setWeaponExpand] = useState(false);
+  const [weaponItems, setWeaponItems] = useState(null);
+
+  useEffect(() => {
+    if (weaponItems) {
+      dispatch(setupInventory({ type: weaponItems?.type, item: weaponItems }));
+    }
+  }, [weaponItems]);
 
   const [hudData, setHudData] = useState({
     health: 100,
@@ -143,7 +142,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
                 item={item}
                 inventory={inventory}
                 ind={ind}
-                {...{weaponExpand, setWeaponExpand,weaponItems, setWeaponItems}}
+                {...{ weaponExpand, setWeaponExpand, weaponItems, setWeaponItems }}
               />
             ))}
         </div>
