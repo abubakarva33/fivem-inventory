@@ -9,10 +9,20 @@ const CraftInventorySlot = ({ item, inventory }) => {
   const inventoryType = type === "backpack" ? type2 : type;
   const dispatch = useDispatch();
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
-  const [boxSize, setBoxSize] = useState(110);
   const { slotBg, slotBorderColor, slotBorderRound, textColor } = useSelector(
     (state) => state.customizeSec
   );
+
+  const [deg, setDeg] = useState(360);
+  const timeMS = 0.6;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDeg((prevDeg) => (prevDeg >= 0 ? prevDeg - 5 : 360));
+    }, timeMS * 100);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleRightButtonClick = (event) => {
     event.preventDefault();
@@ -35,20 +45,6 @@ const CraftInventorySlot = ({ item, inventory }) => {
     }
   };
 
-  const timer = 20000 / 20;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (boxSize > 0) {
-        setBoxSize((prevSize) => prevSize - 5);
-      } else {
-        clearInterval(interval);
-      }
-    }, timer);
-
-    return () => clearInterval(interval);
-  }, [boxSize]);
-
   return (
     <div
       className="slot relative p-2"
@@ -65,14 +61,13 @@ const CraftInventorySlot = ({ item, inventory }) => {
             className="relative flex items-center justify-center h-full flex-col"
             style={{ border: `1px solid ${slotBorderColor}`, borderRadius: 10, color: textColor }}
           >
-            {/* <div
-              className="absolute flex items-center justify-center bg-neutral-900 transition-all duration-500"
-              style={{
-                width: `${boxSize}px`,
-                height: `${boxSize}px`,
-              }}
-            >
-              <Spin spinning={true}> </Spin>
+            {/* <div className="absolute container">
+              <div
+                className="progress"
+                style={{
+                  background: `conic-gradient(rgba(0, 0, 0, 0.582) ${deg}deg, transparent 0%)`,
+                }}
+              ></div>
             </div> */}
             <div className="flex items-center justify-between w-full px-2">
               {item?.amount && (
