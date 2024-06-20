@@ -323,8 +323,12 @@ export const isIncludedType = (source) => {
 };
 
 export const addWeaponComponentToServer = (data) => {
-  console.log(data);
+  fetchNui("addComponent", data)
+    .then((retData) => {})
+    .catch((e) => {});
 };
 export const removeWeaponComponentToServer = (data) => {
-  console.log(data);
+  fetchNui("removeComponent", data)
+    .then((retData) => {})
+    .catch((e) => {});
 };
