@@ -575,9 +575,95 @@ export let craftingInvDummyData = {
 };
 
 //show this variables into description box (if the item have) when an item hovered.
-let infoToDescription = {
+export let infoToDescription = {
   ammo: true,
   tint: true,
   serial: true,
   owner: true,
+};
+
+// ! weapon data structure //
+export const weapon_wanted_By_Me = {
+  name: "weapon_pistol",
+  label: "Pistol",
+  type: "weapon",
+  description: "This is a pistol",
+  weight: 2500,
+  amount: 1,
+  slot: 5,
+  slots: 7,
+  items: [
+    {
+      name: "at_grip",
+      label: "Heavy Grip",
+      type: "item",
+      description: "Heavy weapon grip",
+      quality: 100,
+      weight: 250,
+      slot: 1,
+      shouldClose: true,
+      info: {},
+    },
+    {
+      name: "at_suppressor_heavy",
+      label: "Suppressor Heavy",
+      type: "item",
+      description: "Heavy weapon suppressor",
+      quality: 100,
+      weight: 250,
+      slot: 7,
+      shouldClose: true,
+      info: {},
+    },
+  ],
+
+  info: {
+    ammo: 12,
+    tint: 0,
+    serial: 12345678,
+    quality: 100,
+    owner: "Player 1",
+  },
+};
+
+export const weapon_Given_By_You = {
+  name: "weapon_pistol",
+  label: "Pistol",
+  type: "weapon",
+  description: "This is a pistol",
+  weight: 2500,
+  amount: 1,
+  slot: 5,
+
+  info: {
+    ammo: 12,
+    tint: 0,
+    serial: 12345678,
+    quality: 100,
+    owner: "Player 1",
+    components: {
+      at_grip: {
+        name: "at_grip",
+        label: "Heavy Grip",
+        type: "item",
+        description: "Heavy weapon grip",
+        quality: 100,
+        weight: 250,
+        slot: 1,
+        shouldClose: true,
+        info: {},
+      },
+      at_suppressor_heavy: {
+        name: "at_suppressor_heavy",
+        label: "Suppressor Heavy",
+        type: "item",
+        description: "Heavy weapon suppressor",
+        quality: 100,
+        weight: 250,
+        slot: 7,
+        shouldClose: true,
+        info: {},
+      },
+    },
+  },
 };
