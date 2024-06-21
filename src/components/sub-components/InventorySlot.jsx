@@ -43,8 +43,6 @@ const InventorySlotComponent = ({
   const tooltipRef = useRef(null);
   const mainDivRef = useRef(null);
 
-  // console.log(weaponItems);
-
   const handleMouseEnter = () => {
     if (!hoverTimer) {
       const timer = setTimeout(() => {
@@ -238,14 +236,14 @@ const InventorySlotComponent = ({
             (source?.type === "weapon" && inventoryType === "weapon")
           ) {
             if (!isIncludedType(source?.item?.type)) return false;
+            const weapon = {
+              name: state?.weapon?.name,
+              slot: state?.weapon?.slot,
+            };
             if (isIncludedType(source?.item?.type)) {
-              const weapon = {
-                name: state?.weapon?.name,
-                slot: state?.weapon?.slot,
-              };
               if (source?.type === "weapon") {
-                let removeComponent = {
-                  weapon,
+                const removeComponent = {
+                  weapon: { ...weapon },
                   component: {
                     name: source?.item?.name,
                     slot: item?.slot,
@@ -253,17 +251,15 @@ const InventorySlotComponent = ({
                   },
                 };
                 removeWeaponComponentToServer(removeComponent);
-                return true;
               } else {
-                let addComponent = {
-                  weapon,
+                const addComponent = {
+                  weapon: { ...weapon },
                   component: {
                     ...source?.item,
                     slot: item?.slot,
                   },
                 };
                 addWeaponComponentToServer(addComponent);
-                return true;
               }
             }
           }
@@ -371,7 +367,7 @@ const InventorySlotComponent = ({
       },
     }),
 
-    [inventoryType, item, state[inventoryType]?.weight, selectedItems]
+    [inventoryType, item, state[inventoryType]?.weight, selectedItems, state?.weapon]
   );
 
   const connectRef = (element) => drag(drop(element));
