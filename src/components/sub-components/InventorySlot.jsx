@@ -257,6 +257,7 @@ const InventorySlotComponent = ({
                   component: {
                     ...source?.item,
                     slot: item?.slot,
+                    fromSlot: source?.item?.slot,
                   },
                 };
                 addWeaponComponentToServer(addComponent);
