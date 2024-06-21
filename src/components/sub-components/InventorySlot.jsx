@@ -149,7 +149,11 @@ const InventorySlotComponent = ({
         // initially store and set data to redux(localhost) without shop inventory//
         dispatch(changeSlot({ source, targetInventory }));
         // conditionally pass data for server //
-        if (source.type === targetInventory.type) {
+        if (
+          source.type === targetInventory.type &&
+          (source.type !== "weapon" ||
+            (source.type === "playerinventory" && targetInventory.type === "weapon"))
+        ) {
           // for passing data to server same inventory //
 
           const fromSlotData =
@@ -221,7 +225,8 @@ const InventorySlotComponent = ({
               },
             },
           };
-          UpdateDataToServer(transferSlotData);
+          if (source.type !== "weapon" && inventoryType !== "weapon")
+            UpdateDataToServer(transferSlotData);
         }
       },
       canDrop: (source) => {
@@ -264,7 +269,7 @@ const InventorySlotComponent = ({
                 info: { ...restOfWeapon.info, components },
               };
               updateWeaponComponentToServer(updatedData);
-              return false;
+              return true;
             }
             if (
               !isIncludedType(source?.item?.type) ||
@@ -290,6 +295,7 @@ const InventorySlotComponent = ({
                   },
                 };
                 removeWeaponComponentToServer(removeComponent);
+                return true;
               } else {
                 const addComponent = {
                   weapon: { ...weapon },
@@ -300,6 +306,7 @@ const InventorySlotComponent = ({
                   },
                 };
                 addWeaponComponentToServer(addComponent);
+                return true;
               }
             }
           }
