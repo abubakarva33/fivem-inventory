@@ -7,6 +7,7 @@ import {
   addWeaponComponentToServer,
   buyItemHandlerWithDnd,
   calculateRGB,
+  checkTypeIncluded,
   gramsToKilograms,
   isIncludedType,
   isObjMatched,
@@ -237,9 +238,14 @@ const InventorySlotComponent = ({
           ) {
             if (
               !isIncludedType(source?.item?.type) ||
-              (source?.type === "weapon" && inventoryType === "weapon")
-            )
+              (source?.type === "weapon" && inventoryType === "weapon") ||
+              (source?.type === "playerinventory" &&
+                inventoryType === "weapon" &&
+                checkTypeIncluded(inventory?.items, source?.item?.type)) ||
+              item?.type === "weapon"
+            ) {
               return false;
+            }
             const weapon = {
               name: state?.weapon?.name,
               slot: state?.weapon?.slot,
@@ -255,7 +261,6 @@ const InventorySlotComponent = ({
                   },
                 };
                 removeWeaponComponentToServer(removeComponent);
-                return true;
               } else {
                 const addComponent = {
                   weapon: { ...weapon },
@@ -266,7 +271,6 @@ const InventorySlotComponent = ({
                   },
                 };
                 addWeaponComponentToServer(addComponent);
-                return true;
               }
             }
           }

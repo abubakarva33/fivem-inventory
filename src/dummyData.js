@@ -161,7 +161,7 @@ export let primaryInvDummyData = {
           at_grip: {
             name: "at_grip",
             label: "Heavy Grip",
-            type: "flashlight",
+            type: "barrel",
             description: "Heavy weapon grip",
             quality: 100,
             weight: 250,
