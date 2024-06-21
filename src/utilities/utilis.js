@@ -322,6 +322,10 @@ export const isIncludedType = (source) => {
   return includedItems.includes(source);
 };
 
+export const checkTypeIncluded = (items) => {
+  return items.some((item) => includedItems.includes(item.type));
+};
+
 export const addWeaponComponentToServer = (data) => {
   console.log(data);
   fetchNui("addComponent", data)

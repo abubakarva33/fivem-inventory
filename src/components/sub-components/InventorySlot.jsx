@@ -235,7 +235,11 @@ const InventorySlotComponent = ({
             (source?.type === "playerinventory" && inventoryType === "weapon") ||
             (source?.type === "weapon" && inventoryType === "weapon")
           ) {
-            if (!isIncludedType(source?.item?.type)) return false;
+            if (
+              !isIncludedType(source?.item?.type) ||
+              (source?.type === "weapon" && inventoryType === "weapon")
+            )
+              return false;
             const weapon = {
               name: state?.weapon?.name,
               slot: state?.weapon?.slot,
@@ -251,6 +255,7 @@ const InventorySlotComponent = ({
                   },
                 };
                 removeWeaponComponentToServer(removeComponent);
+                return true;
               } else {
                 const addComponent = {
                   weapon: { ...weapon },
@@ -261,6 +266,7 @@ const InventorySlotComponent = ({
                   },
                 };
                 addWeaponComponentToServer(addComponent);
+                return true;
               }
             }
           }

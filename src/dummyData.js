@@ -132,7 +132,7 @@ export let primaryInvDummyData = {
           at_suppressor_heavy: {
             name: "at_suppressor_heavy",
             label: "Suppressor Heavy",
-            type: "item",
+            type: "flashlight",
             description: "Heavy weapon suppressor",
             quality: 100,
             weight: 250,
