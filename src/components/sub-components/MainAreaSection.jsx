@@ -40,7 +40,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
     const EventListener = function (event) {
       if (event.data.action == "sethud") {
         setHudData(event.data.hud);
-      }else if (event.data.action == "setcomp") {
+      } else if (event.data.action == "setcomp") {
         setWeaponItems(event.data.comp);
       }
     };

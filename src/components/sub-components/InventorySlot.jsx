@@ -13,6 +13,7 @@ import {
   isObjMatched,
   removeWeaponComponentToServer,
   sellItemHandlerWithDnd,
+  updateWeaponComponentToServer,
 } from "../../utilities/utilis";
 import { changeSlot } from "../../redux/inventorySlice";
 import { Progress } from "antd";
@@ -21,6 +22,7 @@ import { IoIosInfinite } from "react-icons/io";
 import { FaExpand } from "react-icons/fa";
 import WeaponExpandSection from "./WeaponExpandSection";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
+import { info } from "autoprefixer";
 const InventorySlotComponent = ({
   item,
   inventory,
@@ -236,9 +238,36 @@ const InventorySlotComponent = ({
             (source?.type === "playerinventory" && inventoryType === "weapon") ||
             (source?.type === "weapon" && inventoryType === "weapon")
           ) {
+            if (source?.type === "weapon" && inventoryType === "weapon") {
+              const { ind, items, weightPercent, slots, ...restOfWeapon } = state.weapon;
+              const components = item?.name
+                ? {
+                    ...restOfWeapon.info.components,
+                    [source?.item?.name]: {
+                      ...restOfWeapon.info.components[source?.item?.name],
+                      slot: item?.slot,
+                    },
+                    [item?.name]: {
+                      ...restOfWeapon.info.components[item?.name],
+                      slot: source?.item?.slot,
+                    },
+                  }
+                : {
+                    ...restOfWeapon.info.components,
+                    [source?.item?.name]: {
+                      ...restOfWeapon.info.components[source?.item?.name],
+                      slot: item?.slot,
+                    },
+                  };
+              const updatedData = {
+                ...restOfWeapon,
+                info: { ...restOfWeapon.info, components },
+              };
+              updateWeaponComponentToServer(updatedData);
+              return false;
+            }
             if (
               !isIncludedType(source?.item?.type) ||
-              (source?.type === "weapon" && inventoryType === "weapon") ||
               (source?.type === "playerinventory" &&
                 inventoryType === "weapon" &&
                 checkTypeIncluded(inventory?.items, source?.item?.type)) ||
@@ -472,7 +501,7 @@ const InventorySlotComponent = ({
               ""
             )}
 
-            {item?.type === "weapon" && (
+            {item?.type === "weapon" && inventoryType === "playerinventory" && (
               <div className={`absolute bottom-7 right-2 z-40`}>
                 <FaExpand
                   className="text-[20px] "
@@ -485,7 +514,6 @@ const InventorySlotComponent = ({
                       setWeaponExpand(true);
                       setWeaponItems({ ...item, ind });
                     }
-                    // setWeaponExpand(!weaponExpand);
                   }}
                 />
               </div>

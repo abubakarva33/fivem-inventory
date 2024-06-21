@@ -338,3 +338,6 @@ export const removeWeaponComponentToServer = (data) => {
     .then((retData) => {})
     .catch((e) => {});
 };
+export const updateWeaponComponentToServer = (data) => {
+  console.log(data);
+};
