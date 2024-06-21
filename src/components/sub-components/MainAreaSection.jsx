@@ -25,7 +25,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
       };
       dispatch(setupInventory({ type: weaponItems?.type, item: modifiedWeaponItem }));
     }
-  }, [weaponItems]);
+  }, [weaponItems, inventory]); // add dependency here if needed //
 
   const [hudData, setHudData] = useState({
     health: 100,
