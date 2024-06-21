@@ -25,7 +25,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
       };
       dispatch(setupInventory({ type: weaponItems?.type, item: modifiedWeaponItem }));
     }
-  }, [weaponItems, inventory]); // add dependency here if needed //
+  }, [weaponItems]); // add dependency here if needed //
 
   const [hudData, setHudData] = useState({
     health: 100,
@@ -40,6 +40,8 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
     const EventListener = function (event) {
       if (event.data.action == "sethud") {
         setHudData(event.data.hud);
+      }else if (event.data.action == "setcomp") {
+        setWeaponItems(event.data.comp);
       }
     };
     window.addEventListener("message", EventListener);
