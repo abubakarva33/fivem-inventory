@@ -148,10 +148,15 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
             inventory?.items?.map((item, ind) => (
               <InventorySlot
                 key={`${inventory.type}-${inventory.id}-${item.slot}`}
-                item={item}
-                inventory={inventory}
-                ind={ind}
-                {...{ weaponExpand, setWeaponExpand, weaponItems, setWeaponItems }}
+                {...{
+                  item,
+                  inventory,
+                  ind,
+                  weaponExpand,
+                  setWeaponExpand,
+                  weaponItems,
+                  setWeaponItems,
+                }}
               />
             ))}
         </div>

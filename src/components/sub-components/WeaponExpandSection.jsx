@@ -2,16 +2,26 @@ import { FaExpand } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 
-const WeaponExpandSection = ({ item, weaponExpand, setWeaponExpand, refs, drag, drop }) => {
+const WeaponExpandSection = ({
+  ind,
+  inventoryType,
+  item,
+  drop,
+  drag,
+  refs,
+  setWeaponExpand,
+  weaponExpand,
+}) => {
   const state = useSelector((state) => state.inventory);
   const { slotBorderColor, slotBorderRound, slotBg, textColor } = useSelector(
     (state) => state.customizeSec
   );
 
-
   return (
     <div
-      className=" absolute top-[-2px] left-[-2px] bg-slate-600 z-50 p-2"
+      className={`absolute top-[-2px] ${
+        inventoryType === "playerinventory" && (ind + 1) % 6 === 0 ? "right-[-2px]" : "left-[-2px]"
+      }  bg-slate-600 z-50 p-2`}
       style={{
         height: 268,
         width: 268,
@@ -19,7 +29,7 @@ const WeaponExpandSection = ({ item, weaponExpand, setWeaponExpand, refs, drag, 
         border: `1px solid ${slotBorderColor}`,
       }}
     >
-      <div className="flex ">
+      <div className="flex">
         <div
           className="slot relative"
           style={{
@@ -46,7 +56,7 @@ const WeaponExpandSection = ({ item, weaponExpand, setWeaponExpand, refs, drag, 
             />
 
             {item?.type === "weapon" && (
-              <div className={`absolute bottom-10 right-3 z-50 `}>
+              <div className={`absolute cursor-pointer bottom-10 right-3 z-50 `}>
                 <FaExpand className="text-[24px] " onClick={() => setWeaponExpand(!weaponExpand)} />
               </div>
             )}

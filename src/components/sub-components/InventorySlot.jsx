@@ -490,12 +490,7 @@ const InventorySlotComponent = ({
 
             {item?.type === "weapon" && weaponExpand && ind === weaponItems?.ind ? (
               <WeaponExpandSection
-                item={item}
-                weaponExpand={weaponExpand}
-                setWeaponExpand={setWeaponExpand}
-                refs={refs}
-                drag={drag}
-                drop={drop}
+                {...{ ind, inventoryType, item, drop, drag, refs, setWeaponExpand, weaponExpand }}
               />
             ) : (
               ""
