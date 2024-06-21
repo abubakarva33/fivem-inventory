@@ -15,14 +15,25 @@ const CraftInventorySlot = ({ item, inventory }) => {
 
   const [deg, setDeg] = useState(360);
   const timeMS = 0.6;
+  const time = 10;
 
   useEffect(() => {
+    const totalIntervals = (time * 1000) / (timeMS * 100); // Convert time to milliseconds and calculate total intervals
+    const decrementPerInterval = 360 / totalIntervals;
+
     const interval = setInterval(() => {
-      setDeg((prevDeg) => (prevDeg >= 0 ? prevDeg - 5 : 360));
+      setDeg((prevDeg) => {
+        const newDeg = prevDeg - decrementPerInterval;
+        if (newDeg <= 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return newDeg;
+      });
     }, timeMS * 100);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [time, timeMS]);
 
   const handleRightButtonClick = (event) => {
     event.preventDefault();
@@ -61,14 +72,14 @@ const CraftInventorySlot = ({ item, inventory }) => {
             className="relative flex items-center justify-center h-full flex-col"
             style={{ border: `1px solid ${slotBorderColor}`, borderRadius: 10, color: textColor }}
           >
-            {/* <div className="absolute container">
+            <div className="absolute container">
               <div
                 className="progress"
                 style={{
                   background: `conic-gradient(rgba(0, 0, 0, 0.582) ${deg}deg, transparent 0%)`,
                 }}
               ></div>
-            </div> */}
+            </div>
             <div className="flex items-center justify-between w-full px-2">
               {item?.amount && (
                 <span className="flex items-center justify-center">
