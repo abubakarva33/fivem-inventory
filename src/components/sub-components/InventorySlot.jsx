@@ -43,6 +43,8 @@ const InventorySlotComponent = ({
   const tooltipRef = useRef(null);
   const mainDivRef = useRef(null);
 
+  // console.log(weaponItems);
+
   const handleMouseEnter = () => {
     if (!hoverTimer) {
       const timer = setTimeout(() => {
@@ -180,33 +182,6 @@ const InventorySlotComponent = ({
             },
           };
           UpdateDataToServer(changeSlotData);
-        } else if (isIncludedType(source?.item?.type)) {
-          if (source?.type === "weapon") {
-            let removeComponent = {
-              weapon: {
-                name: source?.item?.name,
-                slot: source?.item?.slot,
-              },
-              component: {
-                name: source?.item?.name,
-                slot: targetInventory?.item?.slot,
-                info: source?.item?.info,
-              },
-            };
-            removeWeaponComponentToServer(removeComponent);
-          } else {
-            let addComponent = {
-              weapon: {
-                name: source?.item?.name,
-                slot: source?.item?.slot,
-              },
-              component: {
-                ...source?.item,
-                slot: targetInventory?.item?.slot,
-              },
-            };
-            addWeaponComponentToServer(addComponent);
-          }
         } else {
           // for passing data to server dif inventory //
 
@@ -263,7 +238,34 @@ const InventorySlotComponent = ({
             (source?.type === "weapon" && inventoryType === "weapon")
           ) {
             if (!isIncludedType(source?.item?.type)) return false;
-            return true;
+            if (isIncludedType(source?.item?.type)) {
+              const weapon = {
+                name: state?.weapon?.name,
+                slot: state?.weapon?.slot,
+              };
+              if (source?.type === "weapon") {
+                let removeComponent = {
+                  weapon,
+                  component: {
+                    name: source?.item?.name,
+                    slot: item?.slot,
+                    info: source?.item?.info,
+                  },
+                };
+                removeWeaponComponentToServer(removeComponent);
+                return true;
+              } else {
+                let addComponent = {
+                  weapon,
+                  component: {
+                    ...source?.item,
+                    slot: item?.slot,
+                  },
+                };
+                addWeaponComponentToServer(addComponent);
+                return true;
+              }
+            }
           }
           // condition for amount based dnd //
           const inputAmount = selectedItems.find(

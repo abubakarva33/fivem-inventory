@@ -8,6 +8,7 @@ const WeaponExpandSection = ({ item, weaponExpand, setWeaponExpand, refs, drag, 
     (state) => state.customizeSec
   );
 
+
   return (
     <div
       className=" absolute top-[-2px] left-[-2px] bg-slate-600 z-50 p-2"
