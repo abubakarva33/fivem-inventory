@@ -340,4 +340,7 @@ export const removeWeaponComponentToServer = (data) => {
 };
 export const updateWeaponComponentToServer = (data) => {
   console.log(data);
+  fetchNui("updateComponent", data)
+    .then((retData) => {})
+    .catch((e) => {});
 };
