@@ -42,7 +42,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
         setHudData(event.data.hud);
       } else if (event.data.action == "setcomp") {
         setWeaponItems(event.data.comp);
-      } else if (event.data.action == "close") {
+      } else if (event.data.action == "invClosed") {
         setWeaponExpand(false);
         setWeaponItems(null);
       }
