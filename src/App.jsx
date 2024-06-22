@@ -88,6 +88,7 @@ function App() {
         isOpen = true;
         showRoot();
       } else if (event.data.action == "close") {
+        //inventory close call
         isOpen = false;
         hideRoot();
         fetchNui("invClosed")
@@ -110,6 +111,7 @@ function App() {
     };
     document.onkeydown = function (data) {
       if (data.which == 27 || (isOpen && data.which == keyMap[closeKey])) {
+        //inventory close call
         isOpen = false;
         hideRoot();
         fetchNui("invClosed")
