@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import { showRoot, hideRoot, keyMap } from "./utilities/utilis";
 import { fetchNui } from "./utilities/fetchNui";
@@ -11,6 +11,7 @@ import {
   dropInvDummyData,
   craftingInvDummyData,
   shopInvDummyData,
+  otherPrimaryInvDummyData,
 } from "./dummyData";
 
 import { useEffect, useState } from "react";
@@ -27,13 +28,13 @@ function App() {
   }
 
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.inventory);
 
   const [primaryInv, setPrimaryInv] = useState(!window.invokeNative ? primaryInvDummyData : null);
 
   const [secondaryInv, setSecondaryInv] = useState(
-    !window.invokeNative ? craftingInvDummyData : null
+    !window.invokeNative ? otherPrimaryInvDummyData : null
   );
-
   const [dropInv, setDropInv] = useState(!window.invokeNative ? dropInvDummyData : null);
   const [smallBackpack, setSmallBackpack] = useState(
     !window.invokeNative ? smallBackpackDummyData : null
@@ -47,7 +48,13 @@ function App() {
   }, [primaryInv]);
 
   useEffect(() => {
-    dispatch(setupInventory({ type: secondaryInv?.type, item: secondaryInv }));
+    dispatch(
+      setupInventory(
+        state?.playerinventory?.identifier === secondaryInv?.identifier
+          ? { type: secondaryInv?.type, item: secondaryInv }
+          : { type: "otherPlayerInv", item: { ...secondaryInv, type: "otherPlayerInv" } }
+      )
+    );
   }, [secondaryInv]);
 
   useEffect(() => {
