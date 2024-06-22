@@ -33,7 +33,7 @@ function App() {
   const [primaryInv, setPrimaryInv] = useState(!window.invokeNative ? primaryInvDummyData : null);
 
   const [secondaryInv, setSecondaryInv] = useState(
-    !window.invokeNative ? otherPrimaryInvDummyData : null
+    !window.invokeNative ? craftingInvDummyData : null
   );
   const [dropInv, setDropInv] = useState(!window.invokeNative ? dropInvDummyData : null);
   const [smallBackpack, setSmallBackpack] = useState(
@@ -48,13 +48,16 @@ function App() {
   }, [primaryInv]);
 
   useEffect(() => {
-    dispatch(
-      setupInventory(
-        state?.playerinventory?.identifier === secondaryInv?.identifier
-          ? { type: secondaryInv?.type, item: secondaryInv }
-          : { type: "otherPlayerInv", item: { ...secondaryInv, type: "otherPlayerInv" } }
-      )
-    );
+    if (secondaryInv?.type === "playerinventory") {
+      dispatch(
+        setupInventory({
+          type: "otherPlayerInv",
+          item: { ...secondaryInv, type: "otherPlayerInv" },
+        })
+      );
+    } else {
+      dispatch(setupInventory({ type: secondaryInv?.type, item: secondaryInv }));
+    }
   }, [secondaryInv]);
 
   useEffect(() => {
