@@ -23,6 +23,16 @@ const Inventory = () => {
   const [inputAmount, setInputAmount] = useState({});
   const maxAmount = inventory?.item?.amount || 0;
 
+  const [copySuccess, setCopySuccess] = useState("Copy Serial");
+
+  const copyToClipboard = async (textToCopy) => {
+    navigator.clipboard.writeText(textToCopy);
+    setCopySuccess("Serial copied!");
+    setTimeout(() => {
+      setCopySuccess("Copy Serial");
+    }, 2000);
+  };
+
   useEffect(() => {
     const number = selectedItems.find(
       (x) =>
@@ -301,8 +311,11 @@ const Inventory = () => {
             )}
 
             {inventory?.type === "playerinventory" && (
-              <button className="border py-1" onClick={() => dispatch(closeContextMenu())}>
-                Copy Serial
+              <button
+                className="border py-1"
+                onClick={() => copyToClipboard(inventory?.item?.info?.serial)}
+              >
+                {copySuccess}
               </button>
             )}
           </div>
