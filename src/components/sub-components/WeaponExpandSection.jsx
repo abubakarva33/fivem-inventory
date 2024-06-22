@@ -37,7 +37,7 @@ const WeaponExpandSection = ({
             borderRadius: slotBorderRound,
             border: `1px solid ${slotBorderColor}`,
             color: textColor,
-            width: 170,
+            width: 177,
             height: 180,
           }}
         >
@@ -47,7 +47,7 @@ const WeaponExpandSection = ({
             onDrop={drop}
             className="absolute top-0 left-0 right-0 bottom-0 z-40"
           ></div>
-          <div className="flex items-center justify-between flex-col w-full h-full">
+          <div className="flex items-center justify-between flex-col h-full" style={{ width: 200 }}>
             <img
               src={`./images/${item?.name}.png`}
               alt=""
@@ -71,7 +71,7 @@ const WeaponExpandSection = ({
             )}
           </div>
         </div>
-        <div className="flex flex-col-reverse items-center ms-5 ">
+        <div className="flex flex-col-reverse items-center ms-3 ">
           {Array.isArray(state?.weapon?.items) &&
             state?.weapon?.items?.slice(4, 7)?.map((i, ind) => (
               <div style={{ marginBottom: 5 }} key={`${item.type}-${item.id}-${i.slot}`}>
