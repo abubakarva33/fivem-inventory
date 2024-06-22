@@ -109,9 +109,9 @@ const CraftInventorySlot = ({ item, inventory }) => {
           </div>
 
           {item?.info?.required && (
-            <div className="flex flex-col " style={{ color: textColor }}>
+            <div className="flex flex-col overflow-auto" style={{ color: textColor }}>
               {Object.entries(item?.info.required).map(([key, value]) => (
-                <div className="flex justify-center items-center text-[14px]" key={key}>
+                <div className="flex justify-center items-center text-[14px] " key={key}>
                   <img src={`./images/${key}.png`} alt="" style={{ height: 30, width: 30 }} />
                   <span className="mx-2">{value.label}:</span>
                   <span>x{value.amount}</span>

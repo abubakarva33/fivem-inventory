@@ -750,6 +750,10 @@ export let craftingInvDummyData = {
             amount: 1,
             label: "Water",
           },
+          weapon: {
+            amount: 1,
+            label: "Water",
+          },
         },
       },
     },
