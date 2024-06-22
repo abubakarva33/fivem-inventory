@@ -3,6 +3,7 @@ import { gramsToKilograms } from "../../utilities/utilis";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { closeContextMenu, openContextMenu } from "../../redux/contextSlice";
+import { fetchNui } from "../../utilities/fetchNui";
 
 const CraftInventorySlot = ({ item, inventory }) => {
   const { type, type2 } = inventory;
@@ -12,28 +13,40 @@ const CraftInventorySlot = ({ item, inventory }) => {
   const { slotBg, slotBorderColor, slotBorderRound, textColor } = useSelector(
     (state) => state.customizeSec
   );
-
-  const [deg, setDeg] = useState(360);
-  const timeMS = 0.6;
-  const time = 10;
+  const [deg, setDeg] = useState(0);
 
   useEffect(() => {
-    const totalIntervals = (time * 1000) / (timeMS * 100); // Convert time to milliseconds and calculate total intervals
-    const decrementPerInterval = 360 / totalIntervals;
+    const EventListener = function (event) {
+      if (event.data.action == "setloading") {
+        console.log(item.slot, event.data.slot)
+        if (item.slot == event.data.slot){
+          setDeg(360)
 
-    const interval = setInterval(() => {
-      setDeg((prevDeg) => {
-        const newDeg = prevDeg - decrementPerInterval;
-        if (newDeg <= 0) {
-          clearInterval(interval);
-          return 0;
+          const timeMS = 0.6;
+          const time = item.info.duration;
+
+          const totalIntervals = (time * 1000) / (timeMS * 100); // Convert time to milliseconds and calculate total intervals
+          const decrementPerInterval = 360 / totalIntervals;
+
+          const interval = setInterval(() => {
+            setDeg((prevDeg) => {
+              const newDeg = prevDeg - decrementPerInterval;
+              if (newDeg <= 0) {
+                clearInterval(interval);
+                fetchNui("craftFinish", item)
+                  .then((retData) => {})
+                  .catch((e) => {});
+                return 0;
+              }
+              return newDeg;
+            });
+          }, timeMS * 100);
         }
-        return newDeg;
-      });
-    }, timeMS * 100);
-
-    return () => clearInterval(interval);
-  }, [time, timeMS]);
+      }
+    };
+    window.addEventListener("message", EventListener);
+    return () => window.removeEventListener("message", EventListener);
+  }, []);
 
   const handleRightButtonClick = (event) => {
     event.preventDefault();
