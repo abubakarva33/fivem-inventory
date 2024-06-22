@@ -276,6 +276,7 @@ const InventorySlotComponent = ({
               (source?.type === "playerinventory" &&
                 inventoryType === "weapon" &&
                 checkTypeIncluded(inventory?.items, source?.item?.type)) ||
+              item?.name ||
               item?.type === "weapon"
             ) {
               return false;
