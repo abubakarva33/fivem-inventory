@@ -16,6 +16,7 @@ import {
 
 import { useEffect, useState } from "react";
 import DragPreview from "./components/sub-components/DragPreview";
+import { closeContextMenu } from "./redux/contextSlice";
 
 let closeKey = "F2";
 let isOpen = false;
@@ -89,6 +90,7 @@ function App() {
         showRoot();
       } else if (event.data.action == "close") {
         //inventory close call
+        dispatch(closeContextMenu());
         isOpen = false;
         hideRoot();
         fetchNui("invClosed")
