@@ -723,6 +723,58 @@ export let craftingInvDummyData = {
         },
       },
     },
+    {
+      name: "bread",
+      label: "Bread",
+      type: "item",
+      description: "This item will reduce your hunger",
+      weight: 500,
+      amount: 5,
+      quality: 100,
+      slot: 3,
+      info: {
+        required: {
+          bread: {
+            amount: 1,
+            label: "Bread",
+          },
+          at_grip: {
+            amount: 1,
+            label: "hfd",
+          },
+          at_suppressor_heavy: {
+            amount: 1,
+            label: "Brefjad",
+          },
+          water: {
+            amount: 1,
+            label: "Water",
+          },
+        },
+      },
+    },
+    {
+      name: "bread",
+      label: "Bread",
+      type: "item",
+      description: "This item will reduce your hunger",
+      weight: 500,
+      amount: 5,
+      quality: 100,
+      slot: 2,
+      info: {
+        required: {
+          bread: {
+            amount: 1,
+            label: "Bread",
+          },
+          water: {
+            amount: 1,
+            label: "Water",
+          },
+        },
+      },
+    },
   ],
 };
 

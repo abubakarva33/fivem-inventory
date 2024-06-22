@@ -28,7 +28,6 @@ function App() {
   }
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.inventory);
 
   const [primaryInv, setPrimaryInv] = useState(!window.invokeNative ? primaryInvDummyData : null);
 
