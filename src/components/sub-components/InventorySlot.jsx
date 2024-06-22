@@ -161,6 +161,8 @@ const InventorySlotComponent = ({
             targetInventory?.item?.name === source?.item?.name &&
             isObjMatched(source?.item?.info, targetInventory?.item?.info)
               ? {}
+              : !targetInventory?.item?.name
+              ? {}
               : targetInventory?.item?.name !== source?.item?.name
               ? {
                   ...targetInventory.item,
