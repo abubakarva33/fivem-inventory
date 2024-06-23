@@ -77,8 +77,14 @@ const InventorySlotComponent = ({
           event.clientX <= mainDivRect.right &&
           event.clientY >= mainDivRect.top &&
           event.clientY <= mainDivRect.bottom;
+
         if (!isInsideTooltip && !isInsideMainDiv) {
           setShowTooltip(false);
+
+          const timer = setTimeout(() => {
+            setShowTooltip(true);
+          }, 1000); // 1 second delay
+          setHoverTimer(timer);
         }
       }
     };
@@ -424,6 +430,8 @@ const InventorySlotComponent = ({
   const connectRef = (element) => drag(drop(element));
   const refs = useMergeRefs([connectRef]);
 
+  // console.log(weaponItems);
+
   return (
     <div
       className="relative"
@@ -432,6 +440,10 @@ const InventorySlotComponent = ({
         opacity: isDragging ? 0.4 : 1.0,
         border: `$1px dashed ${isOver ? { slotBorderColor } : "transparent"}`,
         borderRadius: slotBorderRound,
+        gridColumn:
+          weaponExpand && weaponItems?.ind === ind && item?.type === "weapon" ? "span 2" : "",
+        gridRow:
+          weaponExpand && weaponItems?.ind === ind && item?.type === "weapon" ? "span 2" : "",
       }}
       ref={mainDivRef}
       onContextMenu={handleRightButtonClick}
@@ -447,7 +459,7 @@ const InventorySlotComponent = ({
 
       {true && inventoryType != "weapon" && (
         <div
-          className="slot relative"
+          className="slot relative h-full"
           style={{
             backgroundColor: slotBg,
             borderRadius: slotBorderRound,
