@@ -22,7 +22,6 @@ import { IoIosInfinite } from "react-icons/io";
 import { FaExpand } from "react-icons/fa";
 import WeaponExpandSection from "./WeaponExpandSection";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
-import { info } from "autoprefixer";
 const InventorySlotComponent = ({
   item,
   inventory,
@@ -196,6 +195,8 @@ const InventorySlotComponent = ({
             targetInventory?.item?.name &&
             targetInventory?.item?.name === source?.item?.name &&
             isObjMatched(source?.item?.info, targetInventory?.item?.info)
+              ? {}
+              : !targetInventory?.item?.name
               ? {}
               : targetInventory?.item?.name !== source?.item?.name
               ? {
