@@ -137,6 +137,12 @@ const Inventory = () => {
       .catch((e) => {});
     dispatch(closeContextMenu());
   };
+  const throwHandler = (item) => {
+    fetchNui("throw", item)
+      .then((retData) => {})
+      .catch((e) => {});
+    dispatch(closeContextMenu());
+  };
   const useHandler = (item) => {
     fetchNui("use", item)
       .then((retData) => {})
@@ -309,6 +315,27 @@ const Inventory = () => {
                 }
               >
                 Drop
+              </button>
+            )}
+
+            {inventory?.type === "playerinventory" && (
+              <button
+                className={`border py-1 ${
+                  inventory?.item?.info?.serial ? "border-b-0" : "border-b"
+                } `}
+                onClick={() =>
+                  throwHandler({
+                    ...inventory?.item,
+                    amount:
+                      inputAmount?.selectedAmount === undefined
+                        ? inventory?.item.amount
+                        : inputAmount?.selectedAmount === 0
+                        ? inventory?.item.amount
+                        : inputAmount?.selectedAmount,
+                  })
+                }
+              >
+                Throw
               </button>
             )}
 
