@@ -5,6 +5,7 @@ const initialState = {
   inventory: null,
   selectedItems: [],
   inputAmount: 0,
+  deg: 0,
 };
 
 export const contextMenuSlice = createSlice({
@@ -23,30 +24,41 @@ export const contextMenuSlice = createSlice({
       state.inputAmount = payload;
     },
     handleSelectedItems(state, { payload }) {
-      const selected = state.selectedItems.find((x) =>(x.identifier === state.inventory?.identifier && x.name === state.inventory?.item?.name && x.slot === state.inventory?.item?.slot) 
+      const selected = state.selectedItems.find(
+        (x) =>
+          x.identifier === state.inventory?.identifier &&
+          x.name === state.inventory?.item?.name &&
+          x.slot === state.inventory?.item?.slot
       );
 
       if (selected) {
-        selected.selectedAmount = payload
-
+        selected.selectedAmount = payload;
       } else {
         state.selectedItems = [
           ...state.selectedItems,
-          { 
-            identifier:  state.inventory?.identifier , 
-            amount:state.inventory?.item?.amount, 
-            name:state.inventory?.item?.name, 
-            slot: state.inventory?.item?.slot, 
-            selectedAmount: payload 
+          {
+            identifier: state.inventory?.identifier,
+            amount: state.inventory?.item?.amount,
+            name: state.inventory?.item?.name,
+            slot: state.inventory?.item?.slot,
+            selectedAmount: payload,
           },
         ];
       }
     },
+    handleDegInput(state, { payload }) {
+      state.deg = payload;
+    },
   },
 });
 
-export const { openContextMenu, closeContextMenu, handleContextInput, handleSelectedItems } =
-  contextMenuSlice.actions;
+export const {
+  openContextMenu,
+  closeContextMenu,
+  handleContextInput,
+  handleSelectedItems,
+  handleDegInput,
+} = contextMenuSlice.actions;
 
 const contextMenuReducer = contextMenuSlice.reducer;
 export default contextMenuReducer;

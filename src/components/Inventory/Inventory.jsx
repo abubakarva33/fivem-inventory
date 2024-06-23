@@ -16,7 +16,7 @@ import {
 const Inventory = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
-  const { inventory, coords, selectedItems } = useSelector((state) => state.context);
+  const { inventory, coords, selectedItems, deg } = useSelector((state) => state.context);
   const [openBackpacks, setOpenBackpacks] = useState([]);
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -168,7 +168,7 @@ const Inventory = () => {
       </div>
 
       {/* // right click menu // */}
-      {inventory?.item?.name && (
+      {inventory?.item?.name && !deg && (
         <div
           className="absolute w-[150px] no-close z-[500]"
           onClick={(e) => e.stopPropagation()}

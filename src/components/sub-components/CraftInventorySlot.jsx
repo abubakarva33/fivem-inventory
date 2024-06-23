@@ -2,7 +2,7 @@ import { IoIosInfinite } from "react-icons/io";
 import { gramsToKilograms } from "../../utilities/utilis";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { closeContextMenu, openContextMenu } from "../../redux/contextSlice";
+import { closeContextMenu, handleDegInput, openContextMenu } from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
 
 const CraftInventorySlot = ({ item, inventory }) => {
@@ -13,14 +13,12 @@ const CraftInventorySlot = ({ item, inventory }) => {
   const { slotBg, slotBorderColor, slotBorderRound, textColor } = useSelector(
     (state) => state.customizeSec
   );
-  const [deg, setDeg] = useState(0);
-
+  const { deg } = useSelector((state) => state.context);
   useEffect(() => {
     const EventListener = function (event) {
       if (event.data.action == "setloading") {
-        console.log(item.slot, event.data.slot)
-        if (item.slot == event.data.slot){
-          setDeg(360)
+        if (item.slot == event.data.slot) {
+          dispatch(handleDegInput(360));
 
           const timeMS = 0.6;
           const time = item.info.duration;
@@ -29,17 +27,19 @@ const CraftInventorySlot = ({ item, inventory }) => {
           const decrementPerInterval = 360 / totalIntervals;
 
           const interval = setInterval(() => {
-            setDeg((prevDeg) => {
-              const newDeg = prevDeg - decrementPerInterval;
-              if (newDeg <= 0) {
-                clearInterval(interval);
-                fetchNui("craftFinish", item)
-                  .then((retData) => {})
-                  .catch((e) => {});
-                return 0;
-              }
-              return newDeg;
-            });
+            dispatch(
+              handleDegInput((prevDeg) => {
+                const newDeg = prevDeg - decrementPerInterval;
+                if (newDeg <= 0) {
+                  clearInterval(interval);
+                  fetchNui("craftFinish", item)
+                    .then((retData) => {})
+                    .catch((e) => {});
+                  return 0;
+                }
+                return newDeg;
+              })
+            );
           }, timeMS * 100);
         }
       }
