@@ -430,8 +430,6 @@ const InventorySlotComponent = ({
   const connectRef = (element) => drag(drop(element));
   const refs = useMergeRefs([connectRef]);
 
-  // console.log(weaponItems);
-
   return (
     <div
       className="relative"
@@ -441,9 +439,13 @@ const InventorySlotComponent = ({
         border: `$1px dashed ${isOver ? { slotBorderColor } : "transparent"}`,
         borderRadius: slotBorderRound,
         gridColumn:
-          weaponExpand && weaponItems?.ind === ind && item?.type === "weapon" ? "span 2" : "",
+          weaponExpand && weaponItems?.ind === ind && item?.type === "weapon" && (ind + 1) % 6 !== 0
+            ? "span 2"
+            : "",
         gridRow:
-          weaponExpand && weaponItems?.ind === ind && item?.type === "weapon" ? "span 2" : "",
+          weaponExpand && weaponItems?.ind === ind && item?.type === "weapon" && (ind + 1) % 6 !== 0
+            ? "span 2"
+            : "",
       }}
       ref={mainDivRef}
       onContextMenu={handleRightButtonClick}

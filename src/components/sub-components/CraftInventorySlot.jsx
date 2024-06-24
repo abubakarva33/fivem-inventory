@@ -44,7 +44,7 @@ const CraftInventorySlot = ({ item, inventory }) => {
 
     window.addEventListener("message", EventListener);
     return () => window.removeEventListener("message", EventListener);
-  }, [dispatch, item]);
+  }, [item]);
 
   const handleRightButtonClick = (event) => {
     event.preventDefault();
