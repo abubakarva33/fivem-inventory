@@ -131,6 +131,7 @@ function App() {
     <>
       <Inventory />
       <DragPreview />
+      {/* <Tooltip /> */}
     </>
   );
 }

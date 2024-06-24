@@ -22,6 +22,7 @@ import { IoIosInfinite } from "react-icons/io";
 import { FaExpand } from "react-icons/fa";
 import WeaponExpandSection from "./WeaponExpandSection";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
+import { closeTooltip, openTooltip } from "../../redux/tooltipSlice";
 const InventorySlotComponent = ({
   item,
   inventory,
@@ -44,22 +45,33 @@ const InventorySlotComponent = ({
   const [hoverTimer, setHoverTimer] = useState(null);
   const tooltipRef = useRef(null);
   const mainDivRef = useRef(null);
+  const timerRef = useRef(null);
 
   const handleMouseEnter = () => {
-    if (!hoverTimer) {
-      const timer = setTimeout(() => {
-        setShowTooltip(true);
-      }, 1000); // 1 second delay
-      setHoverTimer(timer);
-    }
+    // if (!hoverTimer) {
+    //   const timer = setTimeout(() => {
+    //     setShowTooltip(true);
+    //   }, 1000); // 1 second delay
+    //   setHoverTimer(timer);
+    // }
+
+    timerRef.current = window.setTimeout(() => {
+      dispatch(openTooltip({ item, inventoryType }));
+    }, 500);
   };
 
   const handleMouseLeave = () => {
-    if (hoverTimer) {
-      clearTimeout(hoverTimer);
-      setHoverTimer(null);
+    // if (hoverTimer) {
+    //   clearTimeout(hoverTimer);
+    //   setHoverTimer(null);
+    // }
+    // setShowTooltip(false);
+
+    dispatch(closeTooltip());
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
     }
-    setShowTooltip(false);
   };
 
   useEffect(() => {

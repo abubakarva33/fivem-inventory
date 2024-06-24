@@ -12,6 +12,7 @@ import {
   buyItemHandlerWithClick,
   sellItemHandlerWithClick,
 } from "../../utilities/utilis";
+import Tooltip from "../sub-components/Tooltip";
 
 const Inventory = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,8 @@ const Inventory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputAmount, setInputAmount] = useState({});
   const maxAmount = inventory?.item?.amount || 0;
+
+  console.log(coords);
 
   const [copySuccess, setCopySuccess] = useState("Copy Serial");
 
@@ -166,6 +169,7 @@ const Inventory = () => {
         )}
         {isModalOpen && <CustomizeInventory />}
       </div>
+      <Tooltip />
 
       {/* // right click menu // */}
       {inventory?.item?.name && !deg && (

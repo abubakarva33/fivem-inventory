@@ -5,6 +5,7 @@ import persistStore from "redux-persist/es/persistStore";
 import customizeSliceReducer from "./customizeSlice";
 import inventorySliceReducer from "./inventorySlice";
 import contextMenuReducer from "./contextSlice";
+import tooltipReducer from "./tooltipSlice";
 
 const persistConfig = {
   key: "root",
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   customizeSec: customizeSliceReducer,
   inventory: inventorySliceReducer,
   context: contextMenuReducer,
+  tooltip: tooltipReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
