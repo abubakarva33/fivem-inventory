@@ -714,7 +714,7 @@ export let craftingInvDummyData = {
         required: {
           bread: {
             amount: 1,
-            label: "Bread",
+            label: "Black Money",
           },
           water: {
             amount: 1,
@@ -765,7 +765,7 @@ export let craftingInvDummyData = {
       weight: 500,
       amount: 5,
       quality: 100,
-      slot: 2,
+      slot: 6,
       info: {
         required: {
           bread: {
