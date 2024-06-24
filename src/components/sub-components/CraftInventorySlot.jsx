@@ -13,40 +13,38 @@ const CraftInventorySlot = ({ item, inventory }) => {
   const { slotBg, slotBorderColor, slotBorderRound, textColor } = useSelector(
     (state) => state.customizeSec
   );
-  const { deg } = useSelector((state) => state.context);
+  const [deg, setDeg] = useState(0);
   useEffect(() => {
-    const EventListener = function (event) {
-      if (event.data.action == "setloading") {
-        if (item.slot == event.data.slot) {
-          dispatch(handleDegInput(360));
+    const EventListener = (event) => {
+      if (event.data.action === "setloading" && item.slot === event.data.slot) {
+        setDeg(360);
+        dispatch(handleDegInput(360));
+        const timeMS = 0.6;
+        const time = item.info.duration;
 
-          const timeMS = 0.6;
-          const time = item.info.duration;
+        const totalIntervals = (time * 1000) / (timeMS * 100); // Convert time to milliseconds and calculate total intervals
+        const decrementPerInterval = 360 / totalIntervals;
 
-          const totalIntervals = (time * 1000) / (timeMS * 100); // Convert time to milliseconds and calculate total intervals
-          const decrementPerInterval = 360 / totalIntervals;
-
-          const interval = setInterval(() => {
-            dispatch(
-              handleDegInput((prevDeg) => {
-                const newDeg = prevDeg - decrementPerInterval;
-                if (newDeg <= 0) {
-                  clearInterval(interval);
-                  fetchNui("craftFinish", item)
-                    .then((retData) => {})
-                    .catch((e) => {});
-                  return 0;
-                }
-                return newDeg;
-              })
-            );
-          }, timeMS * 100);
-        }
+        const interval = setInterval(() => {
+          setDeg((prevDeg) => {
+            const newDeg = prevDeg - decrementPerInterval;
+            if (newDeg <= 0) {
+              clearInterval(interval);
+              fetchNui("craftFinish", item)
+                .then((retData) => {})
+                .catch((e) => {});
+              dispatch(handleDegInput(0));
+              return 0;
+            }
+            return newDeg;
+          });
+        }, timeMS * 100);
       }
     };
+
     window.addEventListener("message", EventListener);
     return () => window.removeEventListener("message", EventListener);
-  }, []);
+  }, [dispatch, item]);
 
   const handleRightButtonClick = (event) => {
     event.preventDefault();
