@@ -1,9 +1,15 @@
 import { IoIosInfinite } from "react-icons/io";
 import { gramsToKilograms } from "../../utilities/utilis";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { closeContextMenu, handleDegInput, openContextMenu } from "../../redux/contextSlice";
+import { useEffect, useRef, useState } from "react";
+import {
+  closeContextMenu,
+  handleContextInput,
+  handleDegInput,
+  openContextMenu,
+} from "../../redux/contextSlice";
 import { fetchNui } from "../../utilities/fetchNui";
+import { closeTooltip, openTooltip } from "../../redux/tooltipSlice";
 
 const CraftInventorySlot = ({ item, inventory }) => {
   const { type, type2 } = inventory;
@@ -14,6 +20,7 @@ const CraftInventorySlot = ({ item, inventory }) => {
     (state) => state.customizeSec
   );
   const [deg, setDeg] = useState(0);
+  const timerRef = useRef(null);
   useEffect(() => {
     const EventListener = (event) => {
       if (event.data.action === "setloading" && item.slot === event.data.slot) {
@@ -48,13 +55,16 @@ const CraftInventorySlot = ({ item, inventory }) => {
 
   const handleRightButtonClick = (event) => {
     event.preventDefault();
+    dispatch(closeTooltip());
+    if (timerRef.current) clearTimeout(timerRef.current);
     const { items, ...restOfInventory } = inventory;
     setIsRightButtonClick(!isRightButtonClick);
     if (
       item?.name &&
       (inventoryType === "playerinventory" ||
         inventoryType === "shop" ||
-        inventoryType === "crafting")
+        inventoryType === "crafting" ||
+        inventoryType === "drop")
     ) {
       dispatch(
         openContextMenu({
@@ -62,8 +72,23 @@ const CraftInventorySlot = ({ item, inventory }) => {
           coords: { x: event.clientX, y: event.clientY },
         })
       );
+      dispatch(handleContextInput(0));
     } else {
       dispatch(closeContextMenu());
+    }
+  };
+
+  const handleMouseEnter = () => {
+    timerRef.current = window.setTimeout(() => {
+      dispatch(openTooltip({ item, inventoryType }));
+    }, 1000);
+  };
+
+  const handleMouseLeave = () => {
+    dispatch(closeTooltip());
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
     }
   };
 
@@ -76,6 +101,8 @@ const CraftInventorySlot = ({ item, inventory }) => {
         borderRadius: slotBorderRound,
       }}
       onContextMenu={handleRightButtonClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {item?.name && (
         <div className="grid grid-cols-2 gap-1 w-full h-full">
