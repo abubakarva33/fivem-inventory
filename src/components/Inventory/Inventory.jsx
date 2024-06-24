@@ -320,9 +320,7 @@ const Inventory = () => {
 
             {inventory?.type === "playerinventory" && (
               <button
-                className={`border py-1 ${
-                  inventory?.item?.info?.serial ? "border-b-0" : "border-b"
-                } `}
+                className={`border border-t-0 py-1`}
                 onClick={() =>
                   throwHandler({
                     ...inventory?.item,
@@ -338,10 +336,13 @@ const Inventory = () => {
                 Throw
               </button>
             )}
+            {inventory?.type === "drop" && (
+              <button className={`border py-1 border-b `}>Pick Up</button>
+            )}
 
             {inventory?.type === "playerinventory" && inventory?.item?.info?.serial && (
               <button
-                className="border py-1"
+                className="border border-t-0 py-1"
                 onClick={() => copyToClipboard(inventory?.item?.info?.serial)}
               >
                 {copySuccess}

@@ -103,7 +103,8 @@ const InventorySlotComponent = ({
       item?.name &&
       (inventoryType === "playerinventory" ||
         inventoryType === "shop" ||
-        inventoryType === "crafting")
+        inventoryType === "crafting" ||
+        inventoryType === "drop")
     ) {
       dispatch(
         openContextMenu({
