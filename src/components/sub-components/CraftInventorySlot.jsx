@@ -81,7 +81,12 @@ const CraftInventorySlot = ({ item, inventory }) => {
         <div className="grid grid-cols-2 gap-1 w-full h-full">
           <div
             className="relative flex items-center justify-center h-full flex-col"
-            style={{ border: `1px solid ${slotBorderColor}`, borderRadius: 10, color: textColor }}
+            style={{
+              border: `1px solid ${slotBorderColor}`,
+              width: 100,
+              borderRadius: 10,
+              color: textColor,
+            }}
           >
             <div className="absolute container">
               <div
@@ -120,14 +125,17 @@ const CraftInventorySlot = ({ item, inventory }) => {
           </div>
 
           {item?.info?.required && (
-            <div className="flex flex-col overflow-auto" style={{ color: textColor }}>
+            <div
+              className="flex flex-col w-full overflow-auto ms-[-5px]"
+              style={{ color: textColor }}
+            >
               {Object.entries(item?.info.required).map(([key, value]) => (
-                <div className="flex justify-center items-center text-[14px] " key={key}>
-                  <img src={`./images/${key}.png`} alt="" style={{ height: 30, width: 30 }} />
-                  <span className="mx-2">
-                    {value?.label?.length > 6 ? `${value?.label?.slice(0, 5)}..` : value?.label}:
+                <div className="flex justify-start items-center text-[14px] " key={key}>
+                  <img src={`./images/${key}.png`} alt="" style={{ height: 26, width: 26 }} />
+                  <span>
+                    {value?.label?.length > 6 ? `${value?.label?.slice(0, 6)}...` : value?.label}
                   </span>
-                  <span>x{value.amount}</span>
+                  <span className="ms-[4px]">:x{value.amount}</span>
                 </div>
               ))}
             </div>

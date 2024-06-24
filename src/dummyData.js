@@ -713,7 +713,7 @@ export let craftingInvDummyData = {
       info: {
         required: {
           bread: {
-            amount: 1,
+            amount: 100,
             label: "Black Money",
           },
           water: {
