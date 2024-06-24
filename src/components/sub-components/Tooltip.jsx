@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import TooltipDescription from "./TooltipDescription";
 
 const Tooltip = () => {
   const hoverData = useSelector((state) => state.tooltip);
@@ -23,12 +24,8 @@ const Tooltip = () => {
   return (
     <>
       {hoverData.item && hoverData.inventoryType && (
-        <div
-          className="absolute bg-slate-900 w-[150px] no-close z-[500]"
-          onClick={(e) => e.stopPropagation()}
-          style={{ ...tooltipStyle }}
-        >
-          {hoverData.item.label}
+        <div className="absolute bg-slate-900 z-[500000]" style={{ ...tooltipStyle }}>
+          <TooltipDescription item={hoverData.item} />
         </div>
       )}
     </>

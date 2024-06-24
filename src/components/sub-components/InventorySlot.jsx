@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useMergeRefs } from "@floating-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -540,7 +540,6 @@ const InventorySlotComponent = ({
           <img src={`./images/${item?.name}.png`} alt="" className="" />
         </div>
       )}
-      {/* tooltip section */}
     </div>
   );
 };
