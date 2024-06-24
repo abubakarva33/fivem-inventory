@@ -88,7 +88,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
             style={{ border: `2px solid ${hudBorderColor}`, borderRadius: 50 }}
           />
           <div
-            className="border rounded-full  p-2 text-xl"
+            className="border rounded-full  p-2 text-xl cursor-pointer"
             style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
           >
             <BsBoxes onClick={() => setIsModalOpen(!isModalOpen)} />

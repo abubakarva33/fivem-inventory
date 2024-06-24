@@ -43,15 +43,13 @@ const BackpackSection = ({ openBackpacks }) => {
         style={{ borderBottom: `5px solid ${slotBg}` }}
       >
         {largeBackpack && (
-          <div
-            className=" rounded-lg"
-            // style={{ backgroundColor: backpack === "largeBackpack" ? btnColor : "" }}
-            onClick={() => setBackpack("largeBackpack")}
-          >
+          <div className=" rounded-lg cursor-pointer" onClick={() => setBackpack("largeBackpack")}>
             <div
               className="flex p-2 items-center rounded-lg w-full"
               style={{
                 backgroundColor: backpack === "largeBackpack" ? btnColor : slotBg,
+                border:
+                  backpack === "largeBackpack" ? `2px solid ${textColor}` : `2px solid transparent`,
                 color: textColor,
               }}
             >
@@ -79,11 +77,13 @@ const BackpackSection = ({ openBackpacks }) => {
         )}
 
         {smallBackpack && (
-          <div className=" rounded-lg " onClick={() => setBackpack("smallBackpack")}>
+          <div className=" rounded-lg cursor-pointer" onClick={() => setBackpack("smallBackpack")}>
             <div
               className="flex p-2 items-center rounded-lg w-full"
               style={{
                 backgroundColor: backpack === "smallBackpack" ? btnColor : slotBg,
+                border:
+                  backpack === "smallBackpack" ? `2px solid ${textColor}` : `2px solid transparent`,
                 color: textColor,
               }}
             >
