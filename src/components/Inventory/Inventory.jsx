@@ -341,6 +341,9 @@ const Inventory = () => {
             {inventory?.type === "drop" && (
               <button className={`border py-1 border-b `}>Pick Up</button>
             )}
+            {inventory?.type === "backpack" && (
+              <button className={`border py-1 border-b `}>Take</button>
+            )}
 
             {inventory?.type === "playerinventory" && inventory?.item?.info?.serial && (
               <button
