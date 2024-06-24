@@ -24,8 +24,6 @@ const Inventory = () => {
   const [inputAmount, setInputAmount] = useState({});
   const maxAmount = inventory?.item?.amount || 0;
 
-  console.log(coords);
-
   const [copySuccess, setCopySuccess] = useState("Copy Serial");
 
   const copyToClipboard = async (textToCopy) => {

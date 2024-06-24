@@ -3,13 +3,10 @@ import { useSelector } from "react-redux";
 
 const Tooltip = () => {
   const hoverData = useSelector((state) => state.tooltip);
-
   const [tooltipStyle, setTooltipStyle] = useState({
     top: null,
     left: null,
   });
-
-  console.log({ tooltipStyle });
 
   const handleMouseMove = ({ clientX, clientY }) => {
     setTooltipStyle({ top: clientY + 10, left: clientX + 10 });

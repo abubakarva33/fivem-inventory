@@ -10,13 +10,15 @@ export const tooltipSlice = createSlice({
   name: "tooltip",
   initialState,
   reducers: {
-    openTooltip(state, action) {
+    openTooltip(state, { payload }) {
       state.open = true;
-      state.item = action.payload.item;
-      state.inventoryType = action.payload.inventoryType;
+      state.item = payload.item;
+      state.inventoryType = payload.inventoryType;
     },
     closeTooltip(state) {
       state.open = false;
+      state.item = null;
+      state.inventoryType = null;
     },
   },
 });

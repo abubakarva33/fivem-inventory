@@ -41,32 +41,15 @@ const InventorySlotComponent = ({
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
   const { type, type2, maxWeight, identifier } = inventory;
   const inventoryType = type === "backpack" ? type2 : type;
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [hoverTimer, setHoverTimer] = useState(null);
-  const tooltipRef = useRef(null);
-  const mainDivRef = useRef(null);
   const timerRef = useRef(null);
 
   const handleMouseEnter = () => {
-    // if (!hoverTimer) {
-    //   const timer = setTimeout(() => {
-    //     setShowTooltip(true);
-    //   }, 1000); // 1 second delay
-    //   setHoverTimer(timer);
-    // }
-
     timerRef.current = window.setTimeout(() => {
       dispatch(openTooltip({ item, inventoryType }));
-    }, 500);
+    }, 1000);
   };
 
   const handleMouseLeave = () => {
-    // if (hoverTimer) {
-    //   clearTimeout(hoverTimer);
-    //   setHoverTimer(null);
-    // }
-    // setShowTooltip(false);
-
     dispatch(closeTooltip());
     if (timerRef.current) {
       clearTimeout(timerRef.current);
@@ -74,41 +57,10 @@ const InventorySlotComponent = ({
     }
   };
 
-  useEffect(() => {
-    const handleDocumentMouseMove = (event) => {
-      if (tooltipRef.current && mainDivRef.current) {
-        const tooltipRect = tooltipRef.current.getBoundingClientRect();
-        const mainDivRect = mainDivRef.current.getBoundingClientRect();
-        const isInsideTooltip =
-          event.clientX >= tooltipRect.left &&
-          event.clientX <= tooltipRect.right &&
-          event.clientY >= tooltipRect.top &&
-          event.clientY <= tooltipRect.bottom;
-        const isInsideMainDiv =
-          event.clientX >= mainDivRect.left &&
-          event.clientX <= mainDivRect.right &&
-          event.clientY >= mainDivRect.top &&
-          event.clientY <= mainDivRect.bottom;
-
-        if (!isInsideTooltip && !isInsideMainDiv) {
-          setShowTooltip(false);
-
-          const timer = setTimeout(() => {
-            setShowTooltip(true);
-          }, 1000); // 1 second delay
-          setHoverTimer(timer);
-        }
-      }
-    };
-
-    document.addEventListener("mousemove", handleDocumentMouseMove);
-    return () => {
-      document.removeEventListener("mousemove", handleDocumentMouseMove);
-    };
-  }, []);
-
   const handleRightButtonClick = (event) => {
     event.preventDefault();
+    dispatch(closeTooltip());
+    if (timerRef.current) clearTimeout(timerRef.current);
     const { items, ...restOfInventory } = inventory;
     setIsRightButtonClick(!isRightButtonClick);
     if (
@@ -157,6 +109,7 @@ const InventorySlotComponent = ({
         isOver: monitor.isOver(),
       }),
       drop: (main) => {
+        dispatch(closeTooltip());
         const targetInventory = {
           type: inventoryType,
           identifier,
@@ -460,7 +413,6 @@ const InventorySlotComponent = ({
             ? "span 2"
             : "",
       }}
-      ref={mainDivRef}
       onContextMenu={handleRightButtonClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -589,39 +541,6 @@ const InventorySlotComponent = ({
         </div>
       )}
       {/* tooltip section */}
-      {showTooltip && item?.name && !isRightButtonClick && !weaponExpand && (
-        <div
-          ref={tooltipRef}
-          className={`flex flex-col absolute top-24 ${
-            inventoryType != "playerinventory" && (ind + 1) % 4 === 0
-              ? "right-24"
-              : inventoryType != "playerinventory" && (ind - 2) % 4 === 0
-              ? "left-5"
-              : inventoryType === "playerinventory" && (ind - 4) % 6 === 0
-              ? "left-14"
-              : inventoryType === "playerinventory" && (ind + 1) % 6 === 0
-              ? "right-24"
-              : "left-24"
-          } z-[500] bg-slate-800 border w-[200px] p-2`}
-        >
-          <h5> {item?.label}</h5>
-          <div className="flex flex-col">
-            <span> Amount: {item?.amount} </span>
-            <span> Weight: {item?.weight} </span>
-            {Object.keys(item?.info || {}).map((key, index) => {
-              const value = item.info[key];
-              if (typeof value === "object" && !Array.isArray(value)) return null;
-              if (Array.isArray(value)) return null;
-              return (
-                <span key={index}>
-                  {key.charAt(0).toUpperCase() + key.slice(1)}: {value}
-                </span>
-              );
-            })}
-          </div>
-          <p>{item?.description}</p>
-        </div>
-      )}
     </div>
   );
 };

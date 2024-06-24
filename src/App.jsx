@@ -17,6 +17,7 @@ import {
 import { useEffect, useState } from "react";
 import DragPreview from "./components/sub-components/DragPreview";
 import { closeContextMenu } from "./redux/contextSlice";
+import { closeTooltip } from "./redux/tooltipSlice";
 
 let closeKey = "F2";
 let isOpen = false;
@@ -90,6 +91,7 @@ function App() {
         showRoot();
       } else if (event.data.action == "close") {
         dispatch(closeContextMenu());
+        dispatch(closeTooltip());
         isOpen = false;
         hideRoot();
         fetchNui("invClosed")
@@ -114,6 +116,7 @@ function App() {
       if (data.which == 27 || (isOpen && data.which == keyMap[closeKey])) {
         isOpen = false;
         dispatch(closeContextMenu());
+        dispatch(closeTooltip());
         hideRoot();
         fetchNui("invClosed")
           .then((retData) => {})
@@ -131,7 +134,6 @@ function App() {
     <>
       <Inventory />
       <DragPreview />
-      {/* <Tooltip /> */}
     </>
   );
 }
