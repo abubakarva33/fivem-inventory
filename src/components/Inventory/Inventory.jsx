@@ -150,6 +150,12 @@ const Inventory = () => {
       .catch((e) => {});
     dispatch(closeContextMenu());
   };
+  const addHandler = (data) => {
+    fetchNui("pickupOrTake", data)
+      .then((retData) => {})
+      .catch((e) => {});
+    dispatch(closeContextMenu());
+  };
 
   return (
     <div className="mainSection relative">
@@ -339,10 +345,42 @@ const Inventory = () => {
               </button>
             )}
             {inventory?.type === "drop" && (
-              <button className={`border py-1 border-b `}>Pick Up</button>
+              <button className={`border py-1 border-b `}
+              onClick={() =>
+                  addHandler({
+                      identifier: inventory?.identifier,
+                      item: {
+                        ...inventory?.item,
+                        amount:
+                          inputAmount?.selectedAmount === undefined
+                            ? inventory?.item.amount
+                            : inputAmount?.selectedAmount === 0
+                            ? inventory?.item.amount
+                            : inputAmount?.selectedAmount,
+                      }
+                  })
+                }
+              >
+              Pick Up
+              </button>
             )}
             {inventory?.type === "backpack" && (
-              <button className={`border py-1 border-b `}>Take</button>
+              <button className={`border py-1 border-b `}
+              onClick={() =>
+                  addHandler({
+                      identifier: inventory?.identifier,
+                      item: {
+                        ...inventory?.item,
+                        amount:
+                          inputAmount?.selectedAmount === undefined
+                            ? inventory?.item.amount
+                            : inputAmount?.selectedAmount === 0
+                            ? inventory?.item.amount
+                            : inputAmount?.selectedAmount,
+                      }
+                  })
+                }
+              >Take</button>
             )}
 
             {inventory?.type === "playerinventory" && inventory?.item?.info?.serial && (
