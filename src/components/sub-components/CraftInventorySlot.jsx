@@ -120,6 +120,7 @@ const CraftInventorySlot = ({ item, inventory }) => {
                 className="progress"
                 style={{
                   background: `conic-gradient(rgba(0, 0, 0, 0.582) ${deg}deg, transparent 0%)`,
+                  borderRadius: slotBorderRound,
                 }}
               ></div>
             </div>
