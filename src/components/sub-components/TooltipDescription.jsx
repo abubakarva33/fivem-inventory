@@ -25,7 +25,7 @@ const TooltipDescription = ({ item }) => {
             })}
           </div>
           {item?.info?.required && (
-            <div className="px-2">
+            <div className="px-2 pb-1">
               <span>Required:</span>
               {Object.entries(item?.info.required).map(([key, value]) => (
                 <div className="flex justify-start items-center text-[14px] ps-2" key={key}>
