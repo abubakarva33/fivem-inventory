@@ -39,7 +39,7 @@ const InventorySlotComponent = ({
   );
   const { selectedItems } = useSelector((state) => state.context);
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
-  const { type, type2, maxWeight, identifier } = inventory;
+  const { type, type2, weight, maxWeight, identifier } = inventory;
   const inventoryType = type === "backpack" ? type2 : type;
   const timerRef = useRef(null);
 
@@ -96,6 +96,7 @@ const InventorySlotComponent = ({
           type: inventoryType,
           identifier,
           item,
+          invWeight: weight,
           image: item?.name && `url(./images/${item?.name + ".png" || "none"})`,
         };
       },
@@ -115,6 +116,7 @@ const InventorySlotComponent = ({
           type: inventoryType,
           identifier,
           item,
+          weight,
         };
         const source = { ...main, type: main.type };
 
@@ -148,8 +150,9 @@ const InventorySlotComponent = ({
             identifier: source.identifier,
             fromSlot: source.item.slot,
             fromSlotData,
-
+            fromInvWeight: source?.invWeight,
             toSlot: targetInventory.item.slot,
+            toInvWeight: source?.invWeight,
             toSlotData: {
               ...source.item,
               slot: targetInventory.item.slot,
@@ -187,6 +190,8 @@ const InventorySlotComponent = ({
               slot: source.item.slot,
               slotData,
             },
+            fromInvWeight: source?.invWeight,
+            toInvWeight: targetInventory?.weight,
             toInv: {
               identifier: targetInventory.identifier,
               slot: targetInventory.item.slot,
