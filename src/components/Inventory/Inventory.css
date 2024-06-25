@@ -57,7 +57,6 @@
   width: 100%;
 }
 .activeBackpack {
-  height: 100px;
   width: 160px;
   border-radius: 6px;
   display: flex;
@@ -67,7 +66,7 @@
 
 .slot {
   width: 100%;
-  min-height: 112px;
+  min-height: 131px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -83,15 +82,8 @@
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
 }
-.mainAreaSlot .slot {
-  min-height: 131px;
-  height: 100%;
-}
 .mainAreaSlot .slot img {
   height: 78px;
-}
-.secondarySlotArea .slot {
-  height: 131px;
 }
 
 .mainAreaTop {

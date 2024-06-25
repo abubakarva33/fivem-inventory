@@ -95,9 +95,12 @@ export const inventorySlice = createSlice({
         console.log("not found");
       }
     },
+    clearInventory: (state) => {
+      state.playerinventory = null;
+    },
   },
 });
 
-export const { setupInventory, changeSlot } = inventorySlice.actions;
+export const { setupInventory, changeSlot, clearInventory } = inventorySlice.actions;
 const inventorySliceReducer = inventorySlice.reducer;
 export default inventorySliceReducer;

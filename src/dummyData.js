@@ -60,7 +60,7 @@ export let dummyItems = {
 export let primaryInvDummyData = {
   identifier: "player1",
   type: "playerinventory",
-  label: "Player Inventory",
+  label: "Abubakar Siddik",
   maxWeight: 25000.0,
   slots: 50,
   weight: 10000.0,
