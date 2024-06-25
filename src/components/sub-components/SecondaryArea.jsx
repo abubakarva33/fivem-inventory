@@ -43,7 +43,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
         borderRadius: boxBorderRound,
       }}
     >
-      <div className=" mx-3 pt-3 border-b pb-1" style={{ borderBottom: `4px solid ${slotBg}` }}>
+      <div className=" mx-3 pt-3 border-b pb-[6px]" style={{ borderBottom: `4px solid ${slotBg}` }}>
         <Progress
           percent={state[secondaryBackpack?.type]?.weightPercent}
           showInfo={false}
@@ -81,7 +81,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
 
       <div style={{ height: "calc(100% - 135px)", overflowY: "auto" }}>
         <div
-          className={`grid ${
+          className={`secondaryAreaSlot grid ${
             secondaryBackpack?.type === "crafting" ? "grid-cols-2" : "grid-cols-4"
           } gap-[5px] px-3 mt-2`}
         >

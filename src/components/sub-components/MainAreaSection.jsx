@@ -63,7 +63,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
           }}
         >
           <div
-            className="mainAreaTop pt-1 border-b pb-1"
+            className="mainAreaTop pt-1 border-b pb-[6px]"
             style={{ borderBottom: `4px solid ${slotBg}`, color: textColor }}
           >
             <div className="flex items-center mb-3 pt-2">
@@ -72,7 +72,6 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
                 style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
               >
                 <BsBoxes />
-                {inventory?.weight}
               </div>
               <div
                 className={`${

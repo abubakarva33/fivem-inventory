@@ -107,7 +107,7 @@ const CraftInventorySlot = ({ item, inventory }) => {
       {item?.name && (
         <div className="grid grid-cols-2 gap-1 w-full h-full">
           <div
-            className="relative flex items-center justify-center h-full flex-col"
+            className="relative flex items-center justify-center flex-col"
             style={{
               border: `1px solid ${slotBorderColor}`,
               width: 100,

@@ -67,7 +67,6 @@
 .slot {
   width: 100%;
   min-height: 131px;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,6 +83,12 @@
 }
 .mainAreaSlot .slot img {
   height: 78px;
+}
+.mainAreaSlot {
+  height: 131px;
+}
+.secondaryAreaSlot {
+  height: 131px;
 }
 
 .mainAreaTop {
