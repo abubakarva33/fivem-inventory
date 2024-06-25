@@ -11,6 +11,8 @@ const initialState = {
   btnColor: "#000000b3",
   hudBg: "#00000080",
   hudBorderColor: "#00000080",
+  tooltipBg: "#212121",
+  tooltipBorderColor: "#cccccc",
 };
 
 export const customizeSlice = createSlice({
@@ -31,10 +33,12 @@ export const customizeSlice = createSlice({
       state.btnColor = "#000000b3";
       state.hudBg = "#00000080";
       state.hudBorderColor = "#00000080";
+      state.tooltipBg = "#212121";
+      state.tooltipBorderColor = "#cccccc";
     },
   },
 });
 
-export const { customizeInventory , restoreToDefault} = customizeSlice.actions;
+export const { customizeInventory, restoreToDefault } = customizeSlice.actions;
 const customizeSliceReducer = customizeSlice.reducer;
 export default customizeSliceReducer;

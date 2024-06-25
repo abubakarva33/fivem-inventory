@@ -1,7 +1,6 @@
 import "./CustomizeInventory.css";
 import { useDispatch, useSelector } from "react-redux";
 import { customizeInventory, restoreToDefault } from "../../redux/customizeSlice";
-import { HexAlphaColorPicker, HexColorInput } from "react-colorful";
 import ColorPickerSection from "./ColorPickerSection";
 import { ConfigProvider, Slider } from "antd";
 
@@ -18,6 +17,8 @@ const CustomizeInventory = () => {
     btnColor,
     hudBg,
     hudBorderColor,
+    tooltipBg,
+    tooltipBorderColor,
   } = useSelector((state) => state.customizeSec);
   const handleBorderRadiusChange = (property) => (newColor) => {
     dispatch(customizeInventory({ [property]: newColor }));
@@ -42,21 +43,65 @@ const CustomizeInventory = () => {
 
       <div style={{ height: "calc(100% - 72px)", overflowY: "auto", width: "100%" }}>
         <div className="grid grid-cols-2 gap-5 ">
-          <ColorPickerSection type={"slotBg"} color={slotBg} title={"SLOT BACKGROUND"} />
-          <ColorPickerSection type={"boxBg"} color={boxBg} title={"INVENTORY BACKGROUND"} />
-          <ColorPickerSection type={"textColor"} color={textColor} title={"TEXT COLOR"} />
-          <ColorPickerSection type={"btnColor"} color={btnColor} title={"BUTTON COLOR"} />
-          <ColorPickerSection type={"hudBg"} color={hudBg} title={"HUD BACKGROUND"} />
-          <ColorPickerSection type={"hudBorderColor"} color={hudBorderColor} title={"HUD BORDER"} />
+          <ColorPickerSection
+            type={"slotBg"}
+            color={slotBg}
+            title={"SLOT BACKGROUND"}
+            allowAlpha={true}
+          />
+          <ColorPickerSection
+            type={"boxBg"}
+            color={boxBg}
+            title={"INVENTORY BACKGROUND"}
+            allowAlpha={true}
+          />
+          <ColorPickerSection
+            type={"textColor"}
+            color={textColor}
+            title={"TEXT COLOR"}
+            allowAlpha={true}
+          />
+          <ColorPickerSection
+            type={"btnColor"}
+            color={btnColor}
+            title={"BUTTON COLOR"}
+            allowAlpha={true}
+          />
+          <ColorPickerSection
+            type={"tooltipBg"}
+            color={tooltipBg}
+            title={"TOOLTIP BACKGROUND"}
+            allowAlpha={false}
+          />
+          <ColorPickerSection
+            type={"tooltipBorderColor"}
+            color={tooltipBorderColor}
+            title={"TOOLTIP BORDER"}
+            allowAlpha={false}
+          />
+          <ColorPickerSection
+            type={"hudBg"}
+            color={hudBg}
+            title={"HUD BACKGROUND"}
+            allowAlpha={true}
+          />
+          <ColorPickerSection
+            type={"hudBorderColor"}
+            color={hudBorderColor}
+            title={"HUD BORDER"}
+            allowAlpha={true}
+          />
           <ColorPickerSection
             type={"slotBorderColor"}
             color={slotBorderColor}
             title={"SLOT BORDER"}
+            allowAlpha={true}
           />
           <ColorPickerSection
             type={"boxBorderColor"}
             color={boxBorderColor}
             title={"INVENTORY BORDER"}
+            allowAlpha={true}
           />
 
           <div className="colorPickerSection">

@@ -18,6 +18,7 @@ const Inventory = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
   const { inventory, coords, selectedItems, deg } = useSelector((state) => state.context);
+  const { tooltipBg, tooltipBorderColor, textColor } = useSelector((state) => state.customizeSec);
   const [openBackpacks, setOpenBackpacks] = useState([]);
   const [secondaryBackpacks, setSecondaryBackpacks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -178,14 +179,15 @@ const Inventory = () => {
       {/* // right click menu // */}
       {inventory?.item?.name && !deg && (
         <div
-          className="absolute w-[150px] no-close z-[500]"
+          className="absolute w-[140px] no-close z-[500]"
           onClick={(e) => e.stopPropagation()}
-          style={{ top: coords?.y, left: coords?.x }}
+          style={{ top: coords?.y, left: coords?.x, fontSize: 14 }}
         >
-          <div className="flex flex-col bg-slate-800 text-white">
+          <div className="flex flex-col" style={{ backgroundColor: tooltipBg, color: textColor }}>
             <div className="flex">
               <button
-                className="border py-1 border-b-0 w-1/4"
+                className=" rightBtn border py-1 border-b-0 w-1/4"
+                style={{ borderColor: tooltipBorderColor }}
                 disabled={(inputAmount?.selectedAmount || 0) <= 0}
                 onClick={() =>
                   dispatch(handleSelectedItems((inputAmount?.selectedAmount || 0) - 1))
@@ -195,17 +197,20 @@ const Inventory = () => {
               </button>
               <input
                 type="number"
-                className="w-1/2  bg-slate-800 text-center border-t outline-none "
-                style={{ color: "white" }}
+                className="w-1/2 text-center border-t outline-none "
+                style={{
+                  color: textColor,
+                  backgroundColor: tooltipBg,
+                  borderColor: tooltipBorderColor,
+                }}
                 value={inputAmount?.selectedAmount || 0}
-                // onChange={(e) => dispatch(handleSelectedItems(Number(e.target.value)))}
                 min={0}
                 max={maxAmount}
                 onChange={handleAmountChange}
               />
               <button
-                className="border py-1 border-b-0 w-1/4 text-white"
-                style={{ cursor: "pointer" }}
+                className=" rightBtn border py-1 border-b-0 w-1/4"
+                style={{ cursor: "pointer", borderColor: tooltipBorderColor, color: textColor }}
                 disabled={
                   inventory?.item?.amount > 0 &&
                   inventory?.item?.amount <= inputAmount?.selectedAmount
@@ -220,8 +225,9 @@ const Inventory = () => {
             {!inventory?.item?.name?.includes("backpack") &&
               inventory?.type === "playerinventory" && (
                 <button
-                  className="border py-1 border-b-0"
+                  className=" rightBtn border py-1 border-b-0"
                   onClick={() => useHandler(inventory?.item)}
+                  style={{ borderColor: tooltipBorderColor }}
                 >
                   Use
                 </button>
@@ -229,7 +235,8 @@ const Inventory = () => {
 
             {inventory?.item?.name?.includes("backpack") && (
               <button
-                className="border py-1 border-b-0"
+                className=" rightBtn border py-1 border-b-0"
+                style={{ borderColor: tooltipBorderColor }}
                 onClick={() =>
                   openBackpackHandler(
                     inventory?.item,
@@ -248,7 +255,8 @@ const Inventory = () => {
             )}
             {inventory?.type === "shop" && inventory?.item?.info?.buyPrice && (
               <button
-                className="border py-1"
+                className=" rightBtn border py-1"
+                style={{ borderColor: tooltipBorderColor }}
                 onClick={() =>
                   buyItemHandlerWithClick({
                     ...inventory,
@@ -264,7 +272,8 @@ const Inventory = () => {
             )}
             {inventory?.type === "shop" && inventory?.item?.info?.sellPrice && (
               <button
-                className="border py-1"
+                className=" rightBtn border py-1"
+                style={{ borderColor: tooltipBorderColor }}
                 onClick={() =>
                   sellItemHandlerWithClick({
                     ...inventory,
@@ -281,7 +290,8 @@ const Inventory = () => {
 
             {inventory?.type === "playerinventory" && (
               <button
-                className="border py-1 border-b-0"
+                className=" rightBtn border py-1 border-b-0"
+                style={{ borderColor: tooltipBorderColor }}
                 onClick={() => dispatch(closeContextMenu())}
               >
                 Give
@@ -289,7 +299,8 @@ const Inventory = () => {
             )}
             {inventory?.type === "crafting" && (
               <button
-                className="border py-1 "
+                className=" rightBtn border py-1 "
+                style={{ borderColor: tooltipBorderColor }}
                 onClick={() =>
                   CraftItemHandler({
                     ...inventory,
@@ -307,9 +318,10 @@ const Inventory = () => {
             )}
             {inventory?.type === "playerinventory" && (
               <button
-                className={`border py-1 ${
+                className={`rightBtn border py-1 ${
                   inventory?.item?.info?.serial ? "border-b-0" : "border-b"
                 } `}
+                style={{ borderColor: tooltipBorderColor }}
                 onClick={() =>
                   dropHandler({
                     ...inventory?.item,
@@ -328,7 +340,10 @@ const Inventory = () => {
 
             {inventory?.type === "playerinventory" && (
               <button
-                className={`border border-t-0 py-1`}
+                className={`rightBtn border ${
+                  inventory?.item?.type === "weapon" ? "border-t" : "border-t-0"
+                }  py-1`}
+                style={{ borderColor: tooltipBorderColor }}
                 onClick={() =>
                   throwHandler({
                     ...inventory?.item,
@@ -345,47 +360,54 @@ const Inventory = () => {
               </button>
             )}
             {inventory?.type === "drop" && (
-              <button className={`border py-1 border-b `}
-              onClick={() =>
+              <button
+                className={`rightBtn border py-1 border-b `}
+                style={{ borderColor: tooltipBorderColor }}
+                onClick={() =>
                   addHandler({
-                      identifier: inventory?.identifier,
-                      item: {
-                        ...inventory?.item,
-                        amount:
-                          inputAmount?.selectedAmount === undefined
-                            ? inventory?.item.amount
-                            : inputAmount?.selectedAmount === 0
-                            ? inventory?.item.amount
-                            : inputAmount?.selectedAmount,
-                      }
+                    identifier: inventory?.identifier,
+                    item: {
+                      ...inventory?.item,
+                      amount:
+                        inputAmount?.selectedAmount === undefined
+                          ? inventory?.item.amount
+                          : inputAmount?.selectedAmount === 0
+                          ? inventory?.item.amount
+                          : inputAmount?.selectedAmount,
+                    },
                   })
                 }
               >
-              Pick Up
+                Pick Up
               </button>
             )}
             {inventory?.type === "backpack" && (
-              <button className={`border py-1 border-b `}
-              onClick={() =>
+              <button
+                className={`rightBtn border py-1 border-b `}
+                style={{ borderColor: tooltipBorderColor }}
+                onClick={() =>
                   addHandler({
-                      identifier: inventory?.identifier,
-                      item: {
-                        ...inventory?.item,
-                        amount:
-                          inputAmount?.selectedAmount === undefined
-                            ? inventory?.item.amount
-                            : inputAmount?.selectedAmount === 0
-                            ? inventory?.item.amount
-                            : inputAmount?.selectedAmount,
-                      }
+                    identifier: inventory?.identifier,
+                    item: {
+                      ...inventory?.item,
+                      amount:
+                        inputAmount?.selectedAmount === undefined
+                          ? inventory?.item.amount
+                          : inputAmount?.selectedAmount === 0
+                          ? inventory?.item.amount
+                          : inputAmount?.selectedAmount,
+                    },
                   })
                 }
-              >Take</button>
+              >
+                Take
+              </button>
             )}
 
             {inventory?.type === "playerinventory" && inventory?.item?.info?.serial && (
               <button
-                className="border border-t-0 py-1"
+                className=" rightBtn border border-t-0 py-1"
+                style={{ borderColor: tooltipBorderColor }}
                 onClick={() => copyToClipboard(inventory?.item?.info?.serial)}
               >
                 {copySuccess}

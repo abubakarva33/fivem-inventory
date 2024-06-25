@@ -155,6 +155,12 @@
   z-index: 1;
   transition: all 1s linear;
 }
+.rightBtn:hover {
+  opacity: 0.5;
+}
+.rightBtn:active {
+  opacity: 0.8;
+}
 
 /* responsive part */
 @media screen and (min-device-height: 720px) and (max-device-height: 1079px) {

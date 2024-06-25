@@ -463,7 +463,7 @@ const InventorySlotComponent = ({
               )}
               {item?.weight != 0 && item?.weight && item?.type != "account" && (
                 <span className={item?.weight === 0 ? "hidden" : ""}>
-                  {gramsToKilograms(item?.weight)}kg
+                  {gramsToKilograms(item?.weight * item?.amount)}kg
                 </span>
               )}
             </div>

@@ -1,8 +1,8 @@
-import { HexAlphaColorPicker, HexColorInput } from "react-colorful";
+import { HexAlphaColorPicker, HexColorInput, HexColorPicker } from "react-colorful";
 import { useDispatch, useSelector } from "react-redux";
 import { customizeInventory } from "../../redux/customizeSlice";
 
-const ColorPickerSection = ({ children, type, color, title }) => {
+const ColorPickerSection = ({ children, type, color, title, allowAlpha }) => {
   const dispatch = useDispatch();
   const { slotBg, textColor, btnColor } = useSelector((state) => state.customizeSec);
   const handleColorChange = (property) => (newColor) => {
@@ -16,15 +16,32 @@ const ColorPickerSection = ({ children, type, color, title }) => {
       >
         {title}
       </div>
-      <HexAlphaColorPicker color={color} onChange={handleColorChange(type)} />
-      <HexColorInput
-        className="w-full h-8 text-[18px] text-center outline-none "
-        style={{ backgroundColor: slotBg, color: textColor }}
-        color={color}
-        onChange={handleColorChange(type)}
-        placeholder="Type a color"
-        alpha
-      />
+
+      {allowAlpha ? (
+        <HexAlphaColorPicker color={color} onChange={handleColorChange(type)} />
+      ) : (
+        <HexColorPicker color={color} onChange={handleColorChange(type)} />
+      )}
+      {allowAlpha ? (
+        <HexColorInput
+          className="w-full h-8 text-[18px] text-center outline-none "
+          style={{ backgroundColor: slotBg, color: textColor }}
+          color={color}
+          onChange={handleColorChange(type)}
+          placeholder="Type a color"
+          alpha
+        />
+      ) : (
+        <HexColorInput
+          className="w-full h-8 text-[18px] text-center outline-none "
+          style={{ backgroundColor: slotBg, color: textColor }}
+          color={color}
+          onChange={handleColorChange(type)}
+          placeholder="Type a color"
+          alpha
+        />
+      )}
+
       {children}
     </div>
   );
