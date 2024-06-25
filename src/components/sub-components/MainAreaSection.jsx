@@ -72,6 +72,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
                 style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
               >
                 <BsBoxes />
+                {inventory?.weight}
               </div>
               <div
                 className={`${

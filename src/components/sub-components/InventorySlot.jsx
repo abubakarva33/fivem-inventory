@@ -39,7 +39,7 @@ const InventorySlotComponent = ({
   );
   const { selectedItems } = useSelector((state) => state.context);
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
-  const { type, type2, weight, maxWeight, identifier } = inventory;
+  const { type, type2, maxWeight, identifier } = inventory;
   const inventoryType = type === "backpack" ? type2 : type;
   const timerRef = useRef(null);
 
@@ -96,7 +96,6 @@ const InventorySlotComponent = ({
           type: inventoryType,
           identifier,
           item,
-          invWeight: weight,
           image: item?.name && `url(./images/${item?.name + ".png" || "none"})`,
         };
       },
@@ -116,7 +115,6 @@ const InventorySlotComponent = ({
           type: inventoryType,
           identifier,
           item,
-          weight,
         };
         const source = { ...main, type: main.type };
 
@@ -150,9 +148,9 @@ const InventorySlotComponent = ({
             identifier: source.identifier,
             fromSlot: source.item.slot,
             fromSlotData,
-            fromInvWeight: source?.invWeight,
+            fromInvWeight: state[type].weight,
             toSlot: targetInventory.item.slot,
-            toInvWeight: source?.invWeight,
+            toInvWeight: state[type].weight,
             toSlotData: {
               ...source.item,
               slot: targetInventory.item.slot,
@@ -190,8 +188,8 @@ const InventorySlotComponent = ({
               slot: source.item.slot,
               slotData,
             },
-            fromInvWeight: source?.invWeight,
-            toInvWeight: targetInventory?.weight,
+            fromInvWeight: state[source.type]?.weight - source?.item?.amount * source?.item?.weight,
+            toInvWeight: state[inventoryType]?.weight + source?.item?.amount * source?.item?.weight,
             toInv: {
               identifier: targetInventory.identifier,
               slot: targetInventory.item.slot,
@@ -206,8 +204,8 @@ const InventorySlotComponent = ({
               },
             },
           };
-          if (source.type !== "weapon" && inventoryType !== "weapon")
-            UpdateDataToServer(transferSlotData);
+          if (source.type !== "weapon" && inventoryType !== "weapon") console.log("eita");
+          UpdateDataToServer(transferSlotData);
         }
       },
       canDrop: (source) => {
@@ -338,6 +336,11 @@ const InventorySlotComponent = ({
                 amount: source?.item?.amount - inputAmount?.selectedAmount,
               },
             },
+            fromInvWeight:
+              state[source.type]?.weight -
+              (source?.item?.amount - inputAmount?.selectedAmount) * source?.item?.weight,
+            toInvWeight:
+              state[inventoryType]?.weight + inputAmount?.selectedAmount * source?.item?.weight,
             toInv: {
               identifier: inventory.identifier,
               slot: item.slot,

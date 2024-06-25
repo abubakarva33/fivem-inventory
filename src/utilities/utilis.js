@@ -190,6 +190,7 @@ export const keyMap = {
 };
 export const UpdateDataToServer = (data) => {
   let serverData = data;
+
   if (data?.fromInv?.slotData?.amount === 0) {
     serverData = {
       ...data,
