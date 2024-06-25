@@ -48,6 +48,7 @@ const BackpackSection = ({ openBackpacks }) => {
               className="flex p-2 items-center rounded-lg w-full"
               style={{
                 backgroundColor: backpack === "largeBackpack" ? btnColor : slotBg,
+                height: 115,
                 border:
                   backpack === "largeBackpack" ? `2px solid ${textColor}` : `2px solid transparent`,
                 color: textColor,
@@ -82,6 +83,7 @@ const BackpackSection = ({ openBackpacks }) => {
               className="flex p-2 items-center rounded-lg w-full"
               style={{
                 backgroundColor: backpack === "smallBackpack" ? btnColor : slotBg,
+                height: 115,
                 border:
                   backpack === "smallBackpack" ? `2px solid ${textColor}` : `2px solid transparent`,
                 color: textColor,
