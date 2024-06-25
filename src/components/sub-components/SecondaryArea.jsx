@@ -6,21 +6,14 @@ import CraftInventorySlot from "./CraftInventorySlot";
 import { calculateRGBRev } from "../../utilities/utilis";
 
 const SecondaryArea = ({ secondaryBackpacks }) => {
-  const {
-    boxBg,
-    boxBorderColor,
-    boxBorderRound,
-    slotBg,
-    slotBorderColor,
-    slotBorderRound,
-    textColor,
-    btnColor,
-  } = useSelector((state) => state.customizeSec);
+  const { boxBg, boxBorderColor, boxBorderRound, slotBg, slotBorderColor, textColor, btnColor } =
+    useSelector((state) => state.customizeSec);
   const state = useSelector((state) => state.inventory);
   const [secondaryBackpack, setSecondaryBackpack] = useState(
     secondaryBackpacks ? secondaryBackpacks[0] : ""
   );
   const [options, setOptions] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (secondaryBackpacks) {
@@ -67,14 +60,16 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
           }}
         >
           <Radio.Group
-            className="w-full my-2 mt-3"
+            className="w-full my-2 mt-3 "
             size="large"
             options={options}
             onChange={changeSecondaryBackpack}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             value={secondaryBackpack?.type}
             optionType="button"
             buttonStyle="solid"
-            style={{ border: "none" }}
+            style={{ border: "none", color: isHovered ? btnColor?.slice(0, 4) : textColor }}
           />
         </ConfigProvider>
       </div>

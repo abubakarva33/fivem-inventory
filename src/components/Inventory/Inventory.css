@@ -161,6 +161,9 @@
 .rightBtn:active {
   opacity: 0.8;
 }
+.ant-radio-button-wrapper:hover {
+  color: unset;
+}
 
 /* responsive part */
 @media screen and (min-device-height: 720px) and (max-device-height: 1079px) {
