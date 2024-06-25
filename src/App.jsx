@@ -3,7 +3,7 @@ import "./App.css";
 import { showRoot, hideRoot, keyMap } from "./utilities/utilis";
 import { fetchNui } from "./utilities/fetchNui";
 import Inventory from "./components/Inventory/Inventory";
-import { setupInventory } from "./redux/inventorySlice";
+import { clearInventory, setupInventory } from "./redux/inventorySlice";
 import {
   primaryInvDummyData,
   smallBackpackDummyData,
@@ -88,6 +88,7 @@ function App() {
         isOpen = true;
         showRoot();
       } else if (event.data.action == "close") {
+        dispatch(clearInventory());
         dispatch(closeContextMenu());
         dispatch(closeTooltip());
         isOpen = false;
@@ -113,6 +114,7 @@ function App() {
     document.onkeydown = function (data) {
       if (data.which == 27 || (isOpen && data.which == keyMap[closeKey])) {
         isOpen = false;
+        dispatch(clearInventory());
         dispatch(closeContextMenu());
         dispatch(closeTooltip());
         hideRoot();
