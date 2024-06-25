@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./App.css";
 import { showRoot, hideRoot, keyMap } from "./utilities/utilis";
 import { fetchNui } from "./utilities/fetchNui";
@@ -10,8 +10,6 @@ import {
   largeBackpackDummyData,
   dropInvDummyData,
   craftingInvDummyData,
-  shopInvDummyData,
-  otherPrimaryInvDummyData,
 } from "./dummyData";
 
 import { useEffect, useState } from "react";

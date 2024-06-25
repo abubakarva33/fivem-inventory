@@ -52,129 +52,133 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
   }, []);
 
   return (
-    <div
-      className="mainArea"
-      style={{
-        backgroundColor: boxBg,
-        border: `1px solid ${boxBorderColor}`,
-        borderRadius: boxBorderRound,
-      }}
-    >
-      <div
-        className="mainAreaTop pt-1 border-b pb-1"
-        style={{ borderBottom: `4px solid ${slotBg}`, color: textColor }}
-      >
-        <div className="flex items-center mb-3 pt-2">
+    <>
+      {inventory && (
+        <div
+          className="mainArea"
+          style={{
+            backgroundColor: boxBg,
+            border: `1px solid ${boxBorderColor}`,
+            borderRadius: boxBorderRound,
+          }}
+        >
           <div
-            className="border rounded-full p-2 text-xl me-2"
-            style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
+            className="mainAreaTop pt-1 border-b pb-1"
+            style={{ borderBottom: `4px solid ${slotBg}`, color: textColor }}
           >
-            <BsBoxes />
-          </div>
-          <div
-            className={`${
-              inventory?.label?.length < 12
-                ? "w-[20%]"
-                : inventory?.label?.length < 25
-                ? "w-[30%]"
-                : "w-[45%]"
-            } me-2  text-center`}
-          >
-            <p
-              className="border px-5 py-1  text-lg rounded-[20px]"
-              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
-            >
-              {inventory?.label}
-            </p>
-          </div>
-          <div className="w-[70%] me-2">
-            <Progress
-              percent={Number(inventory?.weightPercent)}
-              showInfo={false}
-              size={["100%", 35]}
-              strokeColor={calculateRGBRev(Number(inventory?.weightPercent))}
-              trailColor={hudBg}
-              style={{ border: `2px solid ${hudBorderColor}`, borderRadius: 50 }}
-            />
-          </div>
-          <div
-            className="border rounded-full  p-2 text-xl cursor-pointer"
-            style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
-          >
-            <BsBoxes onClick={() => setIsModalOpen(!isModalOpen)} />
-          </div>
-        </div>
-        <div className="flex items-center text-xl justify-between mb-2">
-          <div className="flex items-center">
-            <div
-              className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
-            >
-              <BsBoxes className="me-2" />
-              <span>{hudData.health}%</span>
+            <div className="flex items-center mb-3 pt-2">
+              <div
+                className="border rounded-full p-2 text-xl me-2"
+                style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
+              >
+                <BsBoxes />
+              </div>
+              <div
+                className={`${
+                  inventory?.label?.length < 12
+                    ? "w-[20%]"
+                    : inventory?.label?.length < 25
+                    ? "w-[30%]"
+                    : "w-[45%]"
+                } me-2  text-center`}
+              >
+                <p
+                  className="border px-5 py-1  text-lg rounded-[20px]"
+                  style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
+                >
+                  {inventory?.label}
+                </p>
+              </div>
+              <div className="w-[70%] me-2">
+                <Progress
+                  percent={Number(inventory?.weightPercent)}
+                  showInfo={false}
+                  size={["100%", 35]}
+                  strokeColor={calculateRGBRev(Number(inventory?.weightPercent))}
+                  trailColor={hudBg}
+                  style={{ border: `2px solid ${hudBorderColor}`, borderRadius: 50 }}
+                />
+              </div>
+              <div
+                className="border rounded-full  p-2 text-xl cursor-pointer"
+                style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
+              >
+                <BsBoxes onClick={() => setIsModalOpen(!isModalOpen)} />
+              </div>
             </div>
-            <div
-              className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
-            >
-              <BsBoxes className="me-2" />
-              <span>{hudData.armor}%</span>
-            </div>
-            <div
-              className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
-            >
-              <BsBoxes className="me-2" />
-              <span>{hudData.hunger}%</span>
-            </div>
-            <div
-              className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
-            >
-              <BsBoxes className="me-2" />
-              <span>{hudData.thirst}%</span>
+            <div className="flex items-center text-xl justify-between mb-2">
+              <div className="flex items-center">
+                <div
+                  className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
+                  style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
+                >
+                  <BsBoxes className="me-2" />
+                  <span>{hudData.health}%</span>
+                </div>
+                <div
+                  className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
+                  style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
+                >
+                  <BsBoxes className="me-2" />
+                  <span>{hudData.armor}%</span>
+                </div>
+                <div
+                  className="flex items-center border  me-2 px-4 py-1 rounded-[20px]"
+                  style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
+                >
+                  <BsBoxes className="me-2" />
+                  <span>{hudData.hunger}%</span>
+                </div>
+                <div
+                  className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
+                  style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
+                >
+                  <BsBoxes className="me-2" />
+                  <span>{hudData.thirst}%</span>
+                </div>
+              </div>
+
+              <div className="flex items-center">
+                <div
+                  className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
+                  style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
+                >
+                  <BsBoxes className="me-2" />
+                  <span>${hudData.cash}</span>
+                </div>
+                <div
+                  className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
+                  style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
+                >
+                  <BsBoxes className="me-2" />
+                  <span>${hudData.bank}</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center">
-            <div
-              className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
-            >
-              <BsBoxes className="me-2" />
-              <span>${hudData.cash}</span>
-            </div>
-            <div
-              className="flex items-center  border  me-2 px-4 py-1 rounded-[20px]"
-              style={{ backgroundColor: hudBg, borderColor: hudBorderColor }}
-            >
-              <BsBoxes className="me-2" />
-              <span>${hudData.bank}</span>
+          <div style={{ height: "calc(100% - 145px)", overflowY: "auto" }}>
+            <div className="mainAreaSlot section">
+              {Array.isArray(inventory?.items) &&
+                inventory?.items?.map((item, ind) => (
+                  <InventorySlot
+                    key={`${inventory.type}-${inventory.id}-${item.slot}`}
+                    {...{
+                      item,
+                      inventory,
+                      ind,
+                      weaponExpand,
+                      setWeaponExpand,
+                      weaponItems,
+                      setWeaponItems,
+                    }}
+                  />
+                ))}
             </div>
           </div>
         </div>
-      </div>
-
-      <div style={{ height: "calc(100% - 145px)", overflowY: "auto" }}>
-        <div className="mainAreaSlot section">
-          {Array.isArray(inventory?.items) &&
-            inventory?.items?.map((item, ind) => (
-              <InventorySlot
-                key={`${inventory.type}-${inventory.id}-${item.slot}`}
-                {...{
-                  item,
-                  inventory,
-                  ind,
-                  weaponExpand,
-                  setWeaponExpand,
-                  weaponItems,
-                  setWeaponItems,
-                }}
-              />
-            ))}
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
