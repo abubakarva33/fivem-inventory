@@ -205,7 +205,7 @@ const InventorySlotComponent = ({
               },
             },
           };
-          if (source.type !== "weapon" && inventoryType !== "weapon") console.log("eita");
+          if (source.type !== "weapon" && inventoryType !== "weapon")
           UpdateDataToServer(transferSlotData);
         }
       },
@@ -505,8 +505,8 @@ const InventorySlotComponent = ({
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"
-                  width="25"
-                  height="25"
+                  width="20"
+                  height="20"
                   viewBox="0 0 200 200"
                 >
                   <image
@@ -526,8 +526,8 @@ const InventorySlotComponent = ({
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"
-                  width="25"
-                  height="25"
+                  width="20"
+                  height="20"
                   viewBox="0 0 200 200"
                   style={{ marginBottom: 3 }}
                 >
@@ -548,8 +548,8 @@ const InventorySlotComponent = ({
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"
-                  width="20"
-                  height="20"
+                  width="15"
+                  height="15"
                   viewBox="0 0 200 200"
                   style={{ cursor: "pointer", marginBottom: 5 }}
                   onClick={() => {

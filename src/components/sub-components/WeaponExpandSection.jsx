@@ -19,11 +19,11 @@ const WeaponExpandSection = ({
 
   return (
     <div
-      className={`absolute top-[-2px] ${
-        inventoryType === "playerinventory" && (ind + 1) % 6 === 0 ? "right-[-2px]" : "left-[-2px]"
+      className={`absolute top-[-1px] ${
+        inventoryType === "playerinventory" && (ind + 1) % 6 === 0 ? "right-[-1px]" : "left-[-1px]"
       }  bg-slate-600 z-50 p-2`}
       style={{
-        height: 268,
+        height: 267,
         width: 268,
         borderRadius: slotBorderRound,
         border: `1px solid ${slotBorderColor}`,
