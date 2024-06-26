@@ -57,6 +57,98 @@ export let dummyItems = {
   },
 };
 
+export let pInvDummyData = {
+  identifier: "player1",
+  type: "playerinventory",
+  label: "Abubakar Siddik",
+  maxWeight: 25000.0,
+  slots: 50,
+  weight: 10000.0,
+  items: [
+    {
+      name: "water",
+      label: "Water",
+      type: "item",
+      description: "This item will reduce your thirst",
+      weight: 800,
+      amount: 1,
+      slot: 1,
+      info: {
+        quality: 100,
+      },
+    },
+    {
+      name: "bread",
+      label: "Bread",
+      type: "item",
+      description: "This item will reduce your hunger",
+      weight: 500,
+      amount: 5,
+      slot: 2,
+      quality: 100,
+      info: {
+        quality: 100,
+      },
+    },
+    {
+      name: "backpack-s",
+      label: "Backpack Small",
+      type: "backpack",
+      description: "You can carry more items",
+      weight: 250,
+      amount: 1,
+      slot: 10,
+      info: {
+        identifier: "backpack-s:123d4",
+        type: "backpack",
+        type2: "smallBackpack",
+        quality: 100,
+      },
+    },
+    {
+      name: "backpack-l",
+      label: "Backpack Large",
+      type: "backpack",
+      description: "You can carry more items",
+      weight: 250,
+      amount: 1,
+      slot: 11,
+      info: {
+        identifier: "backpack-l:12s34",
+        type: "backpack",
+        type2: "largeBackpack",
+        quality: 100,
+      },
+    },
+    {
+      name: "bread",
+      label: "Bread",
+      type: "item",
+      description: "This item will reduce your hunger",
+      weight: 500,
+      amount: 5,
+      slot: 12,
+      quality: 100,
+      info: {
+        quality: 80,
+      },
+    },
+    {
+      name: "bread",
+      label: "Bread",
+      type: "item",
+      description: "This item will reduce your hunger",
+      weight: 500,
+      amount: 3,
+      slot: 13,
+      quality: 100,
+      info: {
+        quality: 100,
+        dummy: 20,
+      },
+    },
+  ],
+};
 export let primaryInvDummyData = {
   identifier: "player1",
   type: "playerinventory",

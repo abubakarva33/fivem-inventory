@@ -349,3 +349,6 @@ export const updateWeaponComponentToServer = (data) => {
 export const isIdentifierFound = (items, identifiers) => {
   return identifiers?.some((i) => items?.some((item) => item?.info && item.info.identifier === i));
 };
+export const isBackpackFound = (items, identifiers) => {
+  return items?.some((item) => item?.info && item.info.identifier === identifiers);
+};

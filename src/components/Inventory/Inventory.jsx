@@ -10,6 +10,7 @@ import CustomizeInventory from "../CustomizeInventory/CustomizeInventory";
 import {
   CraftItemHandler,
   buyItemHandlerWithClick,
+  isBackpackFound,
   isIdentifierFound,
   sellItemHandlerWithClick,
 } from "../../utilities/utilis";
@@ -76,10 +77,36 @@ const Inventory = () => {
       window.removeEventListener("click", keyHandler);
     };
   }, []);
+  const largeBackpackOpen = isBackpackFound(
+    state?.playerinventory?.items,
+    openBackpacks[0]?.info?.identifier
+  );
+  const smallBackpackOpen = isBackpackFound(
+    state?.playerinventory?.items,
+    openBackpacks[1]?.info?.identifier
+  );
+  const backpackToFind = openBackpacks?.map((item) => item.info.identifier);
+
+  useEffect(() => {
+    if (!largeBackpackOpen) {
+      const updatedOpenBackpacks = [...openBackpacks];
+      updatedOpenBackpacks.shift();
+      setOpenBackpacks(updatedOpenBackpacks);
+    }
+    if (!smallBackpackOpen) {
+      const updatedOpenBackpacks = [...openBackpacks];
+      updatedOpenBackpacks.pop();
+      setOpenBackpacks(updatedOpenBackpacks);
+    }
+  }, [state?.playerinventory?.items]);
+  useEffect(() => {
+    if (openBackpacks?.length && !isIdentifierFound(state.playerinventory?.items, backpackToFind)) {
+      setOpenBackpacks([]);
+    }
+  }, [state?.playerinventory?.items]);
 
   const openBackpackHandler = (backpackData, action) => {
     dispatch(closeContextMenu());
-
     setOpenBackpacks((prevOpenBackpacks) => {
       const name = backpackData?.name;
       let updatedBackpacks = [...prevOpenBackpacks];
@@ -156,7 +183,6 @@ const Inventory = () => {
       .catch((e) => {});
     dispatch(closeContextMenu());
   };
-  const backpackToFind = openBackpacks?.map((item) => item.info.identifier);
 
   return (
     <div className="mainSection relative">
