@@ -89,16 +89,29 @@ const Inventory = () => {
 
   useEffect(() => {
     if (!largeBackpackOpen) {
+      if (openBackpacks[0]) {
+        fetchNui("closeBackpack", openBackpacks[0].info)
+        .then((retData) => {})
+        .catch((e) => {});
+      }
+
       const updatedOpenBackpacks = [...openBackpacks];
       updatedOpenBackpacks.shift();
       setOpenBackpacks(updatedOpenBackpacks);
     }
     if (!smallBackpackOpen) {
+      if (openBackpacks[1]) {
+        fetchNui("closeBackpack", openBackpacks[1].info)
+          .then((retData) => {})
+          .catch((e) => {});
+        }
+
       const updatedOpenBackpacks = [...openBackpacks];
       updatedOpenBackpacks.pop();
       setOpenBackpacks(updatedOpenBackpacks);
     }
   }, [state?.playerinventory?.items]);
+  
   useEffect(() => {
     if (openBackpacks?.length && !isIdentifierFound(state.playerinventory?.items, backpackToFind)) {
       setOpenBackpacks([]);
