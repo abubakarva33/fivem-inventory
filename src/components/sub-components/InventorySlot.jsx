@@ -413,11 +413,15 @@ const InventorySlotComponent = ({
         border: `$1px dashed ${isOver ? { slotBorderColor } : "transparent"}`,
         borderRadius: slotBorderRound,
         gridColumn:
-          weaponExpand && weaponItems?.ind === ind && item?.type === "weapon" && (ind + 1) % 6 !== 0
+          weaponExpand && weaponItems?.ind === ind && item?.type === "weapon" && (ind + 1) % 6 === 0
+            ? "5 / span 2"
+            : weaponExpand && weaponItems?.ind === ind && item?.type === "weapon"
             ? "span 2"
             : "",
         gridRow:
-          weaponExpand && weaponItems?.ind === ind && item?.type === "weapon" && (ind + 1) % 6 !== 0
+          weaponExpand && weaponItems?.ind === ind && item?.type === "weapon" && (ind + 1) % 6 === 0
+            ? Math.ceil((ind + 1) / 6)
+            : weaponExpand && weaponItems?.ind === ind && item?.type === "weapon"
             ? "span 2"
             : "",
       }}
