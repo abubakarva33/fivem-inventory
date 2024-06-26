@@ -13,7 +13,7 @@ const WeaponExpandSection = ({
   weaponExpand,
 }) => {
   const state = useSelector((state) => state.inventory);
-  const { slotBorderColor, slotBorderRound, slotBg, textColor } = useSelector(
+  const { slotBorderColor, slotBorderRound, slotBg, textColor, tooltipBg } = useSelector(
     (state) => state.customizeSec
   );
 
@@ -27,6 +27,7 @@ const WeaponExpandSection = ({
         width: 268,
         borderRadius: slotBorderRound,
         border: `1px solid ${slotBorderColor}`,
+        backgroundColor: tooltipBg,
       }}
     >
       <div className="flex">
