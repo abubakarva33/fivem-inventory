@@ -77,6 +77,8 @@ const Inventory = () => {
   }, []);
 
   const openBackpackHandler = (backpackData, action) => {
+    dispatch(closeContextMenu());
+    
     setOpenBackpacks((prevOpenBackpacks) => {
       const name = backpackData?.name;
       let updatedBackpacks = [...prevOpenBackpacks];
@@ -119,9 +121,6 @@ const Inventory = () => {
         .then((retData) => {})
         .catch((e) => {});
       updatedBackpacks.push(backpackData);
-
-      dispatch(closeContextMenu());
-
       return updatedBackpacks;
     });
   };
@@ -132,7 +131,6 @@ const Inventory = () => {
       dispatch(handleSelectedItems(value));
     }
   };
-
   const dropHandler = (item) => {
     fetchNui("drop", item)
       .then((retData) => {})
