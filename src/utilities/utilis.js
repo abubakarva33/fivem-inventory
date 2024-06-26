@@ -345,3 +345,7 @@ export const updateWeaponComponentToServer = (data) => {
     .then((retData) => {})
     .catch((e) => {});
 };
+
+export const isIdentifierFound = (items, identifiers) => {
+  return identifiers?.some((i) => items?.some((item) => item?.info && item.info.identifier === i));
+};

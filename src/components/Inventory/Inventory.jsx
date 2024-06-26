@@ -10,6 +10,7 @@ import CustomizeInventory from "../CustomizeInventory/CustomizeInventory";
 import {
   CraftItemHandler,
   buyItemHandlerWithClick,
+  isIdentifierFound,
   sellItemHandlerWithClick,
 } from "../../utilities/utilis";
 import Tooltip from "../sub-components/Tooltip";
@@ -78,7 +79,7 @@ const Inventory = () => {
 
   const openBackpackHandler = (backpackData, action) => {
     dispatch(closeContextMenu());
-    
+
     setOpenBackpacks((prevOpenBackpacks) => {
       const name = backpackData?.name;
       let updatedBackpacks = [...prevOpenBackpacks];
@@ -155,16 +156,21 @@ const Inventory = () => {
       .catch((e) => {});
     dispatch(closeContextMenu());
   };
+  const backpackToFind = openBackpacks?.map((item) => item.info.identifier);
 
   return (
     <div className="mainSection relative">
       <div className="inventory">
-        {openBackpacks?.length != 0 && <BackpackSection openBackpacks={openBackpacks} />}
+        {openBackpacks?.length != 0 &&
+          isIdentifierFound(state.playerinventory?.items, backpackToFind) && (
+            <BackpackSection openBackpacks={openBackpacks} />
+          )}
 
         <MainAreaSection
           inventory={state.playerinventory}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
+          openBackpacks={openBackpacks}
         />
 
         {secondaryBackpacks?.length && !isModalOpen && (

@@ -6,11 +6,10 @@ import { useEffect, useState } from "react";
 import { calculateRGBRev } from "../../utilities/utilis";
 import { setupInventory } from "../../redux/inventorySlice";
 
-const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
+const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen, openBackpacks }) => {
   const { boxBg, boxBorderColor, boxBorderRound, slotBg, textColor, hudBg, hudBorderColor } =
     useSelector((state) => state.customizeSec);
   const dispatch = useDispatch();
-
   const [weaponExpand, setWeaponExpand] = useState(false);
   const [weaponItems, setWeaponItems] = useState(null);
 
@@ -171,6 +170,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen }) => {
                       setWeaponExpand,
                       weaponItems,
                       setWeaponItems,
+                      openBackpacks
                     }}
                   />
                 ))}
