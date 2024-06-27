@@ -110,7 +110,7 @@ const Inventory = () => {
       updatedOpenBackpacks.pop();
       setOpenBackpacks(updatedOpenBackpacks);
     }
-  }, [state?.playerinventory?.items]);
+  }, []);
 
   useEffect(() => {
     if (
@@ -277,26 +277,27 @@ const Inventory = () => {
                 </button>
               )}
 
-            {inventory?.item?.name?.includes("backpack") && (
-              <button
-                className=" rightBtn border py-1 border-b-0"
-                style={{ borderColor: tooltipBorderColor }}
-                onClick={() =>
-                  openBackpackHandler(
-                    inventory?.item,
-                    openBackpacks.some(
-                      (backpack) => backpack.info?.identifier === inventory?.item.info?.identifier
+            {inventory?.item?.name?.includes("backpack") &&
+              inventory?.type === "playerinventory" && (
+                <button
+                  className=" rightBtn border py-1 border-b-0"
+                  style={{ borderColor: tooltipBorderColor }}
+                  onClick={() =>
+                    openBackpackHandler(
+                      inventory?.item,
+                      openBackpacks.some(
+                        (backpack) => backpack.info?.identifier === inventory?.item.info?.identifier
+                      )
                     )
+                  }
+                >
+                  {openBackpacks.some(
+                    (backpack) => backpack.info?.identifier === inventory?.item.info?.identifier
                   )
-                }
-              >
-                {openBackpacks.some(
-                  (backpack) => backpack.info?.identifier === inventory?.item.info?.identifier
-                )
-                  ? "Close"
-                  : "Open"}
-              </button>
-            )}
+                    ? "Close"
+                    : "Open"}
+                </button>
+              )}
             {inventory?.type === "shop" && inventory?.item?.info?.buyPrice && (
               <button
                 className=" rightBtn border py-1"
