@@ -88,32 +88,36 @@ const Inventory = () => {
   const backpackToFind = openBackpacks?.map((item) => item.info.identifier);
 
   useEffect(() => {
-    if (!largeBackpackOpen) {
+    if (state?.playerinventory && !largeBackpackOpen) {
       if (openBackpacks[0]) {
         fetchNui("closeBackpack", openBackpacks[0].info)
-        .then((retData) => {})
-        .catch((e) => {});
+          .then((retData) => {})
+          .catch((e) => {});
       }
 
       const updatedOpenBackpacks = [...openBackpacks];
       updatedOpenBackpacks.shift();
       setOpenBackpacks(updatedOpenBackpacks);
     }
-    if (!smallBackpackOpen) {
+    if (state?.playerinventory && !smallBackpackOpen) {
       if (openBackpacks[1]) {
         fetchNui("closeBackpack", openBackpacks[1].info)
           .then((retData) => {})
           .catch((e) => {});
-        }
+      }
 
       const updatedOpenBackpacks = [...openBackpacks];
       updatedOpenBackpacks.pop();
       setOpenBackpacks(updatedOpenBackpacks);
     }
   }, [state?.playerinventory?.items]);
-  
+
   useEffect(() => {
-    if (openBackpacks?.length && !isIdentifierFound(state.playerinventory?.items, backpackToFind)) {
+    if (
+      state?.playerinventory &&
+      openBackpacks?.length &&
+      !isIdentifierFound(state.playerinventory?.items, backpackToFind)
+    ) {
       setOpenBackpacks([]);
     }
   }, [state?.playerinventory?.items]);
@@ -200,10 +204,7 @@ const Inventory = () => {
   return (
     <div className="mainSection relative">
       <div className="inventory">
-        {openBackpacks?.length != 0 &&
-          isIdentifierFound(state.playerinventory?.items, backpackToFind) && (
-            <BackpackSection openBackpacks={openBackpacks} />
-          )}
+        {openBackpacks?.length != 0 && <BackpackSection openBackpacks={openBackpacks} />}
 
         <MainAreaSection
           inventory={state.playerinventory}
