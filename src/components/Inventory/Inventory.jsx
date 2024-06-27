@@ -12,6 +12,7 @@ import {
   buyItemHandlerWithClick,
   isBackpackFound,
   isIdentifierFound,
+  isItemsFound,
   sellItemHandlerWithClick,
 } from "../../utilities/utilis";
 import Tooltip from "../sub-components/Tooltip";
@@ -86,9 +87,16 @@ const Inventory = () => {
     openBackpacks[1]?.info?.identifier
   );
   const backpackToFind = openBackpacks?.map((item) => item.info.identifier);
+  const otherItems = state?.playerinventory?.items
+    ?.filter((item) => item?.type !== "backpack")
+    ?.map((item) => item?.type);
 
   useEffect(() => {
-    if (state?.playerinventory && !largeBackpackOpen) {
+    if (
+      state?.playerinventory &&
+      isItemsFound(state?.playerinventory?.items, otherItems) &&
+      !largeBackpackOpen
+    ) {
       if (openBackpacks[0]) {
         fetchNui("closeBackpack", openBackpacks[0].info)
           .then((retData) => {})
@@ -99,7 +107,11 @@ const Inventory = () => {
       updatedOpenBackpacks.shift();
       setOpenBackpacks(updatedOpenBackpacks);
     }
-    if (state?.playerinventory && !smallBackpackOpen) {
+    if (
+      state?.playerinventory &&
+      isItemsFound(state?.playerinventory?.items, otherItems) &&
+      !smallBackpackOpen
+    ) {
       if (openBackpacks[1]) {
         fetchNui("closeBackpack", openBackpacks[1].info)
           .then((retData) => {})
@@ -110,7 +122,7 @@ const Inventory = () => {
       updatedOpenBackpacks.pop();
       setOpenBackpacks(updatedOpenBackpacks);
     }
-  }, []);
+  }, [state?.playerinventory?.items]);
 
   useEffect(() => {
     if (
