@@ -149,9 +149,9 @@ const InventorySlotComponent = ({
             identifier: source.identifier,
             fromSlot: source.item.slot,
             fromSlotData,
-            fromInvWeight: state[type].weight,
+            fromInvWeight: state[inventoryType]?.weight,
             toSlot: targetInventory.item.slot,
-            toInvWeight: state[type].weight,
+            toInvWeight: state[inventoryType]?.weight,
             toSlotData: {
               ...source.item,
               slot: targetInventory.item.slot,
@@ -206,7 +206,7 @@ const InventorySlotComponent = ({
             },
           };
           if (source.type !== "weapon" && inventoryType !== "weapon")
-          UpdateDataToServer(transferSlotData);
+            UpdateDataToServer(transferSlotData);
         }
       },
       canDrop: (source) => {
