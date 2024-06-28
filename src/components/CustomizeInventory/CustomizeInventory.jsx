@@ -19,6 +19,12 @@ const CustomizeInventory = () => {
     hudBorderColor,
     tooltipBg,
     tooltipBorderColor,
+    healthColor,
+    armorColor,
+    hungerColor,
+    thirstColor,
+    cashColor,
+    bankColor,
   } = useSelector((state) => state.customizeSec);
   const handleBorderRadiusChange = (property) => (newColor) => {
     dispatch(customizeInventory({ [property]: newColor }));
@@ -103,7 +109,6 @@ const CustomizeInventory = () => {
             title={"INVENTORY BORDER"}
             allowAlpha={true}
           />
-
           <div className="colorPickerSection">
             <div
               className="text-center text-[16px] py-1 mb-3"
@@ -159,7 +164,45 @@ const CustomizeInventory = () => {
               />
             </ConfigProvider>
           </div>
+          healthColor, armorColor, hungerColor, thirstColor, cashColor, bankColor,
+          <ColorPickerSection
+            type={"healthColor"}
+            color={healthColor}
+            title={"HEALTH COLOR"}
+            allowAlpha={false}
+          />
+          <ColorPickerSection
+            type={"armorColor"}
+            color={armorColor}
+            title={"ARMOR COLOR"}
+            allowAlpha={false}
+          />
+          <ColorPickerSection
+            type={"hungerColor"}
+            color={hungerColor}
+            title={"HUNGER COLOR"}
+            allowAlpha={false}
+          />
+          <ColorPickerSection
+            type={"thirstColor"}
+            color={thirstColor}
+            title={"THIRST COLOR"}
+            allowAlpha={false}
+          />
+          <ColorPickerSection
+            type={"cashColor"}
+            color={cashColor}
+            title={"CASH COLOR"}
+            allowAlpha={false}
+          />
+          <ColorPickerSection
+            type={"bankColor"}
+            color={bankColor}
+            title={"BANK COLOR"}
+            allowAlpha={false}
+          />
         </div>
+
         <button
           className="py-2 flex items-center w-full justify-center h-10 mt-3 rounded-xl mb-1 text-[18px]"
           style={{

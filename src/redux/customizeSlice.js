@@ -13,6 +13,12 @@ const initialState = {
   hudBorderColor: "#00000080",
   tooltipBg: "#212121",
   tooltipBorderColor: "#cccccc",
+  healthColor: "#FF0000",
+  armorColor: "#0000FF",
+  hungerColor: "#FFA500",
+  thirstColor: " #1CA9C9",
+  cashColor: "#FFFFFF",
+  bankColor: "#FFFFFF",
 };
 
 export const customizeSlice = createSlice({
@@ -35,6 +41,12 @@ export const customizeSlice = createSlice({
       state.hudBorderColor = "#00000080";
       state.tooltipBg = "#212121";
       state.tooltipBorderColor = "#cccccc";
+      state.healthColor = "#FF0000";
+      state.armorColor = "#0000FF";
+      state.hungerColor = "#FFA500";
+      state.thirstColor = " #1CA9C9";
+      state.cashColor = "#FFFFFF";
+      state.bankColor = "#FFFFFF";
     },
   },
 });
