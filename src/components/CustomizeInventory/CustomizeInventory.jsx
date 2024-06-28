@@ -164,7 +164,6 @@ const CustomizeInventory = () => {
               />
             </ConfigProvider>
           </div>
-          healthColor, armorColor, hungerColor, thirstColor, cashColor, bankColor,
           <ColorPickerSection
             type={"healthColor"}
             color={healthColor}
