@@ -2,6 +2,7 @@ import { HexAlphaColorPicker, HexColorInput, HexColorPicker } from "react-colorf
 import { useDispatch, useSelector } from "react-redux";
 import { customizeInventory } from "../../redux/customizeSlice";
 import { useState } from "react";
+import { MdExpandLess, MdExpandMore } from "react-icons/md";
 
 const ColorPickerSection = ({ children, type, color, title, allowAlpha }) => {
   const dispatch = useDispatch();
@@ -11,17 +12,22 @@ const ColorPickerSection = ({ children, type, color, title, allowAlpha }) => {
   };
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="colorPickerSection">
+    <div className="colorPickerSection" style={{ width: 230 }}>
       <div
-        className="text-center text-[16px] py-1 mb-3"
+        className=" flex items-center justify-between px-2 text-[16px] py-1 mb-3"
         style={{ backgroundColor: btnColor, color: textColor }}
         onClick={() => setIsOpen(!isOpen)}
       >
         {title}
+        {isOpen ? (
+          <MdExpandLess className="text-[25px] ms-[-5px]" />
+        ) : (
+          <MdExpandMore className="text-[25px] ms-[-5px]" />
+        )}
       </div>
 
       {isOpen && (
-        <div>
+        <div className="mb-3">
           {allowAlpha ? (
             <HexAlphaColorPicker color={color} onChange={handleColorChange(type)} />
           ) : (
