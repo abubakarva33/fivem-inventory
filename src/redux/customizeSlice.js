@@ -13,12 +13,12 @@ const initialState = {
   hudBorderColor: "#00000080",
   tooltipBg: "#212121",
   tooltipBorderColor: "#cccccc",
-  healthColor: "#FF0000",
-  armorColor: "#0000FF",
-  hungerColor: "#FFA500",
-  thirstColor: " #1CA9C9",
-  cashColor: "#FFFFFF",
-  bankColor: "#FFFFFF",
+  healthColor: "#ff00007a",
+  armorColor: "#3690ff7a",
+  hungerColor: "#FFA5007a",
+  thirstColor: " #1CA9C97a",
+  cashColor: "#FFFFFF7a",
+  bankColor: "#FFFFFF7a",
 };
 
 export const customizeSlice = createSlice({

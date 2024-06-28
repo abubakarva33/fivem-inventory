@@ -65,7 +65,7 @@ const CustomizeInventory = () => {
       type: "thirstColor",
       color: thirstColor,
       title: "THIRST COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
     {
       type: "cashColor",
@@ -116,19 +116,19 @@ const CustomizeInventory = () => {
       type: "healthColor",
       color: healthColor,
       title: "HEALTH COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
     {
       type: "armorColor",
       color: armorColor,
       title: "ARMOR COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
     {
       type: "hungerColor",
       color: hungerColor,
       title: "HUNGER COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
   ];
 

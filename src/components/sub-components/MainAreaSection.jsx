@@ -127,7 +127,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen, openBackpacks
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
-                    style={{ height: 28, marginRight: 8 }}
+                    style={{ height: 25, marginRight: 8 }}
                   >
                     <path
                       fill={healthColor}
@@ -143,7 +143,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen, openBackpacks
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
-                    style={{ height: 28, marginRight: 8 }}
+                    style={{ height: 25, marginRight: 8 }}
                   >
                     <path
                       fill={armorColor}
@@ -160,7 +160,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen, openBackpacks
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
-                    style={{ height: 28, marginRight: 8 }}
+                    style={{ height: 25, marginRight: 8 }}
                   >
                     <path
                       fill={hungerColor}
@@ -177,7 +177,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen, openBackpacks
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 384 512"
-                    style={{ height: 28, marginRight: 8 }}
+                    style={{ height: 25, marginRight: 8 }}
                   >
                     <path
                       fill={thirstColor}
@@ -197,7 +197,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen, openBackpacks
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
-                    style={{ height: 28, marginRight: 8 }}
+                    style={{ height: 22, marginRight: 8 }}
                   >
                     <path
                       fill={cashColor}
@@ -213,7 +213,7 @@ const MainAreaSection = ({ inventory, isModalOpen, setIsModalOpen, openBackpacks
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
-                    style={{ height: 28, marginRight: 8 }}
+                    style={{ height: 22, marginRight: 8 }}
                   >
                     <path
                       fill={bankColor}
