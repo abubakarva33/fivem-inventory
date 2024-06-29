@@ -71,13 +71,13 @@ const CustomizeInventory = () => {
       type: "cashColor",
       color: cashColor,
       title: "CASH COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
     {
       type: "bankColor",
       color: bankColor,
       title: "BANK COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
   ];
 
