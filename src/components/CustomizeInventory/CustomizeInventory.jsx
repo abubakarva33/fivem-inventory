@@ -65,19 +65,19 @@ const CustomizeInventory = () => {
       type: "thirstColor",
       color: thirstColor,
       title: "THIRST COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
     {
       type: "cashColor",
       color: cashColor,
       title: "CASH COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
     {
       type: "bankColor",
       color: bankColor,
       title: "BANK COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
   ];
 
@@ -116,19 +116,19 @@ const CustomizeInventory = () => {
       type: "healthColor",
       color: healthColor,
       title: "HEALTH COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
     {
       type: "armorColor",
       color: armorColor,
       title: "ARMOR COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
     {
       type: "hungerColor",
       color: hungerColor,
       title: "HUNGER COLOR",
-      allowAlpha: false,
+      allowAlpha: true,
     },
   ];
 
