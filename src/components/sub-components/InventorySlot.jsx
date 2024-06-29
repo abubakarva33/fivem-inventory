@@ -481,7 +481,7 @@ const InventorySlotComponent = ({
               item?.info?.quality &&
               inventoryType != "shop" &&
               inventoryType != "crafting" && (
-                <div className="slotQuality w-full mt-[-15px]">
+                <div className={`slotQuality w-full`}>
                   <Progress
                     percent={item?.info?.quality}
                     showInfo={false}
@@ -589,7 +589,12 @@ const InventorySlotComponent = ({
             {item?.label && (
               <div
                 className="slotItemLabel border-t mt-[-6px]  w-full text-center"
-                style={{ borderColor: slotBorderColor, backgroundColor: slotTextBg, borderBottomLeftRadius: slotBorderRound, borderBottomRightRadius: slotBorderRound }}
+                style={{
+                  borderColor: slotBorderColor,
+                  backgroundColor: slotTextBg,
+                  borderBottomLeftRadius: slotBorderRound,
+                  borderBottomRightRadius: slotBorderRound,
+                }}
               >
                 <span className="uppercase">{item?.label}</span>
               </div>
