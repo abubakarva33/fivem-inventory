@@ -9,8 +9,9 @@ export const inventorySlice = createSlice({
   reducers: {
     setupInventory: (state, { payload }) => {
       const { item, type } = payload;
-      const excludedTypes = Object.keys(state).filter((i) => !includedTypes.includes(i));
-
+      const excludedTypes = Object.keys(state).filter(
+        (i) => ![...includedTypes, "drop"].includes(i)
+      );
       if (type === "drop") {
         if (!item) {
           delete state?.drop;
