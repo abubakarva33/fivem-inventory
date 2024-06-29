@@ -3,10 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   boxBg: "#00000040",
   boxBorderColor: "#000000",
-  boxBorderRound: 10,
+  boxBorderRound: 4,
   slotBg: "#00000080",
+  slotTextBg: "#1a3550",
   slotBorderColor: "#000000",
-  slotBorderRound: 10,
+  slotBorderRound: 4,
   textColor: "#cccccc",
   btnColor: "#000000b3",
   hudBg: "#00000080",
@@ -31,10 +32,11 @@ export const customizeSlice = createSlice({
     restoreToDefault: (state) => {
       state.boxBg = "#00000040";
       state.boxBorderColor = "#000000";
-      state.boxBorderRound = 10;
+      state.boxBorderRound = 4;
       state.slotBg = "#00000080";
+      state.slotTextBg = "#1a3550";
       state.slotBorderColor = "#000000";
-      state.slotBorderRound = 10;
+      state.slotBorderRound = 4;
       state.textColor = "#cccccc";
       state.btnColor = "#000000b3";
       state.hudBg = "#00000080";

@@ -13,7 +13,7 @@ const WeaponExpandSection = ({
   weaponExpand,
 }) => {
   const state = useSelector((state) => state.inventory);
-  const { slotBorderColor, slotBorderRound, slotBg, textColor, tooltipBg } = useSelector(
+  const { slotBorderColor, slotTextBg, slotBorderRound, slotBg, textColor, tooltipBg } = useSelector(
     (state) => state.customizeSec
   );
 
@@ -80,7 +80,7 @@ const WeaponExpandSection = ({
             {item?.label && (
               <div
                 className="slotItemLabel border-t text-[18px]  w-full text-center"
-                style={{ borderColor: slotBorderColor }}
+                style={{ borderColor: slotBorderColor, backgroundColor: slotTextBg, borderBottomLeftRadius: slotBorderRound, borderBottomRightRadius: slotBorderRound }}
               >
                 <span className="uppercase">{item?.label}</span>
               </div>

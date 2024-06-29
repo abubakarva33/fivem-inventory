@@ -16,7 +16,7 @@ const CraftInventorySlot = ({ item, inventory }) => {
   const inventoryType = type === "backpack" ? type2 : type;
   const dispatch = useDispatch();
   const [isRightButtonClick, setIsRightButtonClick] = useState(null);
-  const { slotBg, slotBorderColor, slotBorderRound, textColor } = useSelector(
+  const { slotBg, slotTextBg, slotBorderColor, slotBorderRound, textColor } = useSelector(
     (state) => state.customizeSec
   );
   const [deg, setDeg] = useState(0);
@@ -145,7 +145,7 @@ const CraftInventorySlot = ({ item, inventory }) => {
             {item?.label && (
               <div
                 className="slotItemLabel border-t mt-[-6px]  w-full text-center"
-                style={{ borderColor: slotBorderColor }}
+                style={{ borderColor: slotBorderColor, backgroundColor: slotTextBg, borderBottomLeftRadius: slotBorderRound, borderBottomRightRadius: slotBorderRound }}
               >
                 <span className="uppercase">{item?.label}</span>
               </div>

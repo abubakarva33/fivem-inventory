@@ -12,6 +12,7 @@ const CustomizeInventory = () => {
     boxBorderRound,
     slotBorderRound,
     slotBg,
+    slotTextBg,
     slotBorderColor,
     textColor,
     btnColor,
@@ -86,6 +87,12 @@ const CustomizeInventory = () => {
       type: "slotBg",
       color: slotBg,
       title: "SLOT BACKGROUND",
+      allowAlpha: true,
+    },
+    {
+      type: "slotTextBg",
+      color: slotTextBg,
+      title: "SLOT TEXT BACKGROUND",
       allowAlpha: true,
     },
     {
@@ -183,7 +190,7 @@ const CustomizeInventory = () => {
                 <Slider
                   defaultValue={slotBorderRound}
                   className="w-full"
-                  max={50}
+                  max={20}
                   onChange={handleBorderRadiusChange("slotBorderRound")}
                 />
               </ConfigProvider>
@@ -221,7 +228,7 @@ const CustomizeInventory = () => {
               >
                 <Slider
                   defaultValue={boxBorderRound}
-                  max={50}
+                  max={20}
                   className="w-full"
                   onChange={handleBorderRadiusChange("boxBorderRound")}
                 />

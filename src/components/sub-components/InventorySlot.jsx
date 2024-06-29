@@ -34,7 +34,7 @@ const InventorySlotComponent = ({
 }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
-  const { slotBg, slotBorderColor, slotBorderRound, textColor, hudBg } = useSelector(
+  const { slotBg, slotTextBg, slotBorderColor, slotBorderRound, textColor, hudBg } = useSelector(
     (state) => state.customizeSec
   );
   const { selectedItems } = useSelector((state) => state.context);
@@ -589,7 +589,7 @@ const InventorySlotComponent = ({
             {item?.label && (
               <div
                 className="slotItemLabel border-t mt-[-6px]  w-full text-center"
-                style={{ borderColor: slotBorderColor }}
+                style={{ borderColor: slotBorderColor, backgroundColor: slotTextBg, borderBottomLeftRadius: slotBorderRound, borderBottomRightRadius: slotBorderRound }}
               >
                 <span className="uppercase">{item?.label}</span>
               </div>
