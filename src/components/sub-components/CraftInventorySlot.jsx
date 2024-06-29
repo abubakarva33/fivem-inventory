@@ -147,7 +147,7 @@ const CraftInventorySlot = ({ item, inventory }) => {
                 className="slotItemLabel border-t mt-[-6px]  w-full text-center"
                 style={{ borderColor: slotBorderColor }}
               >
-                <span>{item?.label}</span>
+                <span className="uppercase">{item?.label}</span>
               </div>
             )}
           </div>
