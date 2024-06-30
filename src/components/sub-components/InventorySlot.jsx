@@ -36,7 +36,7 @@ const InventorySlotComponent = ({
 }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
-  const { slotBg, slotTextBg, slotBorderColor, slotBorderRound, textColor, hudBg } = useSelector(
+  const { slotBg, slotTextBg, slotBorderColor, slotLightColor, slotBorderRound, textColor, hudBg } = useSelector(
     (state) => state.customizeSec
   );
   const { selectedItems } = useSelector((state) => state.context);
@@ -47,14 +47,14 @@ const InventorySlotComponent = ({
   const isBackpackOpen = openBackpacks?.some((x) => x.info.identifier === item?.info?.identifier);
 
   const glowStyle = {
-    background: `radial-gradient(circle, ${textColor} 0%, ${textColor}00 80%)`,
-    boxShadow: `0 0 50px 20px ${textColor}70`,
+    background: `radial-gradient(circle, ${slotLightColor.substring(0, 7)} 0%, ${slotLightColor.substring(0, 7)}00 80%)`,
+    boxShadow: `0 0 50px 20px ${slotLightColor.substring(0, 7)}70`,
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    opacity: 0.2,
+    opacity: slotLightColor.length == 9 ? (parseInt(slotLightColor.substring(7), 16) / 255).toFixed(1) : 1.0
   };
 
   const handleMouseEnter = () => {
@@ -514,7 +514,7 @@ const InventorySlotComponent = ({
             )}
 
             {inventoryType === "playerinventory" && item?.type === "backpack" && isBackpackOpen && (
-              <div className={`absolute bottom-7 right-[6px] z-40`}>
+              <div className={`absolute cursor-pointer bottom-7 right-[6px] z-40`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -548,7 +548,7 @@ const InventorySlotComponent = ({
             {inventoryType === "playerinventory" &&
               item?.type === "backpack" &&
               !isBackpackOpen && (
-                <div className={`absolute bottom-7 right-[6px] z-40`}>
+                <div className={`absolute cursor-pointer bottom-7 right-[6px] z-40`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"

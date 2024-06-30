@@ -14,6 +14,7 @@ const CustomizeInventory = () => {
     slotBg,
     slotTextBg,
     slotBorderColor,
+    slotLightColor,
     textColor,
     btnColor,
     tooltipBg,
@@ -32,6 +33,12 @@ const CustomizeInventory = () => {
   };
 
   const customizeData2 = [
+    {
+      type: "slotLightColor",
+      color: slotLightColor,
+      title: "SLOT BACKGROUND LIGHT",
+      allowAlpha: true,
+    },
     {
       type: "boxBg",
       color: boxBg,
