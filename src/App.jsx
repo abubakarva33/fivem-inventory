@@ -47,13 +47,6 @@ function App() {
   }, [primaryInv]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setSecondaryInv(null);
-      setDropInv(null);
-    }, 5000);
-  }, [primaryInv]);
-
-  useEffect(() => {
     if (secondaryInv?.type === "playerinventory") {
       dispatch(
         setupInventory({
