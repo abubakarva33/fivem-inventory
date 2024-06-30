@@ -46,6 +46,16 @@ const InventorySlotComponent = ({
   const timerRef = useRef(null);
   const isBackpackOpen = openBackpacks?.some((x) => x.info.identifier === item?.info?.identifier);
 
+  const glowStyle = {
+    background: `radial-gradient(circle, ${textColor} 0%, ${textColor}00 50%)`,
+    boxShadow: `0 0 50px 20px ${textColor}70`,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  };
+
   const handleMouseEnter = () => {
     timerRef.current = window.setTimeout(() => {
       dispatch(openTooltip({ item, inventoryType }));
@@ -477,7 +487,7 @@ const InventorySlotComponent = ({
             <img
               src={`./images/${item?.name}.png`}
               alt=""
-              className="img-fluid slotImg mb-[12px]"
+              className="img-fluid slotImg mb-[12px] z-20"
             />
             {item?.info?.quality != 0 &&
               item?.info?.quality &&
@@ -623,6 +633,8 @@ const InventorySlotComponent = ({
                 <span className="uppercase">{item?.label}</span>
               </div>
             )}
+
+            <div style={glowStyle}></div>
           </div>
         </div>
       )}
