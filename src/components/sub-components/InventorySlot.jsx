@@ -510,6 +510,7 @@ const InventorySlotComponent = ({
                   width="20"
                   height="20"
                   viewBox="0 0 200 200"
+                  cursor="pointer"
                   onClick={() =>
                     openBackpackHandler(
                       item,
@@ -544,6 +545,7 @@ const InventorySlotComponent = ({
                     height="20"
                     viewBox="0 0 200 200"
                     style={{ marginBottom: 3 }}
+                    cursor="pointer"
                     onClick={() =>
                       openBackpackHandler(
                         item,
