@@ -179,7 +179,7 @@ const Inventory = () => {
           setOpenBackpacks={setOpenBackpacks}
         />
 
-        {secondaryBackpacks?.length && !isModalOpen && (
+        {secondaryBackpacks?.length > 0 && secondaryBackpacks?.length && !isModalOpen && (
           <SecondaryArea secondaryBackpacks={secondaryBackpacks} />
         )}
         {isModalOpen && <CustomizeInventory />}
