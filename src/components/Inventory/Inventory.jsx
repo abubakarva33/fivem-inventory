@@ -13,6 +13,7 @@ import {
   isBackpackFound,
   isIdentifierFound,
   isItemsFound,
+  openBackpackHandler,
   sellItemHandlerWithClick,
 } from "../../utilities/utilis";
 import Tooltip from "../sub-components/Tooltip";
@@ -134,54 +135,6 @@ const Inventory = () => {
     }
   }, [state?.playerinventory?.items]);
 
-  const openBackpackHandler = (backpackData, action) => {
-    dispatch(closeContextMenu());
-    setOpenBackpacks((prevOpenBackpacks) => {
-      const name = backpackData?.name;
-      let updatedBackpacks = [...prevOpenBackpacks];
-
-      const existingBackpackIndex = updatedBackpacks.findIndex(
-        (backpack) => backpack.info.type2 === backpackData.info.type2
-      );
-
-      // Handle closing the backpack
-      if (action) {
-        if (existingBackpackIndex !== -1) {
-          const backpackToClose = updatedBackpacks[existingBackpackIndex];
-          fetchNui("closeBackpack", backpackToClose.info)
-            .then((retData) => {})
-            .catch((e) => {});
-          updatedBackpacks.splice(existingBackpackIndex, 1); // Remove the existing backpack
-        }
-        return updatedBackpacks;
-      }
-
-      // Handle opening the backpack
-      if (existingBackpackIndex !== -1) {
-        const backpackToClose = updatedBackpacks[existingBackpackIndex];
-        fetchNui("closeBackpack", backpackToClose.info)
-          .then((retData) => {})
-          .catch((e) => {});
-        updatedBackpacks.splice(existingBackpackIndex, 1); // Remove the existing backpack
-      }
-
-      // If the array has reached the limit of 2 items, remove the oldest one
-      if (updatedBackpacks.length >= 2) {
-        const backpackToClose = updatedBackpacks.shift();
-        fetchNui("closeBackpack", backpackToClose.info)
-          .then((retData) => {})
-          .catch((e) => {});
-      }
-
-      // Open the new backpack
-      fetchNui("openBackpack", backpackData.info)
-        .then((retData) => {})
-        .catch((e) => {});
-      updatedBackpacks.push(backpackData);
-      return updatedBackpacks;
-    });
-  };
-
   const handleAmountChange = (e) => {
     const value = Number(e.target.value);
     if (value >= 0 && value <= maxAmount) {
@@ -223,6 +176,7 @@ const Inventory = () => {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           openBackpacks={openBackpacks}
+          setOpenBackpacks={setOpenBackpacks}
         />
 
         {secondaryBackpacks?.length && !isModalOpen && (
@@ -299,7 +253,9 @@ const Inventory = () => {
                       inventory?.item,
                       openBackpacks.some(
                         (backpack) => backpack.info?.identifier === inventory?.item.info?.identifier
-                      )
+                      ),
+                      dispatch,
+                      setOpenBackpacks
                     )
                   }
                 >

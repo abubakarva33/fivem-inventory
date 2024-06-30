@@ -11,6 +11,7 @@ import {
   gramsToKilograms,
   isIncludedType,
   isObjMatched,
+  openBackpackHandler,
   removeWeaponComponentToServer,
   sellItemHandlerWithDnd,
   updateWeaponComponentToServer,
@@ -31,6 +32,7 @@ const InventorySlotComponent = ({
   weaponItems,
   setWeaponItems,
   openBackpacks,
+  setOpenBackpacks,
 }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inventory);
@@ -508,6 +510,16 @@ const InventorySlotComponent = ({
                   width="20"
                   height="20"
                   viewBox="0 0 200 200"
+                  onClick={() =>
+                    openBackpackHandler(
+                      item,
+                      openBackpacks.some(
+                        (backpack) => backpack.info?.identifier === item.info?.identifier
+                      ),
+                      dispatch,
+                      setOpenBackpacks
+                    )
+                  }
                 >
                   <image
                     id="Rectangle_1"
@@ -532,6 +544,16 @@ const InventorySlotComponent = ({
                     height="20"
                     viewBox="0 0 200 200"
                     style={{ marginBottom: 3 }}
+                    onClick={() =>
+                      openBackpackHandler(
+                        item,
+                        openBackpacks.some(
+                          (backpack) => backpack.info?.identifier === item.info?.identifier
+                        ),
+                        dispatch,
+                        setOpenBackpacks
+                      )
+                    }
                   >
                     <image
                       id="Rectangle_1"

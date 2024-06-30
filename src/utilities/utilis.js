@@ -1,3 +1,4 @@
+import { closeContextMenu } from "../redux/contextSlice";
 import { fetchNui } from "./fetchNui";
 
 export const hideRoot = () => {
@@ -354,4 +355,52 @@ export const isIdentifierFound = (items, identifiers) => {
 };
 export const isBackpackFound = (items, identifiers) => {
   return items?.some((item) => item?.info && item.info.identifier === identifiers);
+};
+
+export const openBackpackHandler = (backpackData, action, dispatch, setOpenBackpacks) => {
+  dispatch(closeContextMenu());
+  setOpenBackpacks((prevOpenBackpacks) => {
+    const name = backpackData?.name;
+    let updatedBackpacks = [...prevOpenBackpacks];
+
+    const existingBackpackIndex = updatedBackpacks.findIndex(
+      (backpack) => backpack.info.type2 === backpackData.info.type2
+    );
+
+    // Handle closing the backpack
+    if (action) {
+      if (existingBackpackIndex !== -1) {
+        const backpackToClose = updatedBackpacks[existingBackpackIndex];
+        fetchNui("closeBackpack", backpackToClose.info)
+          .then((retData) => {})
+          .catch((e) => {});
+        updatedBackpacks.splice(existingBackpackIndex, 1); // Remove the existing backpack
+      }
+      return updatedBackpacks;
+    }
+
+    // Handle opening the backpack
+    if (existingBackpackIndex !== -1) {
+      const backpackToClose = updatedBackpacks[existingBackpackIndex];
+      fetchNui("closeBackpack", backpackToClose.info)
+        .then((retData) => {})
+        .catch((e) => {});
+      updatedBackpacks.splice(existingBackpackIndex, 1); // Remove the existing backpack
+    }
+
+    // If the array has reached the limit of 2 items, remove the oldest one
+    if (updatedBackpacks.length >= 2) {
+      const backpackToClose = updatedBackpacks.shift();
+      fetchNui("closeBackpack", backpackToClose.info)
+        .then((retData) => {})
+        .catch((e) => {});
+    }
+
+    // Open the new backpack
+    fetchNui("openBackpack", backpackData.info)
+      .then((retData) => {})
+      .catch((e) => {});
+    updatedBackpacks.push(backpackData);
+    return updatedBackpacks;
+  });
 };
