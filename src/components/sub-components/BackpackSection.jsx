@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import InventorySlot from "./InventorySlot";
 import { Progress } from "antd";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const BackpackSection = ({ openBackpacks }) => {
   const {
@@ -30,7 +31,10 @@ const BackpackSection = ({ openBackpacks }) => {
   }, [openBackpacks]);
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.25, duration: 1, ease: "easeInOut" }}
       className="backpackSection"
       style={{
         backgroundColor: boxBg,
@@ -125,7 +129,7 @@ const BackpackSection = ({ openBackpacks }) => {
             ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

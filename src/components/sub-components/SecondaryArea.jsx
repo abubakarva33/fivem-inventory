@@ -4,6 +4,7 @@ import InventorySlot from "./InventorySlot";
 import { useEffect, useState } from "react";
 import CraftInventorySlot from "./CraftInventorySlot";
 import { calculateRGBRev } from "../../utilities/utilis";
+import { motion } from "framer-motion";
 
 const SecondaryArea = ({ secondaryBackpacks }) => {
   const { boxBg, boxBorderColor, boxBorderRound, slotBg, slotBorderColor, textColor, btnColor } =
@@ -28,7 +29,10 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
   const changeSecondaryBackpack = ({ target: { value } }) => setSecondaryBackpack(state[value]);
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.25, duration: 1, ease: "easeInOut" }}
       className="secondaryArea"
       style={{
         backgroundColor: boxBg,
@@ -99,7 +103,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
             ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

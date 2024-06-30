@@ -5,6 +5,7 @@ import InventorySlot from "./InventorySlot";
 import { useEffect, useState } from "react";
 import { calculateRGBRev } from "../../utilities/utilis";
 import { setupInventory } from "../../redux/inventorySlice";
+import { motion } from "framer-motion";
 
 const MainAreaSection = ({
   inventory,
@@ -72,7 +73,11 @@ const MainAreaSection = ({
   return (
     <>
       {inventory && (
-        <div
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.25, duration: 0.5, ease: "easeInOut" }}
+          exit={{ opacity: 0 }}
           className="mainArea"
           style={{
             backgroundColor: boxBg,
@@ -273,7 +278,7 @@ const MainAreaSection = ({
                 ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
     </>
   );
