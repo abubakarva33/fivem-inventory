@@ -47,13 +47,14 @@ const InventorySlotComponent = ({
   const isBackpackOpen = openBackpacks?.some((x) => x.info.identifier === item?.info?.identifier);
 
   const glowStyle = {
-    background: `radial-gradient(circle, ${textColor} 0%, ${textColor}00 50%)`,
+    background: `radial-gradient(circle, ${textColor} 0%, ${textColor}00 80%)`,
     boxShadow: `0 0 50px 20px ${textColor}70`,
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
+    opacity: 0.2,
   };
 
   const handleMouseEnter = () => {
