@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import DragPreview from "./components/sub-components/DragPreview";
 import { closeContextMenu } from "./redux/contextSlice";
 import { closeTooltip } from "./redux/tooltipSlice";
+import ItemAction from "./components/sub-components/ItemAction";
 
 let closeKey = "F2";
 let isOpen = false;
@@ -41,6 +42,18 @@ function App() {
   const [largeBackpack, setLargeBackpack] = useState(
     !window.invokeNative ? largeBackpackDummyData : null
   );
+
+  const [itemsAction, setItemsAction] = useState([]);
+
+  const addItemAction = (item, action) => {
+    //  item= {item data}, action = pass action type like "Added" or "Removed" like this //
+    const itemData = { ...item, action: action };
+    setItemsAction((prevItems) => [...prevItems, itemData]);
+
+    setTimeout(() => {
+      setItemsAction((prevItems) => prevItems.filter((prevItem) => prevItem !== itemData));
+    }, 5000 + itemsAction.length * 1000);
+  };
 
   useEffect(() => {
     if (primaryInv) dispatch(setupInventory({ type: primaryInv?.type, item: primaryInv }));
@@ -131,10 +144,17 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="relative">
       <Inventory />
       <DragPreview />
-    </>
+      {itemsAction?.length && (
+        <div className="flex items-center justify-center w-full absolute bottom-10">
+          {itemsAction?.map((item, ind) => (
+            <ItemAction key={ind} item={item} />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
