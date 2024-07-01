@@ -32,8 +32,8 @@ const BackpackSection = ({ openBackpacks }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 100 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ delay: 0.25, duration: 1, ease: "easeInOut" }}
       className="backpackSection"
       style={{
