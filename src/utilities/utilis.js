@@ -404,3 +404,22 @@ export const openBackpackHandler = (backpackData, action, dispatch, setOpenBackp
     return updatedBackpacks;
   });
 };
+
+export function lightenColor(hex, percent) {
+  // Convert hex to RGB
+  let r = parseInt(hex.slice(1, 3), 16);
+  let g = parseInt(hex.slice(3, 5), 16);
+  let b = parseInt(hex.slice(5, 7), 16);
+
+  // Increase each component by the given percentage
+  r = Math.min(255, Math.floor(r + (255 - r) * percent / 100));
+  g = Math.min(255, Math.floor(g + (255 - g) * percent / 100));
+  b = Math.min(255, Math.floor(b + (255 - b) * percent / 100));
+
+  // Convert RGB back to hex
+  let rr = r.toString(16).padStart(2, '0');
+  let gg = g.toString(16).padStart(2, '0');
+  let bb = b.toString(16).padStart(2, '0');
+
+  return `#${rr}${gg}${bb}`;
+}

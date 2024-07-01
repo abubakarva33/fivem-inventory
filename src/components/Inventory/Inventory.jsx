@@ -13,10 +13,12 @@ import {
   isBackpackFound,
   isIdentifierFound,
   isItemsFound,
+  lightenColor,
   openBackpackHandler,
   sellItemHandlerWithClick,
 } from "../../utilities/utilis";
 import Tooltip from "../sub-components/Tooltip";
+import styled from "styled-components";
 
 const Inventory = () => {
   const dispatch = useDispatch();
@@ -28,6 +30,15 @@ const Inventory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputAmount, setInputAmount] = useState({});
   const maxAmount = inventory?.item?.amount || 0;
+  const tooltipHoverBg = lightenColor(tooltipBg, 10);
+  const Button = styled.button`
+    &:hover {
+      background-color: ${tooltipHoverBg};
+    }
+    &:active {
+      background-color: ${tooltipHoverBg};
+    }
+  `;
 
   const [copySuccess, setCopySuccess] = useState("Copy Serial");
 
@@ -193,34 +204,35 @@ const Inventory = () => {
           onClick={(e) => e.stopPropagation()}
           style={{ top: coords?.y, left: coords?.x, fontSize: 14 }}
         >
-          <div className="flex flex-col" style={{ backgroundColor: tooltipBg, color: textColor }}>
-            <div className="flex">
-              <button
-                className=" rightBtn border py-1 border-b-0 w-1/4"
-                style={{ borderColor: tooltipBorderColor }}
+          <div
+            className="flex flex-col items-start px-1 pb-2"
+            style={{ backgroundColor: tooltipBg, color: textColor }}
+          >
+            <div className="flex w-full mt-1">
+              <Button
+                className=" rightBtn py-1 w-1/4 text-center"
                 disabled={(inputAmount?.selectedAmount || 0) <= 0}
                 onClick={() =>
                   dispatch(handleSelectedItems((inputAmount?.selectedAmount || 0) - 1))
                 }
               >
                 -
-              </button>
+              </Button>
               <input
                 type="number"
-                className="w-1/2 text-center border-t outline-none "
+                className="w-1/2 text-center outline-none "
                 style={{
                   color: textColor,
                   backgroundColor: tooltipBg,
-                  borderColor: tooltipBorderColor,
                 }}
                 value={inputAmount?.selectedAmount || 0}
                 min={0}
                 max={maxAmount}
                 onChange={handleAmountChange}
               />
-              <button
-                className=" rightBtn border py-1 border-b-0 w-1/4"
-                style={{ cursor: "pointer", borderColor: tooltipBorderColor, color: textColor }}
+              <Button
+                className=" rightBtn  py-1 -b-0 w-1/4 text-center"
+                style={{ cursor: "pointer", Color: tooltipBorderColor, color: textColor }}
                 disabled={
                   inventory?.item?.amount > 0 &&
                   inventory?.item?.amount <= inputAmount?.selectedAmount
@@ -230,24 +242,19 @@ const Inventory = () => {
                 }
               >
                 +
-              </button>
+              </Button>
             </div>
             {!inventory?.item?.name?.includes("backpack") &&
               inventory?.type === "playerinventory" && (
-                <button
-                  className=" rightBtn border py-1 border-b-0"
-                  onClick={() => useHandler(inventory?.item)}
-                  style={{ borderColor: tooltipBorderColor }}
-                >
+                <Button className=" rightBtn  py-1" onClick={() => useHandler(inventory?.item)}>
                   Use
-                </button>
+                </Button>
               )}
 
             {inventory?.item?.name?.includes("backpack") &&
               inventory?.type === "playerinventory" && (
-                <button
-                  className=" rightBtn border py-1 border-b-0"
-                  style={{ borderColor: tooltipBorderColor }}
+                <Button
+                  className=" rightBtn py-1"
                   onClick={() =>
                     openBackpackHandler(
                       inventory?.item,
@@ -264,12 +271,11 @@ const Inventory = () => {
                   )
                     ? "Close"
                     : "Open"}
-                </button>
+                </Button>
               )}
             {inventory?.type === "shop" && inventory?.item?.info?.buyPrice && (
-              <button
-                className=" rightBtn border py-1"
-                style={{ borderColor: tooltipBorderColor }}
+              <Button
+                className=" rightBtn  py-1"
                 onClick={() =>
                   buyItemHandlerWithClick({
                     ...inventory,
@@ -281,12 +287,11 @@ const Inventory = () => {
                 }
               >
                 Buy
-              </button>
+              </Button>
             )}
             {inventory?.type === "shop" && inventory?.item?.info?.sellPrice && (
-              <button
-                className=" rightBtn border py-1"
-                style={{ borderColor: tooltipBorderColor }}
+              <Button
+                className=" rightBtn  py-1"
                 onClick={() =>
                   sellItemHandlerWithClick({
                     ...inventory,
@@ -298,22 +303,17 @@ const Inventory = () => {
                 }
               >
                 Sell
-              </button>
+              </Button>
             )}
 
             {inventory?.type === "playerinventory" && (
-              <button
-                className=" rightBtn border py-1 border-b-0"
-                style={{ borderColor: tooltipBorderColor }}
-                onClick={() => dispatch(closeContextMenu())}
-              >
+              <Button className=" rightBtn  py-1 " onClick={() => dispatch(closeContextMenu())}>
                 Give
-              </button>
+              </Button>
             )}
             {inventory?.type === "crafting" && (
-              <button
-                className=" rightBtn border py-1 "
-                style={{ borderColor: tooltipBorderColor }}
+              <Button
+                className=" rightBtn  py-1 "
                 onClick={() =>
                   CraftItemHandler({
                     ...inventory,
@@ -327,14 +327,11 @@ const Inventory = () => {
                 }
               >
                 Craft
-              </button>
+              </Button>
             )}
             {inventory?.type === "playerinventory" && (
-              <button
-                className={`rightBtn border py-1 ${
-                  inventory?.item?.info?.serial ? "border-b-0" : "border-b"
-                } `}
-                style={{ borderColor: tooltipBorderColor }}
+              <Button
+                className={`rightBtn  py-1 ${inventory?.item?.info?.serial ? "-b-0" : "-b"} `}
                 onClick={() =>
                   dropHandler({
                     ...inventory?.item,
@@ -348,15 +345,12 @@ const Inventory = () => {
                 }
               >
                 Drop
-              </button>
+              </Button>
             )}
 
             {inventory?.type === "playerinventory" && (
-              <button
-                className={`rightBtn border ${
-                  inventory?.item?.type === "weapon" ? "border-t" : "border-t-0"
-                }  py-1`}
-                style={{ borderColor: tooltipBorderColor }}
+              <Button
+                className={`rightBtn  ${inventory?.item?.type === "weapon" ? "-t" : "-t-0"}  py-1`}
                 onClick={() =>
                   throwHandler({
                     ...inventory?.item,
@@ -370,12 +364,11 @@ const Inventory = () => {
                 }
               >
                 Throw
-              </button>
+              </Button>
             )}
             {inventory?.type === "drop" && (
-              <button
-                className={`rightBtn border py-1 border-b `}
-                style={{ borderColor: tooltipBorderColor }}
+              <Button
+                className={`rightBtn  py-1 -b `}
                 onClick={() =>
                   addHandler({
                     identifier: inventory?.identifier,
@@ -392,12 +385,11 @@ const Inventory = () => {
                 }
               >
                 Pick Up
-              </button>
+              </Button>
             )}
             {inventory?.type === "backpack" && (
-              <button
-                className={`rightBtn border py-1 border-b `}
-                style={{ borderColor: tooltipBorderColor }}
+              <Button
+                className={`rightBtn py-1`}
                 onClick={() =>
                   addHandler({
                     identifier: inventory?.identifier,
@@ -414,17 +406,16 @@ const Inventory = () => {
                 }
               >
                 Take
-              </button>
+              </Button>
             )}
 
             {inventory?.type === "playerinventory" && inventory?.item?.info?.serial && (
-              <button
-                className=" rightBtn border border-t-0 py-1"
-                style={{ borderColor: tooltipBorderColor }}
+              <Button
+                className=" rightBtn py-1"
                 onClick={() => copyToClipboard(inventory?.item?.info?.serial)}
               >
                 {copySuccess}
-              </button>
+              </Button>
             )}
           </div>
         </div>

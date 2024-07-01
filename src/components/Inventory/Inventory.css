@@ -155,12 +155,13 @@
   z-index: 1;
   transition: all 1s linear;
 }
-.rightBtn:hover {
-  opacity: 0.5;
+.rightBtn {
+  width: 100%;
+  text-align: start;
+  border-radius: 5px;
+  padding: 0 5px;
 }
-.rightBtn:active {
-  opacity: 0.8;
-}
+
 .ant-radio-button-wrapper:hover {
   color: unset;
 }
