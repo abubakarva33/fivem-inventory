@@ -7,7 +7,7 @@ const initialState = {
   slotBg: "#00000080",
   slotTextBg: "#1a3550",
   slotBorderColor: "#000000",
-  slotLightColor: "#ffffff30",
+  slotLightColor: "#ffffff14",
   slotBorderRound: 4,
   textColor: "#cccccc",
   btnColor: "#000000b3",
@@ -37,7 +37,7 @@ export const customizeSlice = createSlice({
       state.slotBg = "#00000080";
       state.slotTextBg = "#1a3550";
       state.slotBorderColor = "#000000";
-      state.slotLightColor = "#ffffff30";
+      state.slotLightColor = "#ffffff14";
       state.slotBorderRound = 4;
       state.textColor = "#cccccc";
       state.btnColor = "#000000b3";

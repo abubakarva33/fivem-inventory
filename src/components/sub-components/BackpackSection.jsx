@@ -34,7 +34,7 @@ const BackpackSection = ({ openBackpacks }) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 0.25, duration: 1, ease: "easeInOut" }}
+      transition={{ delay: 0.25, duration: 0.25, ease: "easeInOut" }}
       className="backpackSection"
       style={{
         backgroundColor: boxBg,

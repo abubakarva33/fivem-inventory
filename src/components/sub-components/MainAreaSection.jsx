@@ -76,7 +76,7 @@ const MainAreaSection = ({
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.25, duration: 0.5, ease: "easeInOut" }}
+          transition={{ delay: 0.0, duration: 0.25, ease: "easeInOut" }}
           exit={{ opacity: 0 }}
           className="mainArea"
           style={{

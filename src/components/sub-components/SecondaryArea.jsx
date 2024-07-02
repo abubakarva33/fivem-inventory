@@ -32,7 +32,7 @@ const SecondaryArea = ({ secondaryBackpacks }) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 0.25, duration: 1, ease: "easeInOut" }}
+      transition={{ delay: 0.25, duration: 0.2, ease: "easeInOut" }}
       className="secondaryArea"
       style={{
         backgroundColor: boxBg,

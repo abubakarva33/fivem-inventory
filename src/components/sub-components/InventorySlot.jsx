@@ -59,7 +59,7 @@ const InventorySlotComponent = ({
     bottom: 0,
     opacity:
       slotLightColor.length == 9
-        ? (parseInt(slotLightColor.substring(7), 16) / 255).toFixed(1)
+        ? (parseInt(slotLightColor.substring(7), 16) / 255).toFixed(2)
         : 1.0,
   };
 

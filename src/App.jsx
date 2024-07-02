@@ -112,6 +112,8 @@ function App() {
       } else if (event.data.action == "setLocaleConfig") {
         // eslint-disable-next-line no-undef
         setLocale(event.data.locale);
+      } else if (event.data.action == "addItemAction") {
+        addItemAction(event.data.item)
       } else if (event.data.action == "setPrimaryInv") {
         setPrimaryInv(event.data.primaryInv);
       } else if (event.data.action == "setSecondaryInv") {
